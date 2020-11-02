@@ -55,6 +55,9 @@ function runGoUnitTests() {
     return 0
 }
 
+echo '- Current tree'
+tree | indentStdIn
+
 runShfmt
 runShellCheck
 runGofmt
