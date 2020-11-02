@@ -1,0 +1,17 @@
+pull_request_rules:
+    - name: automatic merge on CI success and 2 approved reviews
+      conditions:
+        - "#approved-reviews-by>=2"
+        - "check-success=Test on Docker Before Merge"
+        - base=main
+      actions:
+        merge:
+          method: rebase
+    - name: automatic merge on CI success if only markdown and/or Golang files were changed
+      conditions:
+        - "check-success=Test on Docker Before Merge"
+        - files~=.\.(?i)(md|go)$
+        - base=main
+      actions:
+        merge:
+          method: rebase
