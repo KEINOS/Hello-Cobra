@@ -1,0 +1,20 @@
+// See https://aka.ms/vscode-remote/containers for the
+// documentation about the devcontainer.json format
+{
+	"name": "Dev Container for Golang",
+	"dockerFile": "Dockerfile",
+	"settings": {
+		// VSCode settings are defined in "./settings.vscode.json"
+	},
+	"appPort": [
+        "5963"
+    ],
+	"postCreateCommand": "/bin/bash /postCreateCommand.sh;",
+	"remoteUser": "root",
+	"extensions": [
+		"golang.go",
+		"editorconfig.editorconfig",
+		"foxundermoon.shell-format",
+		"ms-ceintl.vscode-language-pack-ja"
+	]
+}

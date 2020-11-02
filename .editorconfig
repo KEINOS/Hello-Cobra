@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+#  Editor settings
+# -----------------------------------------------------------------------------
+
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.go]
+indent_style = tab
+
+# Shell-format
+[*.sh]
+indent_style       = space # like shfmt -i=4
+indent_size        = 4     # like shfmt -i=4
+shell_variant      = bash  # like shfmt -ln=bash
+binary_next_line   = true  # like shfmt -bn
+switch_case_indent = true  # like shfmt -ci
+space_redirects    = true  # like shfmt -sr
+keep_padding       = true  # like shfmt -kp
+function_next_line = false # disable shfmt -fn
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+quote_type = single
