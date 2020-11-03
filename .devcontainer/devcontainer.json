@@ -9,6 +9,7 @@
 	"appPort": [
         "5963"
     ],
+    "runArgs": ["-v", "/var/run/docker.sock:/var/run/docker.sock"],
 	"postCreateCommand": "/bin/bash /postCreateCommand.sh;",
 	"remoteUser": "root",
 	"extensions": [
