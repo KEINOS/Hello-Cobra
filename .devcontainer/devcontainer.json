@@ -1,21 +1,48 @@
-// See https://aka.ms/vscode-remote/containers for the
-// documentation about the devcontainer.json format
 {
-	"name": "Dev Container for Golang",
-	"dockerFile": "Dockerfile",
-	"settings": {
-		// VSCode settings are defined in "./settings.vscode.json"
+	"name": "Go",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+            // Language
+            "LANG_LOCALNAME": "",
+            "LANG_LOCALE": "",
+			// Update the VARIANT arg to pick a version of Go: 1, 1.15, 1.14
+			"VARIANT": "1.15",
+			// Options
+			"INSTALL_NODE": "true",
+			"NODE_VERSION": "lts/*"
+		}
 	},
-	"appPort": [
-        "5963"
-    ],
-    "runArgs": ["-v", "/var/run/docker.sock:/var/run/docker.sock"],
-	"postCreateCommand": "/bin/bash /postCreateCommand.sh;",
-	"remoteUser": "root",
+    "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+    // Set *default* container specific settings.json values on container create.
+	"settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "terminal.integrated.shellArgs.linux": ["-l"],
+		"go.useGoProxyToCheckForToolUpdates": false,
+		"go.useLanguageServer": true,
+		"go.gopath": "/go",
+		"go.goroot": "/usr/local/go",
+		"go.toolsGopath": "/go/bin"
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
-		"golang.go",
+		"golang.Go",
 		"editorconfig.editorconfig",
 		"foxundermoon.shell-format",
-		"ms-ceintl.vscode-language-pack-ja"
-	]
+        "ms-ceintl.vscode-language-pack-ja",
+        "ms-azuretools.vscode-docker",
+		"ms-vsonline.vsonline",
+		"github.github-vscode-theme",
+		"github.vscode-pull-request-github",
+		"davidanson.vscode-markdownlint",
+		"znck.grammarly"
+	],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "/bin/bash /postCreateCommand.sh;",
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	// "remoteUser": "vscode"
 }
