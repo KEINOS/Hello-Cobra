@@ -1,6 +1,6 @@
 #!/bin/bash
 
-head -n1 < /etc/issue
+head -n1 </etc/issue
 
 echo "- $(go version)"
 echo "- Current path: $(pwd)"

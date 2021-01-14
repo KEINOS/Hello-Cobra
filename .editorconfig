@@ -17,13 +17,13 @@ indent_style = tab
 
 # Shell-format
 [*.sh]
-indent_style       = space # like shfmt -i=4
-indent_size        = 4     # like shfmt -i=4
-shell_variant      = bash  # like shfmt -ln=bash
-binary_next_line   = true  # like shfmt -bn
-switch_case_indent = true  # like shfmt -ci
-space_redirects    = true  # like shfmt -sr
-keep_padding       = true  # like shfmt -kp
+indent_style       = space # shfmt -i=4
+indent_size        = 4     # shfmt -i=4
+shell_variant      = bash  # shfmt -ln=bash
+binary_next_line   = true  # shfmt -bn
+switch_case_indent = true  # shfmt -ci
+space_redirects    = false # shfmt -sr
+keep_padding       = true  # shfmt -kp
 function_next_line = false # disable shfmt -fn
 
 [*.{yml,yaml}]
