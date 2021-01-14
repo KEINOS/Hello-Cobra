@@ -15,8 +15,17 @@ This repo is for Golang and `Cobra` beginners like I am. We all know keeping 100
 ## How to run tests
 
 ```shellsession
-$ /bin/bash ./run-tests.sh --verbose
+$ go test -cover ./...
+ok    github.com/KEINOS/Hello-Cobra      0.014s  coverage: 100.0% of statements
+ok    github.com/KEINOS/Hello-Cobra/cmd  0.009s  coverage: 100.0% of statements
 ```
+
+- If you find hard which/where to cover when coverage was less than 100%, then try:
+
+  ```shellsession
+  $ /bin/bash ./.github/run-coverage-tests.sh --verbose
+  ...
+  ```
 
 ## Pull Request (PR)
 
@@ -24,7 +33,7 @@ Any PR that might help Golang newbies understand is welcome.
 
 To evolve the sample through natural selection, if you have any better comments, suggestions, practice, etc., then don't hesitate to PR.
 
-If the PR passes the tests then **it will be merged automatically**. If you feel something against any PR then feel free to counter PR.
+If the PR passes the tests then **it will be merged automatically**. If you feel something against any PR, then feel free to counter PR.
 
 ### Auto-merge Conditions
 
@@ -33,8 +42,8 @@ If the PR passes the tests then **it will be merged automatically**. If you feel
 - Pass the "`./.github/run-merge-tests.sh`" which includes the below.
   - Lint check. (`*.sh`, `*.go`)
   - Static analysis. (`*.sh`, `*.go`)
-  - Unit tests of Go. (`./run-tests.sh`)
-- 100% Code Coverage (`./run-tests.sh --verbose`)
+  - Unit tests of Go. (`go test ./...`)
+- 100% Code Coverage (`./.github/run-coverage-tests.sh --verbose`)
 
 ### Draft PR Suggested
 

@@ -66,7 +66,7 @@ function runGofmt() {
 
 function runGoUnitTests() {
     echo -n '- Go unit tests ... '
-    result=$(./run-tests.sh -v 2>&1) || {
+    result=$(./.github/run-coverage-tests.sh -v 2>&1) || {
         echo 'NG'
         echo "$result" | indentStdIn
         return $FAILURE
