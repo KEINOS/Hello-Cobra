@@ -5,6 +5,9 @@
 
 The [CI](https://en.wikipedia.org/wiki/Continuous_integration) will run the [Dockerfile](Dockerfile) to build the image and then run the tests in a container.
 
+- Current CI
+  - [GitHub Actions](https://docs.github.com/en/free-pro-team@latest/actions): ../.github/workflows/
+
 ## For DEVs
 
 This directory is for [GitHub Codespaces](https://github.com/features/codespaces) to develop the forked repo online. Also, for Docker + VSCode + "Remote-Containers Extension" users to develop locally.

@@ -4,14 +4,18 @@ pull_request_rules:
         - "#approved-reviews-by>=2"
         - "check-success=docker_test"
         - base=main
+        - -draft
       actions:
         merge:
-          method: rebase
+          method: squash
+          strict: smart+fasttrack
     - name: automatic merge on CI success if only markdown and/or Golang files were changed
       conditions:
         - "check-success=docker_test"
         - files~=.\.(?i)(md|go)$
         - base=main
+        - -draft
       actions:
         merge:
-          method: rebase
+          method: squash
+          strict: smart+fasttrack
