@@ -104,5 +104,7 @@ echo "${@}" | grep -e "-v" -e "--verbose" >/dev/null && {
 set -eu
 set -o pipefail
 
-cd "$PATH_DIR_PARENT" && \
+echo "Moving current path to: ${PATH_DIR_PARENT}"
+cd "$PATH_DIR_PARENT"
+echo "Current path is: $(pwd)"
 runTests "Testing all the packages" "./..."
