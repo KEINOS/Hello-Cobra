@@ -46,6 +46,12 @@ In this repo, **only reports are accepted** as an issue. Such as bug report, lic
 
 For any better suggestions, solutions, practices, typo-fix, bug-fix and etc. you have, then please PR.
 
+## License
+
+The repo itself is MIT License. (c) Copyright: [Hello-Cobra Contributors](https://github.com/KEINOS/Hello-Cobra/graphs/contributors).
+
+BUT any app created from this repo as a template/boilerplate may have their own-license.
+
 <!-- WIP
 ## Codespaces and VSCode Friendly
 
