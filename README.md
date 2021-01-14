@@ -1,3 +1,6 @@
+<!-- markdownlint-disable MD001 MD041 -->
+[![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status on GitHub")
+
 # "Hello, world!" Sample of Test and 100% Coverage of Cobra in Golang
 
 - [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Go.
