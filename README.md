@@ -1,7 +1,8 @@
 <!-- markdownlint-disable MD001 MD041 -->
 [![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status on GitHub")
+[![100% Coverage](https://github.com/KEINOS/Hello-Cobra/workflows/100%25%20Coverage/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22100%25+Coverage%22 "View status on GitHub")
 
-# "Hello, world!" Sample of Test and 100% Coverage of Cobra in Golang
+# "Hello, world!" Sample of Cobra in Golang w/ Unit Test and 100% Coverage
 
 - [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Go.
 
@@ -11,11 +12,17 @@ Which I couldn't find by googling with '[`"golang"` `cobra` `sample` `hello` `wo
 
 This repo is for Golang and `Cobra` beginners like I am. We all know keeping 100% of coverage is a myth, but aiming to find out the **"Best practices of `Hello, world!`" sample using Cobra** to begin with.
 
+## How to run tests
+
+```shellsession
+$ /bin/bash ./run-tests.sh --verbose
+```
+
 ## Pull Request (PR)
 
 Any PR that might help Golang newbies understand is welcome.
 
-To evolve the sample through natural selection, if you have any better comments, suggestions, practice, etc., please don't issue them but PR.
+To evolve the sample through natural selection, if you have any better comments, suggestions, practice, etc., then don't hesitate to PR.
 
 If the PR passes the tests then **it will be merged automatically**. If you feel something against any PR then feel free to counter PR.
 
@@ -23,20 +30,21 @@ If the PR passes the tests then **it will be merged automatically**. If you feel
 
 - Files changed/added were: `*.md` and/or `*.go`
   - If other files were changed then at least 2 approved reviews are needed to merge.
-- Pass the "`run-merge-tests.sh`" which includes the below.
+- Pass the "`./.github/run-merge-tests.sh`" which includes the below.
   - Lint check. (`*.sh`, `*.go`)
   - Static analysis. (`*.sh`, `*.go`)
-  - Unit tests of Go with 100% coverage. (`run-tests.sh`)
+  - Unit tests of Go. (`./run-tests.sh`)
+- 100% Code Coverage (`./run-tests.sh --verbose`)
 
 ### Draft PR Suggested
 
-If you have your hands into something, we suggest to [Draft PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/) first and continue, so the other people would know.
+If you have your hands into something, then we suggest to [Draft PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/) first and continue. So the other people would know what you are dealing with.
 
 ## Issue
 
 In this repo, **only reports are accepted** as an issue. Such as bug report, license problem, and mal-attitude committer.
 
-For any better suggestions, solutions, practices, typo-fix, bug-fix, etc. you have, please PR.
+For any better suggestions, solutions, practices, typo-fix, bug-fix and etc. you have, then please PR.
 
 <!-- WIP
 ## Codespaces and VSCode Friendly
