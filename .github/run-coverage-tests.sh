@@ -11,6 +11,7 @@
 # -----------------------------------------------------------------------------
 #  Constants
 # -----------------------------------------------------------------------------
+PATH_DIR_PARENT="$(dirname "$(cd "$(dirname "${BASH_SOURCE:-$0}")" && pwd)")"
 SUCCESS=0
 FAILURE=1
 TRUE=0
@@ -103,4 +104,5 @@ echo "${@}" | grep -e "-v" -e "--verbose" >/dev/null && {
 set -eu
 set -o pipefail
 
+cd "$PATH_DIR_PARENT" && \
 runTests "Testing all the packages" "./..."
