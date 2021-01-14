@@ -33,13 +33,15 @@ Any PR that might help Golang newbies understand is welcome.
 
 To evolve the sample through natural selection, if you have any better comments, suggestions, practice, etc., then don't hesitate to PR.
 
-If the PR passes the tests then **it will be merged automatically**. If you feel something against any PR, then feel free to counter PR.
+- If the PR passes the tests, then **it will be merged automatically**.(squash and merge)
+- If you feel something against any PR, then feel free to counter PR.
+  - We won't judge, as far as the test passes and not a prank-kind commit.
 
 ### Auto-merge Conditions
 
 - Files changed/added were: `*.md` and/or `*.go`
   - If other files were changed then at least 2 approved reviews are needed to merge.
-- Pass the "`./.github/run-merge-tests.sh`" which includes the below.
+- Pass the test of "`./.github/run-merge-tests.sh`" which include the below.
   - Lint check. (`*.sh`, `*.go`)
   - Static analysis. (`*.sh`, `*.go`)
   - Unit tests of Go. (`go test ./...`)
@@ -53,7 +55,7 @@ If you have your hands into something, then we suggest to [Draft PR](https://git
 
 In this repo, **only reports are accepted** as an issue. Such as bug report, license problem, and mal-attitude committer.
 
-For any better suggestions, solutions, practices, typo-fix, bug-fix and etc. you have, then please PR.
+For any better suggestions, solutions, practices, typo-fix, bug-fix, etc. you have, then please PR.
 
 ## License
 
