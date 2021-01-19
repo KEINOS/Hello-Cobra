@@ -14,17 +14,24 @@ func Test_main(t *testing.T) {
 	oldOsExit := osExit
 	defer func() { osExit = oldOsExit }()
 
-	var ActualCode int
-	myExit := func(code int) {
-		ActualCode = code
+	var expectExitCode = 0
+	var actualExitCode int
+	var expectMsg = "Usage:" // Help msg includes this string
+	var actualMsg string
+
+	// Mock of "osExit" to capture the exit-status-code.
+	var myExit = func(code int) {
+		actualExitCode = code
 	}
 
+	// Assign the mock
 	osExit = myExit
-	var actualMsg = capturer.CaptureOutput(func() {
+	// Run main() to capture STDOUT message and its exit-status-code
+	actualMsg = capturer.CaptureOutput(func() {
 		main()
 	})
 
-	var expectCode = 0
-	assert.Equal(t, ActualCode, expectCode, "Unexpected exit code.")
-	assert.Contains(t, actualMsg, "About:", "Should contain help message")
+	// Assertion
+	assert.Equal(t, actualExitCode, expectExitCode, "Unexpected exit code.")
+	assert.Contains(t, actualMsg, expectMsg, "Should contain help message")
 }
