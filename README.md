@@ -27,6 +27,25 @@ ok    github.com/KEINOS/Hello-Cobra/cmd  0.009s  coverage: 100.0% of statements
   ...
   ```
 
+## How to run static analysis
+
+`vet` is a Go tool for static analysis of Go programs.
+
+```shellsession
+$ # Run all analyzers of Go vet.
+$ go vet ./...
+
+$ # View exit status (0=success, else=failure)
+$ echo $?
+0
+
+$ # For more details about Go vet tool
+$ # see: https://golang.org/cmd/vet/
+$ # or type:
+$ go tool vet help
+...
+```
+
 ## Pull Request (PR)
 
 Any PR that might help Golang newbies understand is welcome.
