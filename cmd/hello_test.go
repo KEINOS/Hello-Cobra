@@ -8,15 +8,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_sayHello(t *testing.T) {
-	var expect = "Hello, world!\n"
-	var actual = capturer.CaptureStdout(func() {
-		sayHello()
-	})
-
-	assert.Equal(t, expect, actual, "The two words should be the same.")
-}
-
 func Test_helloCmd(t *testing.T) {
 	var expect = "Hello, world!\n"
 	var actual = capturer.CaptureStdout(func() {
@@ -24,5 +15,14 @@ func Test_helloCmd(t *testing.T) {
 		var argsTmp = []string{}
 		helloCmd.Run(cmdTmp, argsTmp)
 	})
+	assert.Equal(t, expect, actual, "The two words should be the same.")
+}
+
+func Test_sayHello(t *testing.T) {
+	var expect = "Hello, world!\n"
+	var actual = capturer.CaptureStdout(func() {
+		sayHello()
+	})
+
 	assert.Equal(t, expect, actual, "The two words should be the same.")
 }

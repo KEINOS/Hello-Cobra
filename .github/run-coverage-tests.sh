@@ -39,6 +39,7 @@ function isModeVerbose() {
     return $FALSE
 }
 
+# runGoCarpet displays details of the coverage
 function runGoCarpet() {
     if ! which go-carpet >/dev/null; then
         echo '* aborted'
@@ -52,23 +53,44 @@ function runGoCarpet() {
     go-carpet
 }
 
+# runGoVet runs Go vet for static analysis.
+function runGoVet() {
+    description="${1:?'Test description missing.'}"
+    path_dir="${2:?'Path is missing'}"
+
+    echo
+    echo "- Static analysys: ${description}"
+    if isModeVerbose; then
+        go vet -v "$path_dir" 2>&1 | indentStdIn
+        result=$?
+    else
+        go vet "$path_dir" 2>&1 | indentStdIn
+        result=$?
+    fi
+
+    if [ "$result" -ne 0 ]; then
+        echo >&2 "  ERROR: Static analysis failed."
+        exit $FAILURE
+    fi
+    echo '  Success! All Go vet static analysis passed.'
+    return $SUCCESS
+}
+
 # runTests runs unit tests.
-# If verbose option is provided then it will run the tests in verbose mode and
-# measures the coverage. If the coverage is lower than 100% then it will fail
-# and show the cover area as well.
+# If verbose option is provided then it will display the details. If the
+# coverage was lower than 100% then it will fail and show the cover area
+# as well.
 function runTests() {
     description="${1:?'Test description missing.'}"
     path_dir="${2:?'Path is missing'}"
     name_file_coverage='coverage.out'
 
+    echo
     echo "- Unit test: ${description}"
     # Run tests
     if isModeVerbose; then
-        echo '  * Running in verbose mode.'
         go test -timeout 30s -cover -v -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
     else
-        echo '  * Running in regular mode.'
-        echo '  * Use "-v" or "--verbose" option for verbose output.'
         go test -timeout 30s -cover -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
     fi
 
@@ -84,7 +106,7 @@ function runTests() {
     coverage=$(echo "$cover" | grep total | awk '{print $3}')
 
     if [ "$coverage" = "100.0%" ]; then
-        echo 'Success! Coverage: 100%'
+        echo '  Success! Coverage: 100%'
         return $SUCCESS
     else
         # Displays where to cover, if the total coverage wasn't 100%
@@ -92,8 +114,9 @@ function runTests() {
             echo '- Cover area'
             runGoCarpet | indentStdIn
         fi
-        echo >&2 "Coverage failed: Did not cover 100% of the statements. Coverage: ${coverage}"
-        return $FAILURE
+        echo >&2 "  ERROR: Coverage failed. Did not cover 100% of the statements."
+        echo >&2 "         Coverage: ${coverage}"
+        exit $FAILURE
     fi
 }
 
@@ -112,7 +135,14 @@ echo "${@}" | grep -e "-v" -e "--verbose" >/dev/null && {
 set -eu
 set -o pipefail
 
-echo "Moving current path to: ${PATH_DIR_PARENT}"
+if isModeVerbose; then
+    echo '* Running in verbose mode.'
+else
+    echo '* Running in regular mode. Use "-v" or "--verbose" option for verbose output.'
+fi
+echo "* Moving current path to: ${PATH_DIR_PARENT}"
 cd "$PATH_DIR_PARENT"
-echo "Current path is: $(pwd)"
+echo "* Current path is: $(pwd)"
+
+runGoVet "Scanning all the packages" "./..."
 runTests "Testing all the packages" "./..."

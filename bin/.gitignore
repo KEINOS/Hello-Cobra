@@ -1,0 +1,4 @@
+# We do not want to version control the built binary.
+# Though we need this directory for access control purposes.
+*
+!.gitignore
