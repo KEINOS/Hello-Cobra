@@ -13,7 +13,7 @@ import (
 
  These variables may be defined as local. But mostly option/flag arguments are
  referenced through out the application, so we set here as global to let the
- other packages to reference them.
+ other packages/functions to reference them.
 -------------------------------------------------------------------------------
 */
 
