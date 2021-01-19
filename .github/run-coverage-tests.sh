@@ -32,20 +32,22 @@ function indentStdIn() {
 # isModeVerbose just returns a bool whether it's in verbose
 # mode or not.
 function isModeVerbose() {
-    [ "$mode_verbose" -eq 0 ] && {
+    if [ "$mode_verbose" -eq 0 ]; then
         return $TRUE
-    }
+    fi
+
     return $FALSE
 }
 
 function runGoCarpet() {
-    which go-carpet >/dev/null || {
+    if ! which go-carpet >/dev/null; then
         echo '* aborted'
         echo >&2 '  * Command "go-carpet" not found.'
         echo >&2 '    "go-carpet" is needed to view the test coverage area in the terminal.'
         echo >&2 '    To install see: https://github.com/msoap/go-carpet'
-        return $FAILURE
-    }
+
+        exit $FAILURE
+    fi
 
     go-carpet
 }
@@ -57,36 +59,42 @@ function runGoCarpet() {
 function runTests() {
     description="${1:?'Test description missing.'}"
     path_dir="${2:?'Path is missing'}"
-    result=$SUCCESS
     name_file_coverage='coverage.out'
 
     echo "- Unit test: ${description}"
     # Run tests
     if isModeVerbose; then
-        echo "  * Running in verbose mode."
+        echo '  * Running in verbose mode.'
         go test -timeout 30s -cover -v -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
     else
-        echo "  * Use '-v' or '--verbose' option for verbose output."
-        go test -timeout 30s -cover -failfast "$path_dir" | indentStdIn
+        echo '  * Running in regular mode.'
+        echo '  * Use "-v" or "--verbose" option for verbose output.'
+        go test -timeout 30s -cover -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
     fi
 
+    # Get coverage details
     cover=$(go tool cover -func="$name_file_coverage")
+
     if isModeVerbose; then
         echo '- Coverage details'
         echo "$cover" | indentStdIn
     fi
-    # Displays where to cover, if the total coverage wasn't 100%
+
+    # Get coverage rate
     coverage=$(echo "$cover" | grep total | awk '{print $3}')
-    [ "$coverage" = "100.0%" ] || {
-        result=$FAILURE
+
+    if [ "$coverage" = "100.0%" ]; then
+        echo 'Success! Coverage: 100%'
+        return $SUCCESS
+    else
+        # Displays where to cover, if the total coverage wasn't 100%
         if isModeVerbose; then
             echo '- Cover area'
             runGoCarpet | indentStdIn
         fi
-        echo >&2 'Coverage failed: Did not cover 100% of the statements.'
-    }
-
-    return $result
+        echo >&2 "Coverage failed: Did not cover 100% of the statements. Coverage: ${coverage}"
+        return $FAILURE
+    fi
 }
 
 # -----------------------------------------------------------------------------
