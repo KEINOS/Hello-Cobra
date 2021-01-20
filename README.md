@@ -50,11 +50,11 @@ $ go tool vet help
 
 Any PR that might help Golang newbies understand is welcome.
 
-To evolve the sample through natural selection, if you have any better comments, suggestions, practice, etc., then don't hesitate to PR.
+To evolve the sample, through natural selection, if you have any better comments, suggestions, practice, etc., then don't hesitate to PR.
 
 - If the PR passes the tests, then **it will be merged automatically**.(squash and merge)
 - If you feel something against any PR, then feel free to counter PR.
-  - We won't judge, as far as the test passes and not a prank-kind commit.
+  - **We won't judge which is better**, as far as the test passes and not a prank-kind commit.
 
 ### Auto-merge Conditions
 
@@ -70,11 +70,15 @@ To evolve the sample through natural selection, if you have any better comments,
 
 If you have your hands into something, then we suggest to [Draft PR](https://github.blog/2019-02-14-introducing-draft-pull-requests/) first and continue. So the other people would know what you are dealing with.
 
+## Questions
+
+If you have any questions about Cobra's `how-to`, then let's find out it in the [Discussions](https://github.com/KEINOS/Hello-Cobra/discussions) together.
+
 ## Issue
 
-In this repo, **only reports are accepted** as an issue. Such as bug report, license problem, and mal-attitude committer.
+In this repo, **only bug-kind-reports are accepted as an issue**. Such as bug report, vulnerability, license problem, and mal-attitude committer.
 
-For any better suggestions, solutions, practices, typo-fix, bug-fix, etc. you have, then please PR.
+For any suggestions, solutions, practices, typo-fix, bug-fix, etc. to improve the sample, then let's [PR](https://github.com/KEINOS/Hello-Cobra/pulls)!
 
 ## License
 
