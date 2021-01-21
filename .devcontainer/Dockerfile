@@ -32,8 +32,6 @@ RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "source /usr/local/shar
 # See: "postCreateCommand" section in "devcontainer.json" and "postCreateCommand.sh"
 # file.
 COPY postCreateCommand.sh /postCreateCommand.sh
-COPY cobra.yaml /cobra.yaml
-COPY welcome.sh /welcome.sh
 COPY settings.vscode.json /settings.vscode.json
 
 # Install additional OS packages.
@@ -76,6 +74,8 @@ RUN go get -u -v \
         "github.com/ramya-rao-a/go-outline" \
         "github.com/rogpeppe/godef" \
         "github.com/uudashr/gopkgs/v2/cmd/gopkgs" \
+        # gp enables to share go files over Go Playground
+        "github.com/tenntenn/goplayground/cmd/gp" \
     # irregular install
     && cd "${GOPATH}/pkg/mod" \
     && go get -v -d \
@@ -101,9 +101,7 @@ RUN go get -u -v \
 # Miscellaneous
 RUN \
     # Set path
-    echo 'export PATH="/go/bin:/usr/local/go/bin:${PATH}"' >> "${HOME}/.bashrc" \
-    # Welcome message of bash
-    && echo '/welcome.sh' >> "${HOME}/.bashrc"
+    echo 'export PATH="/go/bin:/usr/local/go/bin:${PATH}"' >> "${HOME}/.bashrc"
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
