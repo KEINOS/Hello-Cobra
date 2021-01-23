@@ -26,11 +26,12 @@ func createHelloCmd() *cobra.Command {
 		},
 	}
 
+	// Return the created command.
 	return cmd
 }
 
-// init runs on every app initialization. Regardless of whether sub command was
-// specified or not in the app args.
+// init runs on app initialization. Regardless of whether sub command was specified
+// or not.
 func init() {
 	// Create and add "hello" command as a child of the root command(rootCmd).
 	rootCmd.AddCommand(createHelloCmd())

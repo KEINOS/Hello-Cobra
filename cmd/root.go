@@ -1,8 +1,9 @@
 /*
-Package cmd rootCmd is a mother command of all it's child(subcommands).
+Package cmd root defines the mother command of all it's child/sub commands.
 
-Each subcommands should add(register) themselfs in their `init()` via
-`rootCmd.AddCommand()`. See other command packages' `init()` func.
+Define common things here. Also note that each child/sub commands should  be
+added/registered themself in their `init()` via `rootCmd.AddCommand()`. See
+other command packages' `init()` func.
 */
 package cmd
 
@@ -39,7 +40,7 @@ func createRootCmd() *cobra.Command {
 // register themself in their `init()`. See: hello.go
 var rootCmd = createRootCmd()
 
-// init runs on every app initialization regardless of whether sub command is
+// init runs on app initialization. Regardless of whether sub command is
 // specified or not.
 func init() {
 }
