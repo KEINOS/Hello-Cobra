@@ -18,5 +18,5 @@ func main() {
 	// command and then executes the designated command.
 	// If `cmd.Execute()` returns an error then it will print the error message
 	// to STDERR and exits with 1.
-	osExit(cmd.EchoIfError(cmd.Execute()))
+	osExit(cmd.EchoStdErrIfError(cmd.Execute()))
 }

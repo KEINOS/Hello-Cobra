@@ -95,8 +95,7 @@ RUN go get -u -v \
     && cd ${GOPATH}/pkg/mod/github.com/golang/mock*/mockgen \
     && go install \
     # List bin files
-    && echo "- List dir: ${GOPATH}/bin" && ls -l "${GOPATH}/bin" \
-    && echo '- List dir: /go/bin' && ls -l '/go/bin'
+    && echo "- List dir: ${GOPATH}/bin" && ls -l "${GOPATH}/bin"
 
 # Miscellaneous
 RUN \

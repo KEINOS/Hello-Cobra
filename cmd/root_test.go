@@ -11,36 +11,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEcho(t *testing.T) {
-	var expect = "hoge"
-	var actual = capturer.CaptureStdout(func() {
-		Echo(expect)
-	})
+func TestEchoStdErrIfError(t *testing.T) {
+	var expectStatus int = 1
+	var expectMsg string = "foo bar"
+	var errorMsg error = errors.New(expectMsg)
 
-	assert.Equal(t, expect+"\n", actual, "The two words should be the same.")
-}
-
-func TestEchoIfError(t *testing.T) {
-	var expectStatus = 1
-	var actualStatus = 0 // This should turned into 1
-
-	var expectMsg = "foo bar"
-	var msg = errors.New(expectMsg)
-	var actualMsg = capturer.CaptureStderr(func() {
-		actualStatus = EchoIfError(msg)
+	var actualStatus int = 0 // This should turn into 1
+	var actualMsg string = capturer.CaptureStderr(func() {
+		actualStatus = EchoStdErrIfError(errorMsg)
 	})
 
 	assert.Equal(t, expectStatus, actualStatus, "Error code should return 1")
 	assert.Equal(t, expectMsg+"\n", actualMsg, "The two words should be the same.")
 }
 
-func TestEchoIfErrorIsNil(t *testing.T) {
+func TestEchoStdErrIfErrorIsNil(t *testing.T) {
 	var expectStatus = 0
 	var actualStatus = 1 // This should turned into 0
 
 	var expectMsg = ""
 	var actualMsg = capturer.CaptureStderr(func() {
-		actualStatus = EchoIfError(nil)
+		actualStatus = EchoStdErrIfError(nil)
 	})
 
 	assert.Equal(t, expectStatus, actualStatus, "Error code should return 1")

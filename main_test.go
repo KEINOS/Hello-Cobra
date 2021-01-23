@@ -15,9 +15,9 @@ func Test_main(t *testing.T) {
 	defer func() { osExit = oldOsExit }()
 
 	var expectExitCode = 0
-	var actualExitCode int
 	var expectMsg = "Usage:" // Help msg includes this string
 	var actualMsg string
+	var actualExitCode int
 
 	// Mock of "osExit" to capture the exit-status-code.
 	var myExit = func(code int) {
