@@ -22,4 +22,4 @@ jobs:
             -v $(pwd):/workspaces/Hello-Cobra \
             -w /workspaces/Hello-Cobra \
             test:ci \
-            /bin/bash ./.github/run-merge-tests.sh
+            /bin/bash ./.github/run-tests-merge.sh
