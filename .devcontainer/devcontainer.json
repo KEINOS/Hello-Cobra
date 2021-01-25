@@ -19,14 +19,14 @@
 	"settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
         "terminal.integrated.shellArgs.linux": ["-l"],
-		"go.useGoProxyToCheckForToolUpdates": false,
+		"go.toolsManagement.checkForUpdates": "proxy",
 		"go.useLanguageServer": true,
 		"go.gopath": "/go",
 		"go.goroot": "/usr/local/go",
 		"go.toolsGopath": "/go/bin"
 	},
 
-	// Add the IDs of extensions you want installed when the container is created.
+	// Add the IDs of extensions you want to be installed when the container is created.
 	"extensions": [
 		"golang.Go",
 		"editorconfig.editorconfig",
