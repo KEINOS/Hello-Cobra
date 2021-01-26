@@ -1,7 +1,9 @@
 #!/bin/bash
 
-head -n1 </etc/issue
+# Remove go-build* files in temp
+rm -rf /tmp/go-build* 2>/dev/null 1>/dev/null
 
+echo "- OS: $(head -n1 </etc/issue)"
 echo "- $(go version)"
 echo "- Current path: $(pwd)"
 echo "- Current user: $(whoami)"
