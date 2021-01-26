@@ -113,8 +113,11 @@ function runTests() {
         if isModeVerbose; then
             echo '- Cover area'
             runGoCarpet | indentStdIn
+            echo >&2 "  ERROR: Coverage failed. Did not cover 100% of the statements."
+        else
+            echo >&2 "  ERROR: Coverage failed. Did not cover 100% of the statements."
+            echo >&2 "         Use '--verbose' option to see where to cover."
         fi
-        echo >&2 "  ERROR: Coverage failed. Did not cover 100% of the statements."
         echo >&2 "         Coverage: ${coverage}"
         exit $FAILURE
     fi
