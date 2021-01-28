@@ -1,0 +1,14 @@
+name: Release pkg.go.dev
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  docker_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call pkg to update
+        run: |
+          GOPROXY=https://proxy.golang.org GO111MODULE=on \
+          go get github.com/${{ github.repository }}@${{ github.event.release.tag_name }}
