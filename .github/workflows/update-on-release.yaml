@@ -1,14 +1,18 @@
 name: Release pkg.go.dev
 
 on:
+  workflow_dispatch:
   release:
-    types: [published]
+    types:
+      - created
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - '**/v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
-  docker_test:
+  build:
+    name: Request go get of the package
     runs-on: ubuntu-latest
     steps:
-      - name: Call pkg to update
-        run: |
-          GOPROXY=https://proxy.golang.org GO111MODULE=on \
-          go get github.com/${{ github.repository }}@${{ github.event.release.tag_name }}
+    - name: Pull new module version
+      uses: andrewslotin/go-proxy-pull-action@master
