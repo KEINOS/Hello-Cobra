@@ -67,15 +67,17 @@ RUN go get -u -v \
         "github.com/cweill/gotests/..." \
         # go-carpet (Cover area checker)
         "github.com/msoap/go-carpet" \
-        # shfmt
+        # shfmt (shellformat) is a shell script linter
         "mvdan.cc/sh/v3/cmd/shfmt" \
+        # gp enables to share go files over Go Playground
+        "github.com/tenntenn/goplayground/cmd/gp" \
+        # gomarkdoc generates documentation in markdown
+        "github.com/princjef/gomarkdoc/cmd/gomarkdoc" \
         # Other requirements of VSCode extensions
         "golang.org/x/lint/golint" \
         "github.com/ramya-rao-a/go-outline" \
         "github.com/rogpeppe/godef" \
         "github.com/uudashr/gopkgs/v2/cmd/gopkgs" \
-        # gp enables to share go files over Go Playground
-        "github.com/tenntenn/goplayground/cmd/gp" \
     # irregular install
     && cd "${GOPATH}/pkg/mod" \
     && go get -v -d \
@@ -95,8 +97,7 @@ RUN go get -u -v \
     && cd ${GOPATH}/pkg/mod/github.com/golang/mock*/mockgen \
     && go install \
     # List bin files
-    && echo "- List dir: ${GOPATH}/bin" && ls -l "${GOPATH}/bin" \
-    && echo '- List dir: /go/bin' && ls -l '/go/bin'
+    && echo "- List dir: ${GOPATH}/bin" && ls -l "${GOPATH}/bin"
 
 # Miscellaneous
 RUN \
