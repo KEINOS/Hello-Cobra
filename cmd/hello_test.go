@@ -9,15 +9,32 @@ import (
 
 func Test_helloCmd(t *testing.T) {
 	var helloCmd = createHelloCmd()
+	var argsTmp = []string{}
 	var buffTmp = new(bytes.Buffer)
-	var argsTmp = []string{"hello"}
 
 	helloCmd.SetOut(buffTmp)  // set output from os.Stdout -> buffTmp
 	helloCmd.SetArgs(argsTmp) // set command args
 
-	helloCmd.ExecuteC() // Run `hello` command!
+	helloCmd.Execute() // Run `hello` command!
 
 	var expect = "Hello, world!\n"
 	var actual = buffTmp.String() // resotre buffer
-	assert.Equal(t, expect, actual, "The two words should be the same.")
+	assert.Equal(t, expect, actual,
+		"Command 'hello' should return 'Hello, world!'.",
+	)
+}
+
+func Test_helloCmd_Help(t *testing.T) {
+	var helloCmd = createHelloCmd()
+	var argsTmp = []string{"--help"}
+	var buffTmp = new(bytes.Buffer)
+
+	helloCmd.SetOut(buffTmp)  // set output from os.Stdout -> buffTmp
+	helloCmd.SetArgs(argsTmp) // set command args
+
+	helloCmd.Execute() // Run `hello` command!
+
+	var contains = "'hello' is a command that simply displays the \"Hello, world!\"."
+	var result = buffTmp.String() // resotre buffer
+	assert.Contains(t, result, contains, "The command didn't include the required help message.")
 }

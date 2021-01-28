@@ -7,8 +7,6 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-var thresholdCoverage = 0.9
-
 func Test_main(t *testing.T) {
 	// Save current function and restore at the end
 	oldOsExit := osExit
@@ -16,6 +14,7 @@ func Test_main(t *testing.T) {
 
 	var expectExitCode = 0
 	var expectMsg = "Usage:" // Help msg includes this string
+
 	var actualMsg string
 	var actualExitCode int
 

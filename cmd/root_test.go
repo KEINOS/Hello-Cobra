@@ -16,8 +16,12 @@ func TestEchoStdErrIfError(t *testing.T) {
 	var expectMsg string = "foo bar"
 	var errorMsg error = errors.New(expectMsg)
 
-	var actualStatus int = 0 // This should turn into 1
-	var actualMsg string = capturer.CaptureStderr(func() {
+	var actualStatus int
+	var actualMsg string
+
+	// Run the function and capture the STDERR msg and it's returned int value.
+	actualMsg = capturer.CaptureStderr(func() {
+		actualStatus = 0 // This should turn into 1
 		actualStatus = EchoStdErrIfError(errorMsg)
 	})
 
@@ -25,7 +29,7 @@ func TestEchoStdErrIfError(t *testing.T) {
 	assert.Equal(t, expectMsg+"\n", actualMsg, "The two words should be the same.")
 }
 
-func TestEchoStdErrIfErrorIsNil(t *testing.T) {
+func TestEchoStdErrIfError_IsNil(t *testing.T) {
 	var expectStatus = 0
 	var actualStatus = 1 // This should turned into 0
 
@@ -35,13 +39,15 @@ func TestEchoStdErrIfErrorIsNil(t *testing.T) {
 	})
 
 	assert.Equal(t, expectStatus, actualStatus, "Error code should return 1")
-	assert.Equal(t, expectMsg, actualMsg, "The two words should be the same.")
+	assert.Equal(t, expectMsg, actualMsg,
+		"If the arg is nil it should not print enything to STDERR. STDERR Msg: "+actualMsg,
+	)
 }
 
 func TestExecute(t *testing.T) {
 	var actual = capturer.CaptureStdout(func() {
 		Execute()
 	})
-	var contains = "Simple CLI app to see how Cobra works to create commands"
+	var contains = "A simple CLI app to see how Cobra works to create commands."
 	assert.Contains(t, actual, contains, "When no arg, should return help message.")
 }
