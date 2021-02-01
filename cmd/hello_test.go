@@ -36,5 +36,5 @@ func Test_helloCmd_Help(t *testing.T) {
 
 	var contains = "'hello' is a command that simply displays the \"Hello, world!\"."
 	var result = buffTmp.String() // resotre buffer
-	assert.Contains(t, result, contains, "The command didn't include the required help message.")
+	assert.Contains(t, result, contains, "The command didn't include the required help message for 'hello' in it's result.")
 }

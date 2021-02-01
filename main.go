@@ -10,7 +10,7 @@ import (
 	"github.com/KEINOS/Hello-Cobra/cmd"
 )
 
-// Preparation to ease the "exit status" test of the app.
+// osExit is a copy of `os.Exit` to ease the "exit status" test.
 // See: https://stackoverflow.com/a/40801733/8367711
 var osExit = os.Exit
 

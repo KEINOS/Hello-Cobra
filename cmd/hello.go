@@ -47,7 +47,8 @@ func createHelloCmd() *cobra.Command {
   Hello-Cobra hello --help
 
   Hello-Cobra hello ext`,
-		// One of the best practices in Cobra is to use `RunE` instead of `Run`
+		// RunE runs the passed function, only when `hello` command was called.
+		// One of the best practices in Cobra is to use `RunE`. Instead of `Run`
 		// and return `error` only if an error occurs. That will ease testing.
 		// In that manner try not to use `os.Exit()` or `panic()` in the child
 		// commands but return error instead and let the main package handle it.
@@ -56,7 +57,6 @@ func createHelloCmd() *cobra.Command {
 		},
 	}
 
-	// Return the created command
 	return cmd
 }
 
@@ -65,14 +65,18 @@ func createHelloCmd() *cobra.Command {
 func init() {
 	// Add "helloCmd" command as a child of the root command(`rootCmd`).
 	rootCmd.AddCommand(helloCmd)
+	// Set default value when no conf file found. ConfUser was defined in `root.go`.
+	ConfUser.NameToGreet = "world"
 }
 
 // sayHello is the main function of "hello"(helloCmd).
 func sayHello(cmd *cobra.Command) error {
+	var to = ConfUser.NameToGreet
+
 	// Outputs "Hello, world!".
-	// We use `cobra.Command`'s `fmt.Println` wrapper to ease testing. Which can
-	// be changed it's output. See: hello_test.sh
-	cmd.Println("Hello, world!")
+	// We use `cobra.Command`'s `fmt.Println` wrapper to ease testing.
+	// Which can be changed it's output. See how: hello_test.sh
+	cmd.Println("Hello, " + to + "!")
 
 	return nil
 }

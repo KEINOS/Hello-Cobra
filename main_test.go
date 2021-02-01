@@ -1,3 +1,9 @@
+/*
+Package main main_test.go is the test for main.go.
+
+We found the easy way to test `main` was to capture it's STDOUT or STDERR and
+override the `osExit` which is an alias of `os.Exit` set in `main.go`.
+*/
 package main
 
 import (
