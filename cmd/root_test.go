@@ -7,9 +7,43 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/KEINOS/Hello-Cobra/util"
 	"github.com/kami-zh/go-capturer"
 	"github.com/stretchr/testify/assert"
 )
+
+func Test_loadConfigFail(t *testing.T) {
+	// Save current function and restore at the end
+	oldOsExit := osExit
+	defer func() { osExit = oldOsExit }()
+
+	var expectExitCode int
+	var actualExitCode int = 0 // This should turn into 1
+	var ConfAppDummy util.TypeConfigApp
+	var ConfUserDummy struct {
+		NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
+	}
+	// Assign mock of "osExit" to capture the exit-status-code.
+	osExit = func(code int) {
+		actualExitCode = 1
+	}
+
+	var actualMsg = capturer.CaptureStdout(func() {
+		// Test user defined bad file path
+		ConfAppDummy = util.TypeConfigApp{
+			PathFileConf: "./foobar.json",
+			PathDirConf:  "",
+			NameFileConf: "",
+			NameTypeConf: "",
+		}
+		ConfUserDummy.NameToGreet = "bar"
+		expectExitCode = 1
+		loadConfig(&ConfAppDummy, &ConfUserDummy)
+	})
+
+	// Assertion
+	assert.Equal(t, expectExitCode, actualExitCode, "Msg: "+actualMsg)
+}
 
 func TestEchoStdErrIfError(t *testing.T) {
 	var expectStatus int = 1

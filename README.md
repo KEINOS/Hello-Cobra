@@ -11,14 +11,15 @@ This repo is a "`Hello, world!`" sample of [Cobra](https://cobra.dev/) with 100%
 
 Which I couldn't find by googling with '[`"golang"` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)'.
 
-This repo is for Golang and `Cobra` beginners like I am. We all know keeping 100% of coverage is a myth, but aiming to find out the **"Best practices of `Hello, world!`" sample using Cobra**, to begin with.
+This repo is for Golang and `Cobra` beginners like I am. We all know keeping 100% of coverage is a myth, but aiming to find out the **"Best practices of `Hello, world!`" sample using Cobra**.
 
 ## How to run tests
 
 ```shellsession
 $ go test -cover ./...
-ok    github.com/KEINOS/Hello-Cobra      0.014s  coverage: 100.0% of statements
-ok    github.com/KEINOS/Hello-Cobra/cmd  0.009s  coverage: 100.0% of statements
+ok      github.com/KEINOS/Hello-Cobra         0.009s  coverage: 100.0% of statements
+ok      github.com/KEINOS/Hello-Cobra/cmd     0.353s  coverage: 100.0% of statements
+ok      github.com/KEINOS/Hello-Cobra/util    0.015s  coverage: 100.0% of statements
 ```
 
 - If you find hard which/where to cover when coverage was less than 100%, then try:
@@ -63,7 +64,7 @@ $ gotests [options] PATH [PATH] ...
 
 Any PR that might help Golang newbies understand is welcome.
 
-To evolve the samples in the repo through natural selection, any PR that passes the [merge tests](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/run-merge-tests.sh) will be auto-merged. (squash and merge)
+To evolve the samples in this repo through natural selection, any PR that passes the [merge tests](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/run-merge-tests.sh) will be auto-merged. (squash and merge)
 
 - [Auto-merge Conditions](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/mergify.yml)
   - Files changed/added were: `*.md` and/or `*.go`
@@ -77,7 +78,7 @@ To evolve the samples in the repo through natural selection, any PR that passes 
 So, if you have any better ideas, suggestions, practice, etc., then don't hesitate to PR. And if you feel something against any PR, then feel free to counter PR.
 
 - **We will not judge which is better**, as far as the merge-tests passes and not a prank-kind commit.
-- Don't forget to move on with the latest `main/master` branch before any commit to avoid conflict.
+- Don't forget to move on with the latest `main/master` branch before any commitment to avoid conflict.
 
 ### Draft PR Suggested
 

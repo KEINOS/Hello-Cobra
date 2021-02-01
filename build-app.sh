@@ -149,7 +149,6 @@ if CGO_ENABLED=0 \
     -ldflags="-s -w -extldflags \"-static\"" \
     -o="$PATH_FILE_BIN_FINAL" \
     .; then
-    echo 'SUCCESS'
     exit $SUCCESS
 fi
 echo 'Failed to build binary.'

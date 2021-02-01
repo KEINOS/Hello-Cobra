@@ -49,8 +49,6 @@ func createHelloExtCmd() *cobra.Command {
 	}
 
 	// Define flags for `ext` command.
-	// Such as: it's variable type, where to save, flag names (long and short),
-	// it's default value and the help description.
 	cmd.Flags().
 		BoolVarP(
 			&propertyHello.isReverse, "reverse", "r", false, "Reverses the output.",
@@ -65,8 +63,7 @@ func createHelloExtCmd() *cobra.Command {
 
 // getMsgToGreet returns the regular greeting msg from the flag value and args.
 func getMsgToGreet(args []string) string {
-	var to = "world" // Default
-
+	var to = ConfUser.NameToGreet                              // Set default
 	var greetTo = propertyHello.greetTo                        // get flag value
 	var argJoined = strings.TrimSpace(strings.Join(args, " ")) // get arg value
 
