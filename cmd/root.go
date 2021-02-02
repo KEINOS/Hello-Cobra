@@ -147,12 +147,11 @@ func loadConfig(configApp *util.TypeConfigApp, configUser interface{}) {
 //    Ex) cmd.EchoStdErrIfError(err)
 // ============================================================================
 
-// EchoStdErrIfError is an STDERR wrappter.
-// Returns 0 for success and 1 for failure to let main.go take controll to exit.
-// Note that its input arg type is `error` and not `string`.
-func EchoStdErrIfError(msg error) int {
-	if msg != nil {
-		fmt.Fprintln(os.Stderr, msg)
+// EchoStdErrIfError is an STDERR wrappter and returns 0(zero) or 1.
+// It does nothing if the error is nil and returns 0.
+func EchoStdErrIfError(err error) int {
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		return FAILURE
 	}
 	return SUCCESS

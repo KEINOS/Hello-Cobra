@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD001 MD041 -->
 [![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status on GitHub")
 [![100% Coverage](https://github.com/KEINOS/Hello-Cobra/workflows/100%25%20Coverage/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22100%25+Coverage%22 "View status on GitHub")
-[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra)
+[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
 # "Hello, world!" Sample of Cobra in Golang w/ Unit Test and 100% Coverage
 

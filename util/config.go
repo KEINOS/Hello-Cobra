@@ -1,12 +1,12 @@
 /*
-Package util config.go defines file configuration of the app.
+Package util config.go defines functions to read file configuration using Viper.
 
 It was separated to a different package from `cmd` to ease testing and re-use.
 
 - This package was very much taught by the below articles:
   - "[Backend #12] Load config from file & environment variables in Golang with Viper"
 	- https://youtu.be/n5p8HkO6bnE by TECH SCHOOL @ YouTube
-  - "obra-viper-example"
+  - "cobra-viper-example"
   	- https://github.com/nirasan/cobra-viper-example @ GitHub
 
 */
@@ -23,11 +23,11 @@ import (
 type TypeConfigApp struct {
 	PathFileConf string // File path of config. If set, will have priority than NameFileConf and PathDirConf.
 
+	PathDirConf  string // Dir path of config to search.
 	NameFileConf string // File name of config file. May or may not have an extension.
 	NameTypeConf string // File extension of the config file. REQUIRED if the conf file does not have the extension in the name.
-	PathDirConf  string // Dir path of config to search.
 
-	IsUsingDefaultConf bool // Flag to determine if the app is using the conf file value or default.
+	IsUsingDefaultConf bool // Flag to determine if the app is using the default value or conf file value.
 }
 
 // GetNameConf is a method of TypeConfigApp that returns the config file name.
@@ -45,7 +45,9 @@ func (c TypeConfigApp) GetNameConf() string {
 // LoadConfig stores values from the config file or env variables to userConfig.
 //
 // @args appConfig  TypeConfigApp  : Basic application config to read the conf file.
+//
 // @args userConfig struct         : An object to be stored the values from conf file.
+//
 // @return err      error          : nil if success. Error msg if fails to read/store values from conf file.
 func LoadConfig(appConfig TypeConfigApp, userConfig interface{}) (err error) {
 	// Reset current stored values in viper

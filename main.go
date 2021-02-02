@@ -1,6 +1,9 @@
 /*
-Package main main.go is the entry point to runs/execute the package "cmd".
-And it exits the app with the staus code according to the command's result.
+Package main main.go is the entry point to run `cmd.Execute()` in the package "cmd".
+
+It will exit the app with the staus code 0(zero) for success or 1 for failure according to the command's result.
+
+If no command was specified then will show the help.
 */
 package main
 
