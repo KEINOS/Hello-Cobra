@@ -28,7 +28,7 @@ var helloCmd = createHelloCmd()
 // Having a generator function like this, eases unit testing of a command.
 // See the "hello_test.go" how.
 func createHelloCmd() *cobra.Command {
-	var cmd = &cobra.Command{
+	cmd := &cobra.Command{
 		// If the command is a child, "Use" will be the one-line message for
 		// "Usage:" in the help. Also note that the first word in "Use" will be
 		// the command name.
@@ -71,7 +71,7 @@ func init() {
 
 // sayHello is the main function of "hello"(helloCmd).
 func sayHello(cmd *cobra.Command) error {
-	var to = ConfUser.NameToGreet
+	var to string = ConfUser.NameToGreet
 
 	// Outputs "Hello, world!".
 	// We use `cobra.Command`'s `fmt.Println` wrapper to ease testing.

@@ -4,7 +4,7 @@ Package main main_test.go is the test for main.go.
 We found the easy way to test `main` was to capture it's STDOUT or STDERR and
 override the `osExit` which is an alias of `os.Exit` set in `main.go`.
 */
-package main
+package main //nolint:testpackage // To override osExit the test needs to be part of main
 
 import (
 	"testing"
@@ -16,18 +16,21 @@ import (
 func Test_main(t *testing.T) {
 	// Save current function and restore at the end
 	oldOsExit := osExit
+
 	defer func() { osExit = oldOsExit }()
 
-	var expectExitCode = 0
-	var expectMsg = "Usage:" // Help msg includes this string
+	var (
+		expectExitCode = 0
+		expectMsg      = "Usage:" // Help msg includes this string
 
-	var actualMsg string
-	var actualExitCode int
+		actualMsg      string
+		actualExitCode int
 
-	// Mock of "osExit" to capture the exit-status-code.
-	var myExit = func(code int) {
-		actualExitCode = code
-	}
+		// Mock of "osExit" to capture the exit-status-code.
+		myExit = func(code int) {
+			actualExitCode = code
+		}
+	)
 
 	// Assign the mock
 	osExit = myExit
