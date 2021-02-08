@@ -65,7 +65,7 @@ function runGofmt() {
 }
 
 function runGolangCiLint() {
-    echo -n '- Go lint(golangci-lint) ... '
+    echo -n '- Lint check (golangci-lint) ... '
     result=$(./.github/run-tests-lint.sh -v 2>&1) || {
         echo 'NG'
         echo "$result" | indentStdIn
