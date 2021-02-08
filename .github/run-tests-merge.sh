@@ -25,7 +25,7 @@ FAILURE=1
 # -----------------------------------------------------------------------------
 function indentStdIn() {
     indent="\t"
-    while read -r line; do
+    while IFS= read -r line; do
         echo -e "${indent}${line}"
     done
     echo
@@ -64,6 +64,17 @@ function runGofmt() {
     return $FAILURE
 }
 
+function runGolangCiLint() {
+    echo -n '- Lint check (golangci-lint) ... '
+    result=$(./.github/run-tests-lint.sh -v 2>&1) || {
+        echo 'NG'
+        echo "$result" | indentStdIn
+        return $FAILURE
+    }
+    echo 'OK'
+    return $SUCCESS
+}
+
 function runGoUnitTests() {
     echo -n '- Go unit tests ... '
     result=$(./.github/run-tests-coverage.sh -v 2>&1) || {
@@ -93,3 +104,4 @@ runShfmt
 runShellCheck
 runGofmt
 runGoUnitTests
+runGolangCiLint

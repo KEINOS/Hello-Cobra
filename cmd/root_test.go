@@ -13,45 +13,51 @@ import (
 )
 
 func Test_loadConfigFail(t *testing.T) {
-	// Save current function and restore at the end
+	// Save current function in osExt
 	oldOsExit := osExit
+	// restore osExit at the end
 	defer func() { osExit = oldOsExit }()
 
-	var expectExitCode int
-	var actualExitCode int = 0 // This should turn into 1
-	var ConfAppDummy util.TypeConfigApp
-	var ConfUserDummy struct {
-		NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
-	}
+	var (
+		expectExitCode int
+		actualExitCode int = 0 // This should turn into 1
+
+		confAppDummy  util.TypeConfigApp
+		confUserDummy struct {
+			NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
+		}
+	)
+
 	// Assign mock of "osExit" to capture the exit-status-code.
 	osExit = func(code int) {
 		actualExitCode = 1
 	}
 
-	var actualMsg = capturer.CaptureStdout(func() {
+	var capturedMsg string = capturer.CaptureStdout(func() {
 		// Test user defined bad file path
-		ConfAppDummy = util.TypeConfigApp{
+		confAppDummy = util.TypeConfigApp{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "",
 			NameFileConf: "",
 			NameTypeConf: "",
 		}
-		ConfUserDummy.NameToGreet = "bar"
+		confUserDummy.NameToGreet = "bar"
 		expectExitCode = 1
-		loadConfig(&ConfAppDummy, &ConfUserDummy)
+		loadConfig(&confAppDummy, &confUserDummy)
 	})
 
 	// Assertion
-	assert.Equal(t, expectExitCode, actualExitCode, "Msg: "+actualMsg)
+	assert.Equal(t, expectExitCode, actualExitCode, "Msg: "+capturedMsg)
 }
 
 func TestEchoStdErrIfError(t *testing.T) {
-	var expectStatus int = 1
-	var expectMsg string = "foo bar"
-	var errorMsg error = errors.New(expectMsg)
-
-	var actualStatus int
-	var actualMsg string
+	var (
+		expectStatus int = 1
+		actualStatus int
+		expectMsg    string = "foo bar"
+		actualMsg    string
+		errorMsg     error = errors.New(expectMsg)
+	)
 
 	// Run the function and capture the STDERR msg and it's returned int value.
 	actualMsg = capturer.CaptureStderr(func() {
@@ -64,11 +70,14 @@ func TestEchoStdErrIfError(t *testing.T) {
 }
 
 func TestEchoStdErrIfError_IsNil(t *testing.T) {
-	var expectStatus = 0
-	var actualStatus = 1 // This should turned into 0
+	var (
+		expectStatus int    = 0
+		actualStatus int    = 1 // This should turn into 0
+		expectMsg    string = ""
+		actualMsg    string
+	)
 
-	var expectMsg = ""
-	var actualMsg = capturer.CaptureStderr(func() {
+	actualMsg = capturer.CaptureStderr(func() {
 		actualStatus = EchoStdErrIfError(nil)
 	})
 
@@ -79,9 +88,17 @@ func TestEchoStdErrIfError_IsNil(t *testing.T) {
 }
 
 func TestExecute(t *testing.T) {
-	var actual = capturer.CaptureStdout(func() {
-		Execute()
+	var (
+		result   string
+		contains string
+	)
+
+	result = capturer.CaptureStdout(func() {
+		if err := Execute(); err != nil {
+			assert.FailNowf(t, "Failed to execute 'root.Execute()'.", "Error msg: %v", err)
+		}
 	})
-	var contains = "A simple CLI app to see how Cobra works to create commands."
-	assert.Contains(t, actual, contains, "When no arg, should return help message.")
+	contains = "A simple CLI app to see how Cobra works to create commands."
+
+	assert.Contains(t, result, contains, "When no arg, should return help message.")
 }

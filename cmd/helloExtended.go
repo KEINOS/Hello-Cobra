@@ -26,9 +26,9 @@ var propertyHello = &TypePropertyHelloExt{}
 //  Functions
 // ----------------------------------------------------------------------------
 
-// createHelloExtCmd creates the `ext` command. See the `init()`
+// createHelloExtCmd creates the `ext` command. See the `init()` function below.
 func createHelloExtCmd() *cobra.Command {
-	var cmd = &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "ext [args]", // command name and additional usage.
 		Short: "Extended 'hello' command.",
 		Long: `About:
@@ -63,9 +63,11 @@ func createHelloExtCmd() *cobra.Command {
 
 // getMsgToGreet returns the regular greeting msg from the flag value and args.
 func getMsgToGreet(args []string) string {
-	var to = ConfUser.NameToGreet                              // Set default
-	var greetTo = propertyHello.greetTo                        // get flag value
-	var argJoined = strings.TrimSpace(strings.Join(args, " ")) // get arg value
+	var (
+		to        string = ConfUser.NameToGreet                       // Set default
+		greetTo   string = propertyHello.greetTo                      // get flag value
+		argJoined string = strings.TrimSpace(strings.Join(args, " ")) // get arg value
+	)
 
 	if "" != greetTo && "" != argJoined {
 		to = greetTo + " and " + argJoined
@@ -91,7 +93,7 @@ func init() {
 	helloCmd.AddCommand(createHelloExtCmd())
 }
 
-// reverseString reverses/flip the input string
+// reverseString reverses/flip the input string.
 func reverseString(input string) string {
 	var msgTmp string
 
@@ -104,8 +106,7 @@ func reverseString(input string) string {
 
 // runHelloExt is the main function of `ext`.
 func runHelloExt(cmd *cobra.Command, args []string) error {
-
-	var greetings = getMsgToGreet(args)
+	var greetings string = getMsgToGreet(args)
 
 	if propertyHello.isReverse {
 		greetings = reverseString(greetings)
@@ -113,5 +114,6 @@ func runHelloExt(cmd *cobra.Command, args []string) error {
 
 	// Output result
 	cmd.Println(greetings)
+
 	return nil
 }

@@ -20,9 +20,9 @@ import (
 // ===============================================================================
 
 const (
-	// SUCCESS is an alias of exit status code to ease read
+	// SUCCESS is an alias of exit status code to ease read.
 	SUCCESS int = 0
-	// FAILURE is an alias of exit status code to ease read
+	// FAILURE is an alias of exit status code to ease read.
 	FAILURE int = 1
 )
 
@@ -65,12 +65,12 @@ var osExit = os.Exit
 
 // rootCmd is the mother command of all other commands.
 // Each child/sub command must register themself in their `init()` to `rootCmd`.
-// See how: hello.go
+//   - See how: hello.go
 var rootCmd = createRootCmd()
 
 // createRootCmd creates the `root` command.
 func createRootCmd() *cobra.Command {
-	var cmdTmp = &cobra.Command{
+	cmdTmp := &cobra.Command{
 		// The first word in "Use:" will be used as a command name.
 		Use: "Hello-Cobra",
 		// One-line description of the app. This will not appear on command help
@@ -152,8 +152,10 @@ func loadConfig(configApp *util.TypeConfigApp, configUser interface{}) {
 func EchoStdErrIfError(err error) int {
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
+
 		return FAILURE
 	}
+
 	return SUCCESS
 }
 

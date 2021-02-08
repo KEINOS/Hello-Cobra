@@ -22,10 +22,10 @@ import (
 // TypeConfigApp defines the data structure to store basic config of the app.
 type TypeConfigApp struct {
 	PathFileConf string // File path of config. If set, will have priority than NameFileConf and PathDirConf.
-
 	PathDirConf  string // Dir path of config to search.
 	NameFileConf string // File name of config file. May or may not have an extension.
-	NameTypeConf string // File extension of the config file. REQUIRED if the conf file does not have the extension in the name.
+	// File extension of the config file. REQUIRED if the conf file does not have the extension in the name.
+	NameTypeConf string
 
 	IsUsingDefaultConf bool // Flag to determine if the app is using the default value or conf file value.
 }
@@ -39,6 +39,7 @@ func (c TypeConfigApp) GetNameConf() string {
 	if hasExtInName(c.NameFileConf) {
 		return c.NameFileConf
 	}
+
 	return c.NameFileConf + "." + c.NameTypeConf
 }
 
@@ -74,12 +75,12 @@ func LoadConfig(appConfig TypeConfigApp, userConfig interface{}) (err error) {
 		err = viper.Unmarshal(&userConfig)
 	}
 
-	return // return error if viper fails to read or map the values
+	return err // return error if viper fails to read or map the values
 }
 
 // hasExtInName returns true if the nameFile contains a file extension which viper can detect.
 func hasExtInName(nameFile string) bool {
-	var extWithNoDot = strings.TrimLeft(filepath.Ext(nameFile), ".")
+	var extWithNoDot string = strings.TrimLeft(filepath.Ext(nameFile), ".")
 
 	return hasStringInSlice(extWithNoDot, viper.SupportedExts)
 }
@@ -91,5 +92,6 @@ func hasStringInSlice(a string, list []string) bool {
 			return true
 		}
 	}
+
 	return false
 }
