@@ -162,8 +162,8 @@ func EchoStdErrIfError(err error) int {
 // settings. Then runs/executes the `rootCmd` to find appropriate matches for child
 // commands with corresponding flags and args.
 //
-// Usualy `cmd.Execute` will be called by the `main.main()` and it only needs to happen
-// once to the rootCmd.
+// Usually `cmd.Execute` will be called by the `main.main()` and it only needs to
+// happen once to the rootCmd.
 // Returns `error` when it fails to execute.
 func Execute() error {
 	// Read conf file values to ConfUser with ConfApp settings
