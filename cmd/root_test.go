@@ -47,14 +47,12 @@ func Test_loadConfigFail(t *testing.T) {
 
 func TestEchoStdErrIfError(t *testing.T) {
 	var expectStatus int = 1
+	var actualStatus int
 	var expectMsg string = "foo bar"
 	var errorMsg error = errors.New(expectMsg)
 
-	var actualStatus int
-	var actualMsg string
-
 	// Run the function and capture the STDERR msg and it's returned int value.
-	actualMsg = capturer.CaptureStderr(func() {
+	var actualMsg string = capturer.CaptureStderr(func() {
 		actualStatus = 0 // This should turn into 1
 		actualStatus = EchoStdErrIfError(errorMsg)
 	})
