@@ -99,8 +99,10 @@ func runTestCasesForHelloCmdExt(t *testing.T, cases dataProvider) {
 		helloExtCmd.SetOut(buffTmp)
 		helloExtCmd.SetArgs(argsTmp)
 
-		// Run!
-		helloExtCmd.Execute()
+		// Run `hello ext`
+		if err := helloExtCmd.Execute(); err != nil {
+			assert.FailNowf(t, "Failed to execute 'helloExtCmd.Execute()'.", "Error msg: %v", err)
+		}
 
 		expect = c.expect
 		actual = buffTmp.String() // resotre buffer

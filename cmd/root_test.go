@@ -77,9 +77,15 @@ func TestEchoStdErrIfError_IsNil(t *testing.T) {
 }
 
 func TestExecute(t *testing.T) {
+	var err error
 	var actual = capturer.CaptureStdout(func() {
-		Execute()
+		err = Execute()
 	})
+
+	if err != nil {
+		assert.FailNowf(t, "Failed to execute 'root.Execute()'.", "Error msg: %v", err)
+	}
+
 	var contains = "A simple CLI app to see how Cobra works to create commands."
 	assert.Contains(t, actual, contains, "When no arg, should return help message.")
 }

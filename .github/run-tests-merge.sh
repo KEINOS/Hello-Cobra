@@ -103,5 +103,5 @@ tree | indentStdIn
 runShfmt
 runShellCheck
 runGofmt
-runGolangCiLint
 runGoUnitTests
+runGolangCiLint

@@ -15,7 +15,10 @@ func Test_helloCmd(t *testing.T) {
 	helloCmd.SetOut(buffTmp)  // set output from os.Stdout -> buffTmp
 	helloCmd.SetArgs(argsTmp) // set command args
 
-	helloCmd.Execute() // Run `hello` command!
+	// Run `hello` command!
+	if err := helloCmd.Execute(); err != nil {
+		assert.FailNowf(t, "Failed to execute 'helloCmd.Execute()'.", "Error msg: %v", err)
+	}
 
 	var expect = "Hello, world!\n"
 	var actual = buffTmp.String() // resotre buffer
@@ -32,7 +35,10 @@ func Test_helloCmd_Help(t *testing.T) {
 	helloCmd.SetOut(buffTmp)  // set output from os.Stdout -> buffTmp
 	helloCmd.SetArgs(argsTmp) // set command args
 
-	helloCmd.Execute() // Run `hello` command!
+	// Run `hello` command!
+	if err := helloCmd.Execute(); err != nil {
+		assert.FailNowf(t, "Failed to execute 'helloCmd.Execute()'.", "Error msg: %v", err)
+	}
 
 	var contains = "'hello' is a command that simply displays the \"Hello, world!\"."
 	var result = buffTmp.String() // resotre buffer
