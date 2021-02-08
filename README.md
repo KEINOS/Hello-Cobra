@@ -1,18 +1,23 @@
 <!-- markdownlint-disable MD001 MD041 -->
-[![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status on GitHub")
-[![100% Coverage](https://github.com/KEINOS/Hello-Cobra/workflows/100%25%20Coverage/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22100%25+Coverage%22 "View status on GitHub")
-[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
+[![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status of the action on GitHub")
+[![100% Coverage](https://github.com/KEINOS/Hello-Cobra/workflows/100%25%20Coverage/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22100%25+Coverage%22 "View status of the action on GitHub")
+[![golangci-lint](https://github.com/KEINOS/Hello-Cobra/workflows/golangci-lint/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3Agolangci-lint "View status of the action on GitHub")
 [![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/Hello-Cobra)](https://goreportcard.com/report/github.com/KEINOS/Hello-Cobra "View on Go Report Card")
+[![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
-# "Hello, world!" Sample of Cobra in Golang w/ Unit Test and 100% Coverage
+# "Hello, world!" Sample of Cobra with Unit Tests and 100% Coverage
 
-- [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Go.
+- [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Golang.
 
-This repo is a "`Hello, world!`" sample of [Cobra](https://cobra.dev/) with 100% coverage tests.
+This repo is a draft of [Cobra](https://cobra.dev/)'s "`Hello, world!`" sample, with 100% coverage tests.
 
-Which I couldn't find by googling with '[`"golang"` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)'.
+Which I couldn't find by googling with "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
 
-This repo is for Golang and `Cobra` beginners like I am. We all know keeping 100% of coverage is a myth, but aiming to find out the **"Best practices of `Hello, world!`" sample using Cobra**.
+## Searching for the best practices of Cobra
+
+**We all know keeping 100% of coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% code coverage as a basis for implementing best-practices and keeping the coverage high and the complexity low as possible.
+
+- Therefore this is a Forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-Repo. So any PR is welcome!!
 
 ## How to run tests
 
@@ -30,36 +35,16 @@ ok      github.com/KEINOS/Hello-Cobra/util    0.015s  coverage: 100.0% of statem
   ...
   ```
 
-## How to run static analysis
+## How to run static analysis and lint for Golang
 
-`vet` is a Go tool for static analysis of Go programs.
+We use [GolangCI-Lint](https://golangci-lint.run/), an aggregator of Go linters.
 
 ```shellsession
-$ # Run all analyzers of Go vet.
-$ go vet ./...
-
-$ # View exit status (0=success, else=failure)
-$ echo $?
-0
-
-$ # For more details about Go vet tool
-$ # see: https://golang.org/cmd/vet/
-$ # or type:
-$ go tool vet help
+$ golangci-lint run --config ./.github/golangci.yml ./...
 ...
 ```
 
-## How to generate tests
-
-[`gotests`](https://github.com/cweill/gotests) can generate Go tests for specific source files or an entire directory from the command line.
-
-```shellsession
-$ gotests [options] PATH [PATH] ...
-...
-```
-
-- VSCode users
-  - [generate-unit-tests](https://github.com/golang/vscode-go/blob/master/docs/features.md#generate-unit-tests) | Go for VS Code | Golang @ GitHub
+- See current enabled linters: [./.github/golangci.yml](./.github/golangci.yml)
 
 ## Pull Request (PR)
 
