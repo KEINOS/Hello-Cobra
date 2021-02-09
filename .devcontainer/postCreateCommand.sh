@@ -12,3 +12,6 @@ echo '"${HOME}/.welcome.sh"' >>"${HOME}/.bashrc"
 
 # Sim-llink Cobra configuration file to home
 ln -s "$(pwd)/.devcontainer/cobra.yaml" "${HOME}/.cobra.yaml"
+
+# Make sure go.mod matches the source code in the module.
+go mod tidy
