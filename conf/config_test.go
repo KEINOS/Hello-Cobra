@@ -1,4 +1,4 @@
-package util
+package conf
 
 import (
 	"testing"
@@ -8,7 +8,7 @@ import (
 
 func TestGetNameConf_Regular(t *testing.T) {
 	var (
-		confAppTmp = TypeConfigApp{
+		confAppTmp = TConfigApp{
 			PathDirConf:  ".",
 			NameFileConf: "sample_config",
 			NameTypeConf: "json",
@@ -22,13 +22,13 @@ func TestGetNameConf_Regular(t *testing.T) {
 
 func TestGetNameConf_WithExtInName(t *testing.T) {
 	var (
-		confApp TypeConfigApp
+		confApp TConfigApp
 		expect  string
 		actual  string
 	)
 
 	// User defined conf file path
-	confApp = TypeConfigApp{
+	confApp = TConfigApp{
 		PathFileConf: "./foo/bar.json", // Value from the command flag
 		PathDirConf:  ".",              // This should be ignored
 		NameFileConf: "sample_config",  // This should be ignored
@@ -39,7 +39,7 @@ func TestGetNameConf_WithExtInName(t *testing.T) {
 	assert.Equal(t, expect, actual, "If the conf name has an extension it should return as is.")
 
 	// App defined conf file
-	confApp = TypeConfigApp{
+	confApp = TConfigApp{
 		PathFileConf: "",
 		PathDirConf:  ".",
 		NameFileConf: "foo.yaml",
@@ -72,7 +72,7 @@ func Test_hasExtInName_Regular(t *testing.T) {
 
 func TestLoadConfig_Failure(t *testing.T) {
 	var (
-		ConfApp = TypeConfigApp{
+		ConfApp = TConfigApp{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "..",
 			NameFileConf: "sample_config",
@@ -92,7 +92,7 @@ func TestLoadConfig_Failure(t *testing.T) {
 
 func TestLoadConfig_Regular(t *testing.T) {
 	var (
-		confApp  TypeConfigApp
+		confApp  TConfigApp
 		confUser struct {
 			NameToGreet string `mapstructure:"name_to_greet"`
 		}
@@ -102,7 +102,7 @@ func TestLoadConfig_Regular(t *testing.T) {
 	)
 
 	// User defined config file
-	confApp = TypeConfigApp{
+	confApp = TConfigApp{
 		PathFileConf: "../sample_config.json",
 	}
 	confUser.NameToGreet = "bar"
@@ -116,7 +116,7 @@ func TestLoadConfig_Regular(t *testing.T) {
 	assert.Equal(t, expect, actual, "Returned unexpected value from the conf.")
 
 	// App defined config file
-	confApp = TypeConfigApp{
+	confApp = TConfigApp{
 		PathFileConf: "",
 		PathDirConf:  "..",
 		NameFileConf: "sample_config",
