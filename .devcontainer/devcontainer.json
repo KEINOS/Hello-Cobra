@@ -36,8 +36,7 @@
 		"ms-vsonline.vsonline",
 		"github.github-vscode-theme",
 		"github.vscode-pull-request-github",
-		"davidanson.vscode-markdownlint",
-		"znck.grammarly"
+		"davidanson.vscode-markdownlint"
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
