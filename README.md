@@ -9,15 +9,15 @@
 
 - [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Golang.
 
-This repo is a draft of [Cobra](https://cobra.dev/)'s "`Hello, world!`" sample, with 100% coverage tests.
-
-Which I couldn't find by googling with "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
+**This repo is a draft of [Cobra](https://cobra.dev/)'s "`Hello, world!`" sample with 100% code coverage**, and looking for better-practices all the time.
 
 ## Searching for the best practices of Cobra
 
-**We all know keeping 100% of coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% code coverage as a basis for implementing best-practices and keeping the coverage high and the complexity low as possible.
+**We all know keeping 100% of coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% code coverage, which couldn't be found by googling for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
 
-- Therefore this is a Forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-Repo. So any PR is welcome!!
+This repo aims to be the basis for implementing best-practices by keeping the code coverage as high and complexity as low as possible.
+
+- Therefore, this is a Forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-Repo. So any PR is welcome!!
 
 ## How to run tests
 
@@ -28,16 +28,15 @@ ok      github.com/KEINOS/Hello-Cobra/cmd     0.353s  coverage: 100.0% of statem
 ok      github.com/KEINOS/Hello-Cobra/util    0.015s  coverage: 100.0% of statements
 ```
 
-- If you find hard which/where to cover when coverage was less than 100%, then try:
+- When coverage was less than 100% and if you find hard which/where to cover and fix, then try:
 
   ```shellsession
   $ /bin/bash ./.github/run-tests-coverage.sh --verbose
-  ...
   ```
 
 ## How to run static analysis and lint for Golang
 
-We use [GolangCI-Lint](https://golangci-lint.run/), an aggregator of Go linters.
+We use [GolangCI-Lint](https://golangci-lint.run/) for static analysis and lint.
 
 ```shellsession
 $ golangci-lint run --config ./.github/golangci.yml ./...
@@ -50,21 +49,21 @@ $ golangci-lint run --config ./.github/golangci.yml ./...
 
 Any PR that might help Golang newbies understand is welcome.
 
-To evolve the samples in this repo through natural selection, any PR that passes the [merge tests](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/run-merge-tests.sh) will be auto-merged. (squash and merge)
+To evolve the samples through natural selection, **any PR that passes the [merge tests](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/run-merge-tests.sh) will be auto-merged**. (squash and merge)
 
 - [Auto-merge Conditions](https://github.com/KEINOS/Hello-Cobra/blob/main/.github/mergify.yml)
   - Files changed/added were: `*.md` and/or `*.go`
     - If other type of files were changed then at least 2 approved reviews are needed to merge.
-  - Pass the test of "`./.github/run-merge-tests.sh`" which include the below.
+  - Pass the tests of "`./.github/run-merge-tests.sh`" which includes the below.
     - Lint check. (`*.sh`, `*.go`)
     - Static analysis. (`*.sh`, `*.go`)
-    - Unit tests of Go. (`go test ./...`)
+    - Unit tests of Go.
   - 100% Code Coverage (`./.github/run-coverage-tests.sh --verbose`)
 
 So, if you have any better ideas, suggestions, practice, etc., then don't hesitate to PR. And if you feel something against any PR, then feel free to counter PR.
 
 - **We will not judge which is better**, as far as the merge-tests passes and not a prank-kind commit.
-- Don't forget to move on with the latest `main/master` branch before any commitment to avoid conflict.
+- To avoid conflict, don't forget to move on with the latest `main/master` branch before any commit.
 
 ### Draft PR Suggested
 
@@ -72,13 +71,15 @@ If you have your hands on something, then we suggest to [Draft PR](https://githu
 
 ## Questions
 
-If you have any questions about HOW-TOs on "Cobra", then let us find how in the [Discussions](https://github.com/KEINOS/Hello-Cobra/discussions) together.
+If you have any questions about this repo or "`Cobra`", then let us know in the [Discussions](https://github.com/KEINOS/Hello-Cobra/discussions) and find it out together.
+
+- https://github.com/KEINOS/Hello-Cobra/discussions
 
 ## Issue
 
-In this repo, **only bug-kind-reports are acceptable as an issue**. Such as bug report, vulnerability, license problem, and mal-attitude committer.
+In this repo, **only bug-kind-reports are acceptable as an issue**. Such as bug report, vulnerability, license problem, and reporting mal-attitude committer.
 
-For any suggestions, solutions, practices, typo-fix, bug-fix, and else to improve the sample, please [PR](https://github.com/KEINOS/Hello-Cobra/pulls)!
+- https://github.com/KEINOS/Hello-Cobra/issues
 
 ## License
 
