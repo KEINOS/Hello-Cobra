@@ -1,9 +1,3 @@
-/*
-Package cmd cmd_helloExtended.go defaines `ext` command which is an extended version
-of `hello` with various features and their tests.
-
-It's a sub command of `hello` (grand child of `root`) as well.
-*/
 package cmd
 
 import (
@@ -32,17 +26,17 @@ func createHelloExtCmd() *cobra.Command {
 		Use:   "ext [args]", // command name and additional usage.
 		Short: "Extended 'hello' command.",
 		Long: `About:
-  'ext' is a sub command of 'hello' which displays "Hello, world!" in various ways.
-  `,
+  'ext' is a sub command of 'hello' which displays "Hello, world!" in various ways.`,
 		Example: `
-  Hello-Cobra hello ext
-  Hello-Cobra hello ext foo
+  Hello-Cobra hello ext                   // Hello, world!
+  Hello-Cobra hello ext foo               // Hello, foo!
+  Hello-Cobra hello ext foo bar           // Hello, foo bar!
+  Hello-Cobra hello ext --who foo bar     // Hello, foo and bar!
+  Hello-Cobra hello ext --who "foo bar"   // Hello, foo bar!
+  Hello-Cobra hello ext foo bar --reverse // !rab oof ,olleH
 
   Hello-Cobra hello ext -h
-  Hello-Cobra hello ext --help
-
-  Hello-Cobra hello ext --reverse foo bar
-  `,
+  Hello-Cobra hello ext --help`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return runHelloExt(cmd, args)
 		},

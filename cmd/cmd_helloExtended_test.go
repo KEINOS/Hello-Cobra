@@ -16,7 +16,7 @@ type TDataProvider []struct {
 }
 
 // ----------------------------------------------------------------------------
-//  Test functions
+//  Test Functions
 // ----------------------------------------------------------------------------
 
 func Test_helloExtCmd_NoFlags(t *testing.T) {

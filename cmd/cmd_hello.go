@@ -1,10 +1,3 @@
-/*
-Package cmd cmd_hello.go defines `hello` command which simply displays "Hello, world!".
-
-It's a child of `root` command.
-For more detailed sample see `ext` command ("helloExtended.go"), which is the child
-command of `hello`.
-*/
 package cmd
 
 import (

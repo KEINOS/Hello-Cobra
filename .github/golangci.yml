@@ -111,8 +111,6 @@ linters-settings:
       - TODO
       - BUG
       - FIXME
-      - NOTE
-      - SEEISSUE
   gofmt:
     # simplify code: gofmt with `-s` option, true by default
     simplify: true
