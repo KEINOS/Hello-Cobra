@@ -1,5 +1,5 @@
 /*
-Package cmd root
+Package cmd cmd_root_test.go
 */
 package cmd
 

@@ -1,5 +1,5 @@
 /*
-Package cmd helloExtended.go defaines `ext` command which is an extended version
+Package cmd cmd_helloExtended.go defaines `ext` command which is an extended version
 of `hello` with various features and their tests.
 
 It's a sub command of `hello` (grand child of `root`) as well.

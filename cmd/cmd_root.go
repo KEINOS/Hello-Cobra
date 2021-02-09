@@ -1,5 +1,5 @@
 /*
-Package cmd root.go defines `root` command, the mother command of all the commands.
+Package cmd cmd_root.go defines `root` command, the mother command of all the commands.
 
 Define common things here. Also note that each child(sub commands) of root command
 should be added/registered themself in their `init()` via `rootCmd.AddCommand()`.
