@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/KEINOS/Hello-Cobra/util"
+	"github.com/KEINOS/Hello-Cobra/conf"
 	"github.com/spf13/cobra"
 )
 
@@ -40,7 +40,7 @@ type TypeConfUser struct {
 
 var (
 	// ConfApp is the basic app settings.
-	ConfApp = util.TypeConfigApp{
+	ConfApp = conf.TypeConfigApp{
 		PathDirConf:        ".",
 		NameFileConf:       "config",
 		NameTypeConf:       "json",
@@ -126,9 +126,9 @@ func init() {}
 
 // loadConfig sets the object in the arg with the results exits with an error if user defined conf file didn't exist.
 // Otherwise searches the default file and if not found then use the default value.
-func loadConfig(configApp *util.TypeConfigApp, configUser interface{}) {
+func loadConfig(configApp *conf.TypeConfigApp, configUser interface{}) {
 	// Overwrite "configUser" with conf file value if file found.
-	if err := util.LoadConfig(*configApp, &configUser); err != nil {
+	if err := conf.LoadConfig(*configApp, &configUser); err != nil {
 		// Exits if user defined conf file fails to read
 		if "" != configApp.PathFileConf {
 			msg := fmt.Errorf("Failed to read configuration file.\n  Error msg: %v", err)

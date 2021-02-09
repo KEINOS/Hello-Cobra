@@ -1,5 +1,5 @@
 /*
-Package util config.go defines functions to read file configuration using Viper.
+Package conf config.go defines functions to read file configuration using Viper.
 
 It was separated to a different package from `cmd` to ease testing and re-use.
 
@@ -10,7 +10,7 @@ It was separated to a different package from `cmd` to ease testing and re-use.
   	- https://github.com/nirasan/cobra-viper-example @ GitHub
 
 */
-package util
+package conf
 
 import (
 	"path/filepath"

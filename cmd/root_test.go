@@ -7,7 +7,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/KEINOS/Hello-Cobra/util"
+	"github.com/KEINOS/Hello-Cobra/conf"
 	"github.com/kami-zh/go-capturer"
 	"github.com/stretchr/testify/assert"
 )
@@ -22,7 +22,7 @@ func Test_loadConfigFail(t *testing.T) {
 		expectExitCode int
 		actualExitCode int = 0 // This should turn into 1
 
-		confAppDummy  util.TypeConfigApp
+		confAppDummy  conf.TypeConfigApp
 		confUserDummy struct {
 			NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
 		}
@@ -35,7 +35,7 @@ func Test_loadConfigFail(t *testing.T) {
 
 	var capturedMsg string = capturer.CaptureStdout(func() {
 		// Test user defined bad file path
-		confAppDummy = util.TypeConfigApp{
+		confAppDummy = conf.TypeConfigApp{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "",
 			NameFileConf: "",
