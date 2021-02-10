@@ -3,35 +3,37 @@
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": {
-            // Language
-            "LANG_LOCALNAME": "",
-            "LANG_LOCALE": "",
-			// Update the VARIANT arg to pick a version of Go: 1, 1.15, 1.14
+			// Go version: 1, 1.15, 1.14
 			"VARIANT": "1.15",
 			// Options
-			"INSTALL_NODE": "true",
+			"INSTALL_NODE": "false",
 			"NODE_VERSION": "lts/*"
 		}
 	},
-    "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-
-    // Set *default* container specific settings.json values on container create.
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt", "seccomp=unconfined",
+        "--env-file",".devcontainer/devcontainer.env"
+    ],
+    // Set VSCode settings
 	"settings": {
-        "terminal.integrated.shell.linux": "/bin/bash",
-        "terminal.integrated.shellArgs.linux": ["-l"],
-		"go.toolsManagement.checkForUpdates": "proxy",
-		"go.useLanguageServer": true,
 		"go.gopath": "/go",
 		"go.goroot": "/usr/local/go",
-		"go.toolsGopath": "/go/bin"
+        "go.lintFlags": ["--enable-all", "--new"],
+		"go.toolsGopath": "/go/bin",
+		"go.toolsManagement.checkForUpdates": "proxy",
+		"go.useLanguageServer": true,
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "terminal.integrated.shellArgs.linux": ["-l"]
 	},
 
-	// Add the IDs of extensions you want to be installed when the container is created.
+	// VSCode extension ID to be installed
 	"extensions": [
 		"golang.Go",
 		"editorconfig.editorconfig",
 		"foxundermoon.shell-format",
         "ms-ceintl.vscode-language-pack-ja",
+        "ms-ceintl.vscode-language-pack-es",
         "ms-azuretools.vscode-docker",
 		"ms-vsonline.vsonline",
 		"github.github-vscode-theme",
@@ -40,8 +42,8 @@
 	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "/bin/bash /postCreateCommand.sh;",
+	"postCreateCommand": "/bin/bash /postCreateCommand.sh;"
 
 	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	// "remoteUser": "vscode"
+	//"remoteUser": "vscode"
 }
