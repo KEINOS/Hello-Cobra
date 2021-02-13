@@ -21,11 +21,15 @@ import (
 
 // TConfigApp defines the data structure to store basic config of the app.
 type TConfigApp struct {
+	// one-liner-conf
+
 	PathFileConf string // File path of config. If set, will have priority than NameFileConf and PathDirConf.
+
+	// parted conf
+
 	PathDirConf  string // Dir path of config to search.
 	NameFileConf string // File name of config file. May or may not have an extension.
-	// File extension of the config file. REQUIRED if the conf file does not have the extension in the name.
-	NameTypeConf string
+	NameTypeConf string // File extension. REQUIRED if the conf file does not have the extension.
 
 	IsUsingDefaultConf bool // Flag to determine if the app is using the default value or conf file value.
 }
@@ -43,13 +47,31 @@ func (c TConfigApp) GetNameConf() string {
 	return c.NameFileConf + "." + c.NameTypeConf
 }
 
-// LoadConfig stores values from the config file or env variables to userConfig.
+// LoadConfig() stores values from the config file or env variables to userConfig.
 //
-// @args appConfig  TConfigApp  : Basic application config to read the conf file.
-//
-// @args userConfig struct         : An object to be stored the values from conf file.
-//
-// @return err      error          : nil if success. Error msg if fails to read/store values from conf file.
+// @args
+//     appConfig  TConfigApp : Basic configuration to read the conf file.
+//     userConfig struct     : An object to store values from conf file.
+// @return
+//     err        error      : If fails to read/store values from conf file returns error othersise nil.
+// Usage:
+//   type TConfUser struct {
+//       MyValue string `mapstructure:"my_value"`
+//   }
+//   var (
+//       configApp = conf.TConfigApp{
+//           PathDirConf:        ".",
+//           NameFileConf:       "userConfig",
+//           NameTypeConf:       "json",
+//       }
+//       configUser = TConfUser{
+//           MyValue: "",
+//       }
+//   )
+//   if err := conf.LoadConfig(*configApp, &configUser); err != nil {
+//       // do something with the error
+//   }
+//   myValue := configUser.MyValue
 func LoadConfig(appConfig TConfigApp, userConfig interface{}) (err error) {
 	// Reset current stored values in viper
 	viper.Reset()
@@ -68,17 +90,17 @@ func LoadConfig(appConfig TConfigApp, userConfig interface{}) (err error) {
 		viper.SetConfigType(appConfig.NameTypeConf)
 	}
 
-	// Search and read values from the config file.
+	// Search and read values from the config file and stores to "userConfig"
 	err = viper.ReadInConfig()
 	if err == nil {
-		// Map the read config values into "userConfig" object
+		// Map the read config values
 		err = viper.Unmarshal(&userConfig)
 	}
 
 	return err // return error if viper fails to read or map the values
 }
 
-// hasExtInName returns true if the nameFile contains a file extension which viper can detect.
+// hasExtInName() returns true if the nameFile contains a file extension which viper can detect.
 func hasExtInName(nameFile string) bool {
 	var extWithNoDot string = strings.TrimLeft(filepath.Ext(nameFile), ".")
 
