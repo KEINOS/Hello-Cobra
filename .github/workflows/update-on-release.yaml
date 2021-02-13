@@ -1,4 +1,4 @@
-name: Release pkg.go.dev
+name: Update codecov.io
 
 on:
   workflow_dispatch:
@@ -11,8 +11,15 @@ on:
 
 jobs:
   build:
-    name: Request go get of the package
     runs-on: ubuntu-latest
     steps:
-    - name: Pull new module version
-      uses: andrewslotin/go-proxy-pull-action@master
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '1.15'
+      - name: Run coverage
+        run: go test -race -coverprofile=coverage.txt -covermode=atomic
+      - name: Upload coverage to Codecov
+        run: bash <(curl -s https://codecov.io/bash)

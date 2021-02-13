@@ -15,7 +15,7 @@ jobs:
           pwd && \
           cd ./.devcontainer && \
           docker build -t test:ci .
-      - name: Run the tests on the container
+      - name: Run full-tests on the container
         run: |
           pwd && \
           docker run \
