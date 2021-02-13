@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/KEINOS/Hello-Cobra/conf"
@@ -8,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_loadConfigFail(t *testing.T) {
+func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 	// Save current function in osExt
 	oldOsExit := osExit
 	// restore osExit at the end
@@ -29,8 +30,8 @@ func Test_loadConfigFail(t *testing.T) {
 		actualExitCode = 1
 	}
 
-	var capturedMsg string = capturer.CaptureStdout(func() {
-		// Test user defined bad file path
+	var capturedMsg string = capturer.CaptureStderr(func() {
+		// Test user defined bad (non-existing) file path
 		confAppDummy = conf.TConfigApp{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "",
@@ -42,6 +43,58 @@ func Test_loadConfigFail(t *testing.T) {
 		loadConfig(&confAppDummy, &confUserDummy)
 	})
 
-	// Assertion
-	assert.Equal(t, expectExitCode, actualExitCode, "Msg: "+capturedMsg)
+	// exit code assertion
+	assert.Equal(t, expectExitCode, actualExitCode,
+		"If user defined path doesn't exist then should exit with 1. Captured STDERR: "+capturedMsg,
+	)
+	// containing error message assertion
+	assert.Contains(t, strings.TrimSpace(capturedMsg), "Failed to read configuration file")
+}
+
+func Test_loadConfig_UseDefault(t *testing.T) {
+	// Save current function in osExt
+	oldOsExit := osExit
+	// restore osExit at the end
+	defer func() { osExit = oldOsExit }()
+
+	var (
+		expectExitCode int
+		actualExitCode int = 1 // This should turn into 0
+		expectFlag     bool
+		actualFlag     bool
+
+		confAppDummy  conf.TConfigApp
+		confUserDummy struct {
+			NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
+		}
+	)
+
+	// Assign mock of "osExit" to capture the exit-status-code.
+	osExit = func(code int) {
+		actualExitCode = 0
+	}
+
+	var capturedMsg string = capturer.CaptureStderr(func() {
+		// Test app defined non-existing file path
+		confAppDummy = conf.TConfigApp{
+			PathFileConf: "",
+			PathDirConf:  ".",
+			NameFileConf: "config",
+			NameTypeConf: "json",
+		}
+		confUserDummy.NameToGreet = "bar"
+		expectExitCode = 0
+		loadConfig(&confAppDummy, &confUserDummy)
+	})
+
+	// Exit code assertion
+	assert.Equal(t, expectExitCode, actualExitCode,
+		"If app defined conf file does not exist and using default then should not exit. Captured STDERR:"+capturedMsg,
+	)
+	// Default flag assertion
+	expectFlag = true
+	actualFlag = confAppDummy.IsUsingDefaultConf
+	assert.Equal(t, expectFlag, actualFlag,
+		"Property 'TConfigApp.IsUsingDefaultConf' should be true when using default.(Only when user didn't define)",
+	)
 }
