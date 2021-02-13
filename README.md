@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD001 MD041 -->
 [![Tests before merge](https://github.com/KEINOS/Hello-Cobra/workflows/Tests%20before%20merge/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22Tests+before+merge%22 "View status of the action on GitHub")
-[![100% Coverage](https://github.com/KEINOS/Hello-Cobra/workflows/100%25%20Coverage/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3A%22100%25+Coverage%22 "View status of the action on GitHub")
 [![golangci-lint](https://github.com/KEINOS/Hello-Cobra/workflows/golangci-lint/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions?query=workflow%3Agolangci-lint "View status of the action on GitHub")
 [![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/Hello-Cobra)](https://goreportcard.com/report/github.com/KEINOS/Hello-Cobra "View on Go Report Card")
+[![codecov](https://codecov.io/gh/KEINOS/Hello-Cobra/branch/main/graph/badge.svg?token=R2B9UBIEUI)](https://codecov.io/gh/KEINOS/Hello-Cobra "View details on CodeCov.IO")
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
 # "Hello, world!" Sample of Cobra with Unit Tests and 100% Coverage
