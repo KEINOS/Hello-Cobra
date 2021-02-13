@@ -23,7 +23,6 @@ jobs:
           go-version: ${{ matrix.go-version }}
 
       - name: Use Cache
-        if: runner.os != 'Windows'
         uses: actions/cache@v2
         with:
           path: ~/go/pkg/mod
@@ -40,8 +39,8 @@ jobs:
         run: |
           go install
           go mod tidy
-          go vet ./...
-          go test ./...
+          go vet -v ./...
+          go test -cover -v ./...
 
       - name: Run coverage (Linux/macOS)
         if: runner.os != 'Windows'
