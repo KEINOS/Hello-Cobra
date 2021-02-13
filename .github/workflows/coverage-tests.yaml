@@ -17,4 +17,6 @@ jobs:
           go-version: "1.15.x"
 
       - name: Run coverage
-        run: /bin/bash ./.github/run-tests-coverage.sh --verbose
+        run: |
+          go mod tidy
+          /bin/bash ./.github/run-tests-coverage.sh --verbose
