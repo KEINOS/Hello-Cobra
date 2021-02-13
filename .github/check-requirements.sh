@@ -1,4 +1,5 @@
 #!/bin/sh
+# shellcheck disable=SC2016
 # =============================================================================
 #  This script checks if the commands and packages required for merge testing
 #  are installed.
@@ -11,7 +12,6 @@ SUCCESS=0
 FAILURE=1
 TRUE=0
 FALSE=1
-NAME_SCRIPT="$0"
 
 # -----------------------------------------------------------------------------
 #  Functions
@@ -22,7 +22,7 @@ isAvailable() {
     url_reference="${3:?'URL for reference missing'}"
 
     printf -- '  %s ... ' "$command_tmp"
-    if ! which $command_tmp 1>/dev/null 2>/dev/null; then
+    if ! which "$command_tmp" 1>/dev/null 2>/dev/null; then
         flag_covered_all=$FALSE
         echo 'NG'
         echo >&2 "    - ABOUT  : ${msg_error}"
