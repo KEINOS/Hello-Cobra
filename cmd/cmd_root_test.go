@@ -59,7 +59,7 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 
 	var (
 		expectExitCode int
-		actualExitCode int = 1 // This should turn into 0
+		actualExitCode int
 		expectFlag     bool
 		actualFlag     bool
 
@@ -71,7 +71,7 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 
 	// Assign mock of "osExit" to capture the exit-status-code.
 	osExit = func(code int) {
-		actualExitCode = 0
+		actualExitCode = 0 // If PathFileConf is empty then should not reach here.
 	}
 
 	var capturedMsg string = capturer.CaptureStderr(func() {
@@ -79,17 +79,19 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 		confAppDummy = conf.TConfigApp{
 			PathFileConf: "",
 			PathDirConf:  ".",
-			NameFileConf: "config",
+			NameFileConf: "dummy_config",
 			NameTypeConf: "json",
 		}
 		confUserDummy.NameToGreet = "bar"
-		expectExitCode = 0
+		actualExitCode = 1
+		expectExitCode = 1
 		loadConfig(&confAppDummy, &confUserDummy)
 	})
 
 	// Exit code assertion
 	assert.Equal(t, expectExitCode, actualExitCode,
-		"If app defined conf file does not exist and using default then should not exit. Captured STDERR:"+capturedMsg,
+		"If app defined conf file does not exist and using default then should not call 'osExit()'."+
+			"Captured STDERR:"+capturedMsg,
 	)
 	// Default flag assertion
 	expectFlag = true
