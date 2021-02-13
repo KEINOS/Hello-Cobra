@@ -35,7 +35,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: go mod download
 
-      - name: Run coverage
+      - name: Run coverage (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          go install
+          go mod tidy
+          go vet ./...
+          go test ./...
+
+      - name: Run coverage (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
           go install
           go mod tidy
