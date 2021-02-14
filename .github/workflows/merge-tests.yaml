@@ -51,4 +51,6 @@ jobs:
           skip-go-installation: true
 
       - name: Run requirement check
-        run: ./.github/check-requirements.sh
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+          ./.github/check-requirements.sh
