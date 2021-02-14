@@ -29,10 +29,6 @@ jobs:
 
       - name: Run shfmt and shellcheck
         uses: luizm/action-sh-checker@v0.1.12
-        env:
-          SHFMT_OPTS: -d # error with a diff when the formatting differs
-        with:
-          sh_checker_comment: false
 
       - name: Run gofmt
         uses: Jerome1337/gofmt-action@v1.0.4
