@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  docker_test:
+  merge_tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
@@ -27,8 +27,14 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: go mod download
 
-      - name: Run shfmt and shellcheck
-        uses: luizm/action-sh-checker@v0.1.12
+      - name: Run shellcheck (pre-installed)
+        run: |
+          find . -name '*.sh' -type f -print0 | xargs -0 shellcheck
+
+      - name: Install and run shfmt
+        run: |
+          GO111MODULE=on go get mvdan.cc/sh/v3/cmd/shfmt
+          find . -name '*.sh' -type f -print0 | xargs -0 shfmt -d
 
       - name: Run gofmt
         uses: Jerome1337/gofmt-action@v1.0.4
