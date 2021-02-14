@@ -1,5 +1,4 @@
 #!/bin/sh
-# shellcheck disable=SC2016
 # =============================================================================
 #  This script checks if the commands and packages required for merge testing
 #  are installed.
@@ -43,25 +42,28 @@ echo
 echo 'Shell scripts:'
 isAvailable \
     shellcheck \
-    '`shellcheck` is a static analysis tool for shell scripts.' \
+    '"shellcheck" is a static analysis tool for shell scripts.' \
     'https://github.com/koalaman/shellcheck'
+
 isAvailable shfmt \
-    '`shfmt` is a linter for shell scripts to support POSIX Shell, Bash, and mksh.' \
+    '"shfmt" is a linter for shell scripts to support POSIX Shell, Bash, and mksh.' \
     'https://github.com/mvdan/sh'
 
 echo
 echo 'Go programs:'
 isAvailable \
     go \
-    '`go` is required as a matter of course.' \
+    '"go" is required as a matter of course.' \
     'https://golang.org/'
+
 isAvailable \
     gofmt \
-    '`gofmt` is a formatter for golang.' \
+    '"gofmt" is a formatter for golang.' \
     'https://golang.org/cmd/gofmt/'
+
 isAvailable \
     golangci-lint \
-    '`golangci-lint` is is a Go linters aggregator.' \
+    '"golangci-lint" is is a Go linters aggregator.' \
     'https://golangci-lint.run/'
 
 if [ $flag_covered_all -ne 0 ]; then
