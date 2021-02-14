@@ -75,9 +75,9 @@ RUN url_download="https://github.com/koalaman/shellcheck/releases/download/lates
     && shellcheck --version \
     && rm -r "$path_tmp_dir"
 
-# golangci-lint - The fast Go linters runner.
-# binary will be $(go env GOPATH)/bin/golangci-lint
-RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.36.0 \
+# golangci-lint - The fast Go linters runner. Version=latest
+# binary will be installed under: $(go env GOPATH)/bin/golangci-lint
+RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin \
     # Smoke test
     && golangci-lint --version
 

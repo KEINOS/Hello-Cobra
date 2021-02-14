@@ -1,4 +1,6 @@
-# We do not want to version control the built binary.
-# Though we need this directory for access control purposes.
+# Output directory of built/compiled application via "../build-app.sh"
+#
+# We do not want to version control the built binary. Though we need
+# this directory for access control purposes.
 *
 !.gitignore

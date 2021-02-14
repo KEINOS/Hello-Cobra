@@ -53,7 +53,7 @@ GOARCH:
   For supported architectures specify '--list' option.
 
 GOARM:
-  The 3rd argument is the ARM version. Such as:
+  The 3rd argument is the ARM variant/version. Such as:
 
     "5", "6", "7".(Default: empty)
 
@@ -69,20 +69,20 @@ Sample usage:
   ./build-app.sh --list
   ./build-app.sh -l
 
-  # Linux (Intel)
+  # Build Linux (Intel) binary
   ./build-app.sh linux
 
-  # macOS
+  # Build macOS binary
   ./build-app.sh darwin        #Equivalent to: ./build-app.sh darwin amd64
   ./build-app.sh darwin arm64
 
-  # Windows10
+  # Build Windows10 binary
   ./build-app.sh windows
 
-  # Raspberry Pi 3
+  # Build Raspberry Pi 3 binary
   ./build-app.sh linux arm 7
 
-  # QNAP ARM5
+  # Build QNAP ARM5 binary
   ./build-app linux arm 5
 
 HEREDOC
@@ -104,7 +104,7 @@ listPlatforms() {
         echo "$list" | indentSTDIN 1>&2
         exit $FAILURE
     }
-    echo 'List of available platforms. (OS/Architecture)'
+    echo 'List of available platforms to build. (GOOS/GOARCH)'
     echo "$list" | indentSTDIN
     exit $SUCCESS
 }

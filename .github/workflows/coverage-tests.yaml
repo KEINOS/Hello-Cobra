@@ -5,21 +5,45 @@ on:
   pull_request:
 
 jobs:
-  docker_test:
-    runs-on: ubuntu-latest
+  coverage:
+    name: Unit test and coverage
+
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Build the test image
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: 1.15.x
+
+      - name: Use Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download Modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: go mod download
+
+      - name: Run coverage (Windows)
+        if: runner.os == 'Windows'
         run: |
-          pwd && \
-          cd ./.devcontainer && \
-          docker build -t test:ci .
-      - name: Run the tests on the container
+          go install
+          go mod tidy
+          go vet -v ./...
+          go test -cover -v ./...
+
+      - name: Run coverage (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
-          pwd && \
-          docker run \
-            -v $(pwd):/workspaces/Hello-Cobra \
-            -w /workspaces/Hello-Cobra \
-            test:ci \
-            /bin/bash ./.github/run-tests-coverage.sh --verbose
+          go install
+          go mod tidy
+          /bin/bash ./.github/run-tests-coverage.sh --verbose

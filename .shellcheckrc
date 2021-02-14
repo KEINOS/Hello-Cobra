@@ -1,0 +1,8 @@
+# =============================================================================
+#  ShellCheck Configuration
+# =============================================================================
+#  See: https://github.com/koalaman/shellcheck/wiki/
+
+# Disable
+#   SC2230: https://github.com/koalaman/shellcheck/wiki/SC2230
+disable=SC2230
