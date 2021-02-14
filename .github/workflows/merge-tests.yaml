@@ -49,3 +49,6 @@ jobs:
           args: --config ./.github/golangci.yml
           # use pre-installed Go
           skip-go-installation: true
+
+      - name: Run requirement check
+        run: ./.github/check-requirements.sh
