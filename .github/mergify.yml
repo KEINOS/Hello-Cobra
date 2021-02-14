@@ -2,7 +2,7 @@ pull_request_rules:
     - name: automatic merge on CI success and 2 approved reviews
       conditions:
         - "#approved-reviews-by>=2"
-        - "check-success=docker_test"
+        - "check-success=merge_tests"
         - base=main
         - -draft
       actions:
@@ -11,7 +11,7 @@ pull_request_rules:
           strict: smart+fasttrack
     - name: automatic merge on CI success if only markdown and/or Golang files were changed
       conditions:
-        - "check-success=docker_test"
+        - "check-success=merge_tests"
         - files~=.\.(?i)(md|go)$
         - base=main
         - -draft
