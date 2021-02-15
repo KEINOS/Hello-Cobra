@@ -113,16 +113,16 @@ func convertShellArgsToSlice(t *testing.T, str string) []string {
 		t.Fatalf("args parse error: %+v\n", err)
 	}
 
-	if 0 == len(cmdArgs) {
+	if len(cmdArgs) == 0 {
 		t.Fatalf("args parse error. Command contains fatal strings: %+v\n", str)
 	}
 
 	// `hello cmd` dependent check
-	if "hello" != cmdArgs[0] {
+	if cmdArgs[0] != "hello" {
 		t.Fatal("format error. The command must start with 'hello'.")
 	}
 
-	if "ext" != cmdArgs[1] {
+	if cmdArgs[1] != "ext" {
 		t.Fatal("format error. The command must start with 'hello cmd'.")
 	}
 

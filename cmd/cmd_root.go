@@ -78,12 +78,12 @@ func init() {}
 
 // loadConfig sets the object in the arg with the results exits with an error if user defined conf file didn't exist.
 // Otherwise searches the default file and if not found then use the default value.
-func loadConfig(configApp *conf.TConfigApp, configUser interface{}) {
+func loadConfig(configApp *conf.TConfigFile, configUser interface{}) {
 	// Overwrite "configUser" with conf file value if file found.
-	if err := conf.LoadConfig(*configApp, &configUser); err != nil {
+	if err := conf.LoadFile(*configApp, &configUser); err != nil {
 		// Exits if user defined conf file fails to read
-		if "" != configApp.PathFileConf {
-			msg := fmt.Errorf("Failed to read configuration file.\n  Error msg: %v", err)
+		if configApp.PathFileConf != "" {
+			msg := fmt.Errorf("failed to read configuration file.\n  Error msg: %v", err)
 			osExit(EchoStdErrIfError(msg))
 		}
 		// Conf file not found. Using default. Set flag to true.
