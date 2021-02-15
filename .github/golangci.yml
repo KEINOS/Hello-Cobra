@@ -53,6 +53,7 @@ linters:
     - gofmt
     - gofumpt     # Stricter gofmt
     - golint
+    - gosec       # Inspects source code for security problems
     - gosimple    # Linter for Go source code that specializes in simplifying a code
     - govet       # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
     - ifshort
@@ -65,6 +66,8 @@ linters:
     - nestif      # Limit if statements nested deep
     - nolintlint  # Don't allow 'nolint' annotation w/out a description
     - nlreturn    # Requires a new line before return
+    - prealloc    # Finds slice declarations that could potentially be preallocated
+    - predeclared # Find code that shadows one of Go's predeclared identifiers
     - staticcheck # Staticcheck is a go vet on steroids, applying a ton of static analysis checks
     - structcheck # Finds unused struct fields
     - stylecheck
