@@ -45,10 +45,9 @@ jobs:
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
-          version: v1.36
+          version: latest
           args: --config ./.github/golangci.yml
-          # use pre-installed Go
-          skip-go-installation: true
+          skip-go-installation: true # use pre-installed Go
 
       - name: Run requirement check
         run: |
