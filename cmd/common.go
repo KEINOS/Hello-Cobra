@@ -35,7 +35,7 @@ type TConfUser struct {
 
 var (
 	// ConfApp is the basic app settings.
-	ConfApp = conf.TConfigApp{
+	ConfApp = conf.TConfigFile{
 		PathDirConf:        ".",
 		NameFileConf:       "config",
 		NameTypeConf:       "json",

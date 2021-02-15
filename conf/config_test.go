@@ -8,7 +8,7 @@ import (
 
 func TestGetNameConf_Regular(t *testing.T) {
 	var (
-		confAppTmp = TConfigApp{
+		confAppTmp = TConfigFile{
 			PathDirConf:  ".",
 			NameFileConf: "sample_config",
 			NameTypeConf: "json",
@@ -22,13 +22,13 @@ func TestGetNameConf_Regular(t *testing.T) {
 
 func TestGetNameConf_WithExtInName(t *testing.T) {
 	var (
-		confApp TConfigApp
+		confApp TConfigFile
 		expect  string
 		actual  string
 	)
 
 	// User defined conf file path
-	confApp = TConfigApp{
+	confApp = TConfigFile{
 		PathFileConf: "./foo/bar.json", // Value from the command flag
 		PathDirConf:  ".",              // This should be ignored
 		NameFileConf: "sample_config",  // This should be ignored
@@ -39,7 +39,7 @@ func TestGetNameConf_WithExtInName(t *testing.T) {
 	assert.Equal(t, expect, actual, "If the conf name has an extension it should return as is.")
 
 	// App defined conf file
-	confApp = TConfigApp{
+	confApp = TConfigFile{
 		PathFileConf: "",
 		PathDirConf:  ".",
 		NameFileConf: "foo.yaml",
@@ -70,9 +70,9 @@ func Test_hasExtInName_Regular(t *testing.T) {
 	assert.Equal(t, expect, actual, "Available extension for Viper should return true.")
 }
 
-func TestLoadConfig_Failure(t *testing.T) {
+func TestLoadFile_Failure(t *testing.T) {
 	var (
-		ConfApp = TConfigApp{
+		ConfApp = TConfigFile{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "..",
 			NameFileConf: "sample_config",
@@ -86,13 +86,13 @@ func TestLoadConfig_Failure(t *testing.T) {
 		}
 	)
 
-	err := LoadConfig(ConfApp, ConfUser)
+	err := LoadFile(ConfApp, ConfUser)
 	assert.Error(t, err, "When un-existing path was provided it should return an error.")
 }
 
-func TestLoadConfig_Regular(t *testing.T) {
+func TestLoadFile_Regular(t *testing.T) {
 	var (
-		confApp  TConfigApp
+		confApp  TConfigFile
 		confUser struct {
 			NameToGreet string `mapstructure:"name_to_greet"`
 		}
@@ -102,12 +102,12 @@ func TestLoadConfig_Regular(t *testing.T) {
 	)
 
 	// User defined config file
-	confApp = TConfigApp{
+	confApp = TConfigFile{
 		PathFileConf: "../sample_config.json",
 	}
 	confUser.NameToGreet = "bar"
 
-	if err = LoadConfig(confApp, &confUser); err != nil {
+	if err = LoadFile(confApp, &confUser); err != nil {
 		t.Fatalf("Failed to read conf file for test.\nError msg: %v", err)
 	}
 
@@ -116,7 +116,7 @@ func TestLoadConfig_Regular(t *testing.T) {
 	assert.Equal(t, expect, actual, "Returned unexpected value from the conf.")
 
 	// App defined config file
-	confApp = TConfigApp{
+	confApp = TConfigFile{
 		PathFileConf: "",
 		PathDirConf:  "..",
 		NameFileConf: "sample_config",
@@ -124,7 +124,7 @@ func TestLoadConfig_Regular(t *testing.T) {
 	}
 	confUser.NameToGreet = "bar"
 
-	if err = LoadConfig(confApp, &confUser); err != nil {
+	if err = LoadFile(confApp, &confUser); err != nil {
 		t.Fatalf("Failed to read conf file for test.\nError msg: %v", err)
 	}
 

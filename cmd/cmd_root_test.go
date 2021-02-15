@@ -19,7 +19,7 @@ func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 		expectExitCode int
 		actualExitCode int = 0 // This should turn into 1
 
-		confAppDummy  conf.TConfigApp
+		confAppDummy  conf.TConfigFile
 		confUserDummy struct {
 			NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
 		}
@@ -32,7 +32,7 @@ func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 
 	var capturedMsg string = capturer.CaptureStderr(func() {
 		// Test user defined bad (non-existing) file path
-		confAppDummy = conf.TConfigApp{
+		confAppDummy = conf.TConfigFile{
 			PathFileConf: "./foobar.json",
 			PathDirConf:  "",
 			NameFileConf: "",
@@ -48,7 +48,7 @@ func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 		"If user defined path doesn't exist then should exit with 1. Captured STDERR: "+capturedMsg,
 	)
 	// containing error message assertion
-	assert.Contains(t, strings.TrimSpace(capturedMsg), "Failed to read configuration file")
+	assert.Contains(t, strings.TrimSpace(capturedMsg), "failed to read configuration file")
 }
 
 func Test_loadConfig_UseDefault(t *testing.T) {
@@ -63,7 +63,7 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 		expectFlag     bool
 		actualFlag     bool
 
-		confAppDummy  conf.TConfigApp
+		confAppDummy  conf.TConfigFile
 		confUserDummy struct {
 			NameToGreet string `mapstructure:"name_to_greet"` // // Dont'f forget to define `mapstructure`
 		}
@@ -76,7 +76,7 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 
 	var capturedMsg string = capturer.CaptureStderr(func() {
 		// Test app defined non-existing file path
-		confAppDummy = conf.TConfigApp{
+		confAppDummy = conf.TConfigFile{
 			PathFileConf: "",
 			PathDirConf:  ".",
 			NameFileConf: "dummy_config",
