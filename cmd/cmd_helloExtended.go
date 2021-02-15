@@ -63,14 +63,14 @@ func getMsgToGreet(args []string) string {
 		argJoined string = strings.TrimSpace(strings.Join(args, " ")) // get arg value
 	)
 
-	if "" != greetTo && "" != argJoined {
+	if greetTo != "" && argJoined != "" {
 		to = greetTo + " and " + argJoined
 	} else {
-		if "" != greetTo {
+		if greetTo != "" {
 			to = greetTo
 		}
 
-		if "" != argJoined {
+		if argJoined != "" {
 			to = argJoined
 		}
 	}

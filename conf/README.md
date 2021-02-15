@@ -1,10 +1,10 @@
-# Package conf
+# package conf
 
-Directory of file-configuration package using [Viper](https://github.com/spf13/viper).
+Package `conf` reads values from a configuration file such as JSON, TOML, YAML and etc using [Viper](https://github.com/spf13/viper).
 
-- Note that this package may be used as JSON/YAML file reader but it's not designed to load MEGA sized file.
+- Note: Eventhough this package may be used as a file loader of JSON/YAML/etc but it's NOT designed to load a huge-size-file.
 
-## Sample usage in other package
+## Sample usage
 
 Pretend the user config file (`userConfig.json`) was as below:
 
@@ -28,13 +28,13 @@ type TDataUser struct {
 }
 
 var (
-    configFile = conf.TConfigApp{
+    configFile = conf.TConfigFile {
         PathDirConf:        ".",
         NameFileConf:       "userConfig",
         NameTypeConf:       "json",
     }
 
-    userValues = TDataUser{
+    userValues = TDataUser {
         MyValue: "default value",
     }
 )
@@ -47,6 +47,11 @@ if err := conf.LoadConfig(*configFile, &userValues); err != nil {
 // Use loaded value from the conf file
 myValue := userValues.MyValue
 
-// `myValue` expects to be "Cobra"
+// `myValue` expects to be "Cobra". If "./userConfig.json" didn't exist
+// then the value should be "default value".
 
 ```
+
+## TODO
+
+- [ ] Map the values from ENV variables that match

@@ -7,6 +7,8 @@ run:
   # include test files or not, default is true
   tests: true
 
+  fast: true
+
   # list of build tags, all linters use it. Default is empty list.
   build-tags:
     - golangci
@@ -38,9 +40,10 @@ output:
 # enabled linters. Conf settings follows.
 linters:
   enable:
+    - deadcode # Finds unused code
     - dogsled
     - dupl
-    - errcheck
+    - errcheck # Errcheck is a program for checking for unchecked errors in go programs. These unchecked errors can be critical bugs in some cases
     - funlen
     - gocognit
     - gocritic
@@ -50,8 +53,11 @@ linters:
     - gofmt
     - gofumpt     # Stricter gofmt
     - golint
-    - govet
+    - gosec       # Inspects source code for security problems
+    - gosimple    # Linter for Go source code that specializes in simplifying a code
+    - govet       # Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string
     - ifshort
+    - ineffassign # Detects when assignments to existing variables are not used
     - lll
     - maligned
     - megacheck   # gosimple, staticcheck, unused
@@ -60,9 +66,17 @@ linters:
     - nestif      # Limit if statements nested deep
     - nolintlint  # Don't allow 'nolint' annotation w/out a description
     - nlreturn    # Requires a new line before return
+    - prealloc    # Finds slice declarations that could potentially be preallocated
+    - predeclared # Find code that shadows one of Go's predeclared identifiers
+    - staticcheck # Staticcheck is a go vet on steroids, applying a ton of static analysis checks
+    - structcheck # Finds unused struct fields
+    - stylecheck
+    - typecheck   # Like the front-end of a Go compiler, parses and type-checks Go code
     - unconvert   # Detect unnecessary type conversions
+    - unused      # Checks Go code for unused constants, variables, functions and types
     #- testpackage # Limit use unexported functions and methods from source code in tests
     - thelper     # Enforce to call 't.Helper()' in the test helper function
+    - varcheck    # Finds unused global variables and constants
     - whitespace  # Limit unnecessary newlines at the start and end of functions, if, for, etc
     - wsl         # Enforce empty lines at the right places to make code more readable.
 
