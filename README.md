@@ -5,19 +5,19 @@
 [![codecov](https://codecov.io/gh/KEINOS/Hello-Cobra/branch/main/graph/badge.svg?token=R2B9UBIEUI)](https://codecov.io/gh/KEINOS/Hello-Cobra "View details on CodeCov.IO")
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
-# "Hello, world!" Sample of Cobra with Unit Tests and 100% Coverage
+# "Hello, world!" Sample of Cobra with 100% Code Coverage
 
-- [Cobra](https://cobra.dev/) is an awesome framework to help create CLI apps in Golang.
+- [Cobra](https://cobra.dev/) is an awesome framework of Golang to help create CLI apps.
 
-**This repo is a draft of [Cobra](https://cobra.dev/)'s "`Hello, world!`" sample with 100% code coverage**, and looking for better-practices all the time.
+**This repo is a sample of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**. Including [CI](./github/workflows/)s of static analysis, lint check and formatters to just say "Hello" to the world with Cobra. It is a draft forever, so feel free to PR!
 
 ## Searching for the best practices of Cobra
 
-**We all know keeping 100% of coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% code coverage, which couldn't be found by googling for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
+**We all know keeping 100% of code coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% of coverage, which couldn't be found by googling for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
 
 This repo aims to be the basis for implementing best-practices by keeping the code coverage as high and complexity as low as possible.
 
-- Therefore, this is a Forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-Repo. So any PR is welcome!!
+- Therefore, this is a forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-repo. So any PR is welcome!!
 
 ## How to run tests
 
@@ -31,6 +31,7 @@ ok      github.com/KEINOS/Hello-Cobra/util    0.015s  coverage: 100.0% of statem
 - When coverage was less than 100% and if you find hard which/where to cover and fix, then try:
 
   ```shellsession
+  $ # Unix/Linux users (POSIX compatible)
   $ /bin/bash ./.github/run-tests-coverage.sh --verbose
   ```
 
