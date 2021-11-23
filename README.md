@@ -1,5 +1,4 @@
 <!-- markdownlint-disable MD001 MD041 -->
-<!-- markdownlint-disable MD041 -->
 [![go1.15+](https://img.shields.io/badge/Go-1.15,%2016,%2017,%20latest-blue?logo=go)](https://github.com/KEINOS/dev-go/actions/workflows/go-versions.yml "Supported versions")
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
@@ -32,7 +31,7 @@ This repo aims to implement best-practices of `Cobra` but keeping the code cover
 
 - This repo is [GitHub Codespaces](https://github.com/features/codespaces) compatible. Press the `.`(dot) key to open VSCode online. (You may need to register to use Codespaces)
 - This repo is [VS Code + Docker](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) compatible as well. See the [./.devcontainer/README.md](./.devcontainer/README.md) for more details.
-- This repo updates monthly the `go.mod` and `go.sum` files if the unit tests passes on all Go v1.15, 16, 17, latest versions.
+- This repo updates monthly the `go.mod` and `go.sum` files if all the tests succeeds to run in all Go versions (Go v1.15~latest).
 
 ## License
 
