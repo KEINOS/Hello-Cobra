@@ -1,6 +1,7 @@
 # Workflow for various Go versions over Docker on every push.
-# This action caches the built Docker image for a month unless any change in the Dockerfile.
-name: go1.15+
+# This action caches the built Docker image for a day unless any change in the
+# Dockerfile was made.
+name: Test on Go 1.15,16,17
 
 on:
   workflow_dispatch:
