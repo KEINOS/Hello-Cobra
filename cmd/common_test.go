@@ -10,11 +10,11 @@ import (
 
 func TestEchoStdErrIfError(t *testing.T) {
 	var (
-		expectStatus int = 1
+		expectStatus = 1
 		actualStatus int
-		expectMsg    string = "foo bar"
+		expectMsg    = "foo bar"
 		actualMsg    string
-		errorMsg     error = errors.New(expectMsg)
+		errorMsg     = errors.New(expectMsg)
 	)
 
 	// Run the function and capture the STDERR msg and it's returned int value.
@@ -29,9 +29,9 @@ func TestEchoStdErrIfError(t *testing.T) {
 
 func TestEchoStdErrIfError_IsNil(t *testing.T) {
 	var (
-		expectStatus int    = 0
-		actualStatus int    = 1 // This should turn into 0
-		expectMsg    string = ""
+		expectStatus = 0
+		actualStatus = 1 // This should turn into 0
+		expectMsg    = ""
 		actualMsg    string
 	)
 

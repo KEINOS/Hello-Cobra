@@ -17,7 +17,7 @@ func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 
 	var (
 		expectExitCode int
-		actualExitCode int = 0 // This should turn into 1
+		actualExitCode = 0 // This should turn into 1
 
 		confAppDummy  conf.TConfigFile
 		confUserDummy struct {
@@ -30,7 +30,7 @@ func Test_loadConfig_UserDefinedPath_Fails(t *testing.T) {
 		actualExitCode = 1
 	}
 
-	var capturedMsg string = capturer.CaptureStderr(func() {
+	capturedMsg := capturer.CaptureStderr(func() {
 		// Test user defined bad (non-existing) file path
 		confAppDummy = conf.TConfigFile{
 			PathFileConf: "./foobar.json",
@@ -74,7 +74,7 @@ func Test_loadConfig_UseDefault(t *testing.T) {
 		actualExitCode = 0 // If PathFileConf is empty then should not reach here.
 	}
 
-	var capturedMsg string = capturer.CaptureStderr(func() {
+	capturedMsg := capturer.CaptureStderr(func() {
 		// Test app defined non-existing file path
 		confAppDummy = conf.TConfigFile{
 			PathFileConf: "",

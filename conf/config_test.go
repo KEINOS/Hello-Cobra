@@ -52,9 +52,9 @@ func TestGetNameConf_WithExtInName(t *testing.T) {
 
 func Test_hasExtInName_Failure(t *testing.T) {
 	var (
-		nameExt string = "sample_conf.html"
-		expect  bool   = false
-		actual  bool   = hasExtInName(nameExt)
+		nameExt = "sample_conf.html"
+		expect  = false
+		actual  = hasExtInName(nameExt)
 	)
 
 	assert.Equal(t, expect, actual, "Un-available extension for Viper should return false.")
@@ -62,9 +62,9 @@ func Test_hasExtInName_Failure(t *testing.T) {
 
 func Test_hasExtInName_Regular(t *testing.T) {
 	var (
-		nameFile string = "sample_conf.json"
-		expect   bool   = true
-		actual   bool   = hasExtInName(nameFile)
+		nameFile = "sample_conf.json"
+		expect   = true
+		actual   = hasExtInName(nameFile)
 	)
 
 	assert.Equal(t, expect, actual, "Available extension for Viper should return true.")

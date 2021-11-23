@@ -64,7 +64,7 @@ func init() {
 
 // sayHello is the main function of "hello"(helloCmd).
 func sayHello(cmd *cobra.Command) error {
-	var to string = ConfUser.NameToGreet
+	to := ConfUser.NameToGreet
 
 	// Outputs "Hello, world!".
 	// We use `cobra.Command`'s `fmt.Println` wrapper to ease testing.

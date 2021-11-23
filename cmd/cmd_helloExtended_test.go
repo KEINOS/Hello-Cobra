@@ -21,7 +21,7 @@ type TDataProvider []struct {
 
 func Test_helloExtCmd_NoFlags(t *testing.T) {
 	// test cases for default behavior
-	var cases TDataProvider = TDataProvider{
+	cases := TDataProvider{
 		// no options
 		{
 			command: "hello ext", expect: "Hello, world!\n",
@@ -43,7 +43,7 @@ func Test_helloExtCmd_NoFlags(t *testing.T) {
 
 func Test_helloExtCmd_WhoFlag(t *testing.T) {
 	// test cases for who flag
-	var cases TDataProvider = TDataProvider{
+	cases := TDataProvider{
 		{
 			command: "hello ext -w foo", expect: "Hello, foo!\n",
 			msgError: "The value of option -w should be used as a name.",
@@ -67,7 +67,7 @@ func Test_helloExtCmd_WhoFlag(t *testing.T) {
 
 func Test_helloExtCmd_ReverseFlag(t *testing.T) {
 	// test cases for reverse flag
-	var cases TDataProvider = TDataProvider{
+	cases := TDataProvider{
 		{
 			command: "hello ext -r", expect: "!dlrow ,olleH\n",
 			msgError: "The result should be reversed by '-r' opt.",

@@ -58,9 +58,9 @@ func createHelloExtCmd() *cobra.Command {
 // getMsgToGreet returns the regular greeting msg from the flag value and args.
 func getMsgToGreet(args []string) string {
 	var (
-		to        string = ConfUser.NameToGreet                       // Set default
-		greetTo   string = propertyHello.greetTo                      // get flag value
-		argJoined string = strings.TrimSpace(strings.Join(args, " ")) // get arg value
+		to        = ConfUser.NameToGreet                       // Set default
+		greetTo   = propertyHello.greetTo                      // get flag value
+		argJoined = strings.TrimSpace(strings.Join(args, " ")) // get arg value
 	)
 
 	if greetTo != "" && argJoined != "" {
@@ -100,7 +100,7 @@ func reverseString(input string) string {
 
 // runHelloExt is the main function of `ext`.
 func runHelloExt(cmd *cobra.Command, args []string) error {
-	var greetings string = getMsgToGreet(args)
+	greetings := getMsgToGreet(args)
 
 	if propertyHello.isReverse {
 		greetings = reverseString(greetings)

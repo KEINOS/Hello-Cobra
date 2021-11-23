@@ -108,7 +108,7 @@ func LoadFile(appConfig TConfigFile, userConfig interface{}) (err error) {
 
 // hasExtInName() returns true if the nameFile contains a file extension which viper can detect.
 func hasExtInName(nameFile string) bool {
-	var extWithNoDot string = strings.TrimLeft(filepath.Ext(nameFile), ".")
+	extWithNoDot := strings.TrimLeft(filepath.Ext(nameFile), ".")
 
 	return hasStringInSlice(extWithNoDot, viper.SupportedExts)
 }
