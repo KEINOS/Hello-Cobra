@@ -8,7 +8,6 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ main ]
   schedule:
     # Runs at 16:30 UTC on day-of-month 1 (Every day-of-month 1 at AM 01:30 JST, my time)
     # See: https://crontab.guru/
