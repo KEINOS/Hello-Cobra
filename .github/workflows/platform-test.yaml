@@ -9,7 +9,7 @@ on:
 
 jobs:
   coverage:
-    name: Unit test
+    name: Platform test
 
     strategy:
       matrix:
