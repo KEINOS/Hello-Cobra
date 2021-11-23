@@ -1,4 +1,5 @@
-# Workflow for unit testing on macOS, Linux and Windows when PR.
+# This workflow runs the unit test (`go test ./...`) on vaious platforms,
+# such as: Linux, macOS and Windows.
 name: Test on macOS/Win/Linux
 
 on:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   coverage:
-    name: Unit test on macOS/Win/Linux
+    name: Unit test
 
     strategy:
       matrix:
@@ -21,7 +22,7 @@ jobs:
 
       - uses: actions/setup-go@v2
         with:
-          go-version: 1.15.x
+          go-version: '^1.17'
 
       - name: Use Cache
         uses: actions/cache@v2
@@ -35,15 +36,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: go mod download
 
-      - name: Run coverage (Windows)
-        if: runner.os == 'Windows'
+      - name: Run unit tests
         run: |
           go mod download
-          go vet -v ./...
-          go test -cover -v ./...
-
-      - name: Run coverage (Linux/macOS)
-        if: runner.os != 'Windows'
-        run: |
-          go mod download
-          /bin/bash ./.github/run-tests-coverage.sh --verbose
+          go test -v ./...
