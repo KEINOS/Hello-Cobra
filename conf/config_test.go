@@ -53,7 +53,7 @@ func TestGetNameConf_WithExtInName(t *testing.T) {
 func Test_hasExtInName_Failure(t *testing.T) {
 	var (
 		nameExt string = "sample_conf.html"
-		expect  bool   = true
+		expect  bool   = false
 		actual  bool   = hasExtInName(nameExt)
 	)
 
