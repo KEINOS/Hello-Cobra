@@ -6,6 +6,8 @@ name: Go 1.15~latest
 on:
   workflow_dispatch:
   push:
+  pull_request:
+    branches: [ main ]
 
 env:
   PATH_CACHE: /tmp/docker-img-arch

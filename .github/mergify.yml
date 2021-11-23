@@ -19,3 +19,19 @@ pull_request_rules:
         merge:
           method: squash
           strict: smart+fasttrack
+  - name: Automatic merge on approval
+    conditions:
+      - author=KEINOS
+      - base=main
+      - title~=^Changes
+      - files=go.mod
+      - files=go.sum
+      - "#files=2"
+      - check-success=Analyze (go)
+      - check-success=Run tests on Go via container
+      - check-success=Platform test (ubuntu-latest)
+      - check-success=Platform test (macos-latest)
+      - check-success=Platform test (windows-latest)
+    actions:
+      merge:
+        method: merge
