@@ -1,3 +1,4 @@
 *.cache
 man
 coverage.out
+/bin/*
