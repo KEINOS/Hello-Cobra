@@ -1,4 +1,4 @@
-# Workflow for various Go versions over Docker on every push.
+# Workflow for various Go versions over Docker on any push to main.
 # This action caches the built Docker image for a day unless any change in the
 # Dockerfile was made.
 name: Go 1.15~latest
@@ -6,7 +6,6 @@ name: Go 1.15~latest
 on:
   workflow_dispatch:
   push:
-  pull_request:
     branches: [ main ]
 
 env:
