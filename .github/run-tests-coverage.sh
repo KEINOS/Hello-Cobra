@@ -36,7 +36,7 @@ fi
 # indentStdIn indents the STDIN given to the function
 function indentStdIn() {
     indent="\t"
-    while read -r line; do
+    while IFS= read -r line; do
         echo -e "${indent}${line}"
     done
     echo
