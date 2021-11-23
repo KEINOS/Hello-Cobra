@@ -21,7 +21,7 @@ jobs:
         id: imagetag
         run: |
           HASH_IMAGE=${{ hashFiles('./.github/Dockerfile') }}
-          VARIANT=$(TZ=UTC-9 date '+%Y%m')
+          VARIANT=$(TZ=UTC-9 date '+%Y%m%d')
           TAG="${HASH_IMAGE:0:7}:${VARIANT}"
           PATH_TAR=${{ env.PATH_CACHE }}"/tar"
           echo "::set-output name=TAG::${TAG}"
