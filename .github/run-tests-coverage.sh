@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # =============================================================================
 #  Test Script to Run Go Test and Check 100% Coverage
 # =============================================================================
@@ -8,14 +8,27 @@
 #  Requirements:
 #    - go-carpet: https://github.com/msoap/go-carpet
 
+set -eu
+set -o pipefail
+
 # -----------------------------------------------------------------------------
 #  Constants
 # -----------------------------------------------------------------------------
-PATH_DIR_PARENT="$(dirname "$(cd "$(dirname "${BASH_SOURCE:-$0}")" && pwd)")"
+PATH_DIR_PARENT="$(dirname "$(cd "$(dirname "${0:?'source missing'}")" && pwd)")"
 SUCCESS=0
 FAILURE=1
 TRUE=0
 FALSE=1
+
+# Check if go-carpet is installed
+if ! which go-carpet 1>/dev/null 2>/dev/null; then
+    PATH_DIR_RETURN="$(pwd)"
+    cd /tmp && {
+        echo '* Installing go-carpet ...'
+        go install "github.com/msoap/go-carpet@latest"
+    }
+    cd "$PATH_DIR_RETURN"
+fi
 
 # -----------------------------------------------------------------------------
 #  Functions
@@ -135,8 +148,6 @@ echo "${@}" | grep -e "-v" -e "--verbose" >/dev/null && {
 # -----------------------------------------------------------------------------
 #  Main
 # -----------------------------------------------------------------------------
-set -eu
-set -o pipefail
 
 if isModeVerbose; then
     echo '* Running in verbose mode.'

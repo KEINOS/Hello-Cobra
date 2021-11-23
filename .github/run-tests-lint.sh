@@ -10,7 +10,7 @@
 #  Constants
 # -----------------------------------------------------------------------------
 PATH_DIR_PARENT="$(dirname "$(cd "$(dirname "${BASH_SOURCE:-$0}")" && pwd)")"
-PATH_FILE_CONF_GOLANGCILINT="${PATH_DIR_PARENT}/.github/golangci.yml"
+PATH_FILE_CONF_GOLANGCILINT="${PATH_DIR_PARENT}/.golangci.yml"
 SUCCESS=0
 FAILURE=1
 

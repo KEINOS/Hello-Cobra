@@ -1,8 +1,11 @@
+# Workflow for static analysis and lint via golangci-lint on PR.
 # Details of this action see: https://github.com/golangci/golangci-lint-action
 name: golangci-lint
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [ main ]
 
 jobs:
   golangci:

@@ -1,49 +1,62 @@
+# Workflow to check code coverage on push.
+# This action caches the built Docker image for a month unless any change in the Dockerfile.
 name: 100% Coverage
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
+
+env:
+  PATH_CACHE: /tmp/docker-img-arch
 
 jobs:
-  coverage:
-    name: Unit test and coverage
-
-    strategy:
-      matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
-
-    runs-on: ${{ matrix.platform }}
-
+  go:
+    name: Run tests on Go via container
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-      - uses: actions/setup-go@v2
-        with:
-          go-version: 1.15.x
+      - name: Create image tag
+        id: imagetag
+        run: |
+          HASH_IMAGE=${{ hashFiles('./.github/Dockerfile') }}
+          VARIANT=$(TZ=UTC-9 date '+%Y%m')
+          TAG="${HASH_IMAGE:0:7}:${VARIANT}"
+          PATH_TAR=${{ env.PATH_CACHE }}"/tar"
+          echo "::set-output name=TAG::${TAG}"
+          echo "::set-output name=PATH_TAR::${PATH_TAR}"
 
-      - name: Use Cache
+      - name: Cache or restore image archive
+        id: cache
         uses: actions/cache@v2
         with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+          path: ${{ env.PATH_CACHE }}
+          key: ${{ steps.imagetag.outputs.TAG }}
 
-      - name: Download Modules
+      - name: Load Docker images if exist
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: |
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_coverage_1.tar
+
+      - name: Pull base images if no-exist
         if: steps.cache.outputs.cache-hit != 'true'
-        run: go mod download
-
-      - name: Run coverage (Windows)
-        if: runner.os == 'Windows'
         run: |
-          go install
-          go mod tidy
-          go vet -v ./...
-          go test -cover -v ./...
+          : # Pull images before build for stability
+          docker pull golang:1.15-alpine
 
-      - name: Run coverage (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Build Docker images if no-exists
+        if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          go install
-          go mod tidy
-          /bin/bash ./.github/run-tests-coverage.sh --verbose
+          mkdir -p ${{ steps.imagetag.outputs.PATH_TAR }}
+          : # Build container images
+          docker-compose --file ./.github/docker-compose.yml build coverage
+
+      - name: Save built images if no-exists
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_coverage_1.tar github_coverage:latest
+
+      - name: Run code coverage
+        run: docker-compose --file ./.github/docker-compose.yml up coverage
+
