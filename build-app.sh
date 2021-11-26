@@ -2,6 +2,15 @@
 # =============================================================================
 #  Bash shell script to build/compile the CLI app
 # =============================================================================
+#  This script will build the app under ./bin directory.
+#
+#  Usage:
+#    ./build-app.sh --help
+#    ./build-app.sh linux         // AMD64 by default
+#    ./build-app.sh linux arm 6   // Arm v6 such as RaspberryPi Zero
+#    ./build-app.sh darwin
+#    ./build-app.sh darwin arm64  // For M1 mac
+#    ./build-app.sh windows
 
 # -----------------------------------------------------------------------------
 #  Constants
