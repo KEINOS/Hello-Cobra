@@ -72,3 +72,23 @@ services:
         VARIANT: alpine
     volumes:
       - ..:/workspaces
+  # Service gogetu runs the test of installation functionality via 'go get -u'.
+  gogetu:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.15-alpine
+    volumes:
+      - ..:/workspaces
+    entrypoint: [ "./.github/run-tests-go-get-u.sh" ]
+  # Service goinstall runs the test of installation functionality via 'go install'.
+  goinstall:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.16-alpine
+    volumes:
+      - ..:/workspaces
+    entrypoint: [ "./.github/run-tests-go-install.sh" ]
