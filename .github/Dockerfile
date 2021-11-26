@@ -1,6 +1,7 @@
 # =============================================================================
-#  Test Container for Vaious Go Versions
+#  Test Container for Vaious Go Versions (ver. 2021.11.26)
 # =============================================================================
+
 # Default version
 ARG VARIANT="1.15-alpine"
 

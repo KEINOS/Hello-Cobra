@@ -1,7 +1,8 @@
 # =============================================================================
 #  Weekly Module Update
 # =============================================================================
-# This workflow runs monthly to update and test the latest `go.mod` version.
+# This workflow runs monthly to update and test the latest `go.mod` version and
+# `go install` (or `go get -u`) functionality.
 #
 # If all the tests succeeds to run in all Go versions, it will create a new PR
 # of the `go.mod` and `go.sum`.
@@ -37,11 +38,16 @@ jobs:
       - name: Update go.mod and run tests
         run: |
           set -eu
-          docker-compose --file ./.github/docker-compose.yml up tidy && \
-          docker-compose --file ./.github/docker-compose.yml up v1_15 && \
-          docker-compose --file ./.github/docker-compose.yml up v1_16 && \
-          docker-compose --file ./.github/docker-compose.yml up v1_17 && \
+          : # Update go.mod and go.sum
+          docker-compose --file ./.github/docker-compose.yml up tidy
+          : # Check mod version compatibility
+          docker-compose --file ./.github/docker-compose.yml up v1_15
+          docker-compose --file ./.github/docker-compose.yml up v1_16
+          docker-compose --file ./.github/docker-compose.yml up v1_17
           docker-compose --file ./.github/docker-compose.yml up latest
+          : # Check go install functionality
+          docker-compose --file ./.github/docker-compose.yml up gogetu
+          docker-compose --file ./.github/docker-compose.yml up gointall
 
       - name: Create Pull Request on Change
         uses: peter-evans/create-pull-request@v3

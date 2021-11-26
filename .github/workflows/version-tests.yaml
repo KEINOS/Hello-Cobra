@@ -42,6 +42,7 @@ jobs:
           docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_16_1.tar
           docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_17_1.tar
           docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar
+          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_mergeability_1.tar
 
       - name: Pull base images if no-exist
         if: steps.cache.outputs.cache-hit != 'true'
@@ -51,6 +52,7 @@ jobs:
           docker pull golang:1.16-alpine
           docker pull golang:1.17-alpine
           docker pull golang:alpine
+          docker pull ghcr.io/keinos/vscode-dev-container-go:latest
 
       - name: Build Docker images if no-exists
         if: steps.cache.outputs.cache-hit != 'true'
@@ -66,6 +68,7 @@ jobs:
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_16_1.tar github_v1_16:latest
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_v1_17_1.tar github_v1_17:latest
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_latest_1.tar github_latest:latest
+          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_mergeability_1.tar github_mergeability:latest
 
       - name: Run tests on Go 1.15
         run: docker-compose --file ./.github/docker-compose.yml up v1_15
@@ -75,3 +78,5 @@ jobs:
         run: docker-compose --file ./.github/docker-compose.yml up v1_17
       - name: Run tests on latest Go
         run: docker-compose --file ./.github/docker-compose.yml up latest
+      - name: Run tests for mergeability
+        run: docker-compose --file ./.github/docker-compose.yml up mergeability

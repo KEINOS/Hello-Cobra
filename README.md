@@ -29,6 +29,21 @@ This repo aims to implement best-practices of `Cobra` but keeping the code cover
 
 ## Note
 
+- This package auto-detects the app version from the `git` tag if the app was installed via `go install` (on Go v1.16+) or `go get -u` (on Go 1.15). Try:
+    ```bash
+    # For Go 1.16 or above
+    cd /tmp
+    go install "github.com/KEINOS/Hello-Cobra/hello-cobra@latest"
+    hello-cobra --version
+    # Output: hello-cobra version v1.3.0
+    ```
+    ```bash
+    # For Go 1.15
+    cd /tmp
+    GO111MODULE="on" go get -u "github.com/KEINOS/Hello-Cobra/hello-cobra@latest"
+    hello-cobra --version
+    # Output: hello-cobra version v1.3.0
+    ```
 - This repo is [GitHub Codespaces](https://github.com/features/codespaces) compatible. Press the `.`(dot) key to open VSCode online. (You may need to register to use Codespaces)
 - This repo is [VS Code + Docker](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack) compatible as well. See the [./.devcontainer/README.md](./.devcontainer/README.md) for more details.
 - This repo updates monthly the `go.mod` and `go.sum` files if all the tests succeeds to run in all Go versions (Go v1.15~latest).
