@@ -164,5 +164,14 @@ echo "* Moving current path to: ${PATH_DIR_PARENT}"
 cd "$PATH_DIR_PARENT"
 echo "* Current path is: $(pwd)"
 
-runGoVet "Scanning all the packages" "./..."
-runTests "Testing all the packages" "./..."
+status=$SUCCESS
+
+runGoVet "Scanning all the packages" "./..." || {
+    status=$FAILURE
+}
+
+runTests "Testing all the packages" "./..." || {
+    status=$FAILURE
+}
+
+exit $status

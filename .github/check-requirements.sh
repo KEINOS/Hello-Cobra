@@ -59,6 +59,10 @@ isAvailable gofmt \
     '"gofmt" is a formatter for golang.' \
     'https://golang.org/cmd/gofmt/'
 
+isAvailable golint \
+    '"golint" is a linter for Go source code. this is required for GoReportCard.com status.' \
+    'go install golang.org/x/lint/golint@latest'
+
 isAvailable golangci-lint \
     '"golangci-lint" is is a Go linters aggregator.' \
     'https://golangci-lint.run/'
