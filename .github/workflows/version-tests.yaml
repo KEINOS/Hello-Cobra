@@ -52,6 +52,7 @@ jobs:
           docker pull golang:1.16-alpine
           docker pull golang:1.17-alpine
           docker pull golang:alpine
+          docker pull ghcr.io/keinos/vscode-dev-container-go:latest
 
       - name: Build Docker images if no-exists
         if: steps.cache.outputs.cache-hit != 'true'
