@@ -24,8 +24,9 @@ isAvailable() {
     if ! which "$command_tmp" 1>/dev/null 2>/dev/null; then
         flag_covered_all=$FALSE
         echo 'NG'
-        echo >&2 "    - ABOUT  : ${msg_error}"
-        echo >&2 "    - DETAILS: ${url_reference}"
+        echo "    - ABOUT  : ${msg_error}"
+        echo "    - DETAILS: ${url_reference}"
+
         return $FALSE
     fi
     echo 'OK'
@@ -40,8 +41,7 @@ echo 'Checking requirements for:'
 
 echo
 echo 'Shell scripts:'
-isAvailable \
-    shellcheck \
+isAvailable shellcheck \
     '"shellcheck" is a static analysis tool for shell scripts.' \
     'https://github.com/koalaman/shellcheck'
 
@@ -51,24 +51,21 @@ isAvailable shfmt \
 
 echo
 echo 'Go programs:'
-isAvailable \
-    go \
+isAvailable go \
     '"go" is required as a matter of course.' \
     'https://golang.org/'
 
-isAvailable \
-    gofmt \
+isAvailable gofmt \
     '"gofmt" is a formatter for golang.' \
     'https://golang.org/cmd/gofmt/'
 
-isAvailable \
-    golangci-lint \
+isAvailable golangci-lint \
     '"golangci-lint" is is a Go linters aggregator.' \
     'https://golangci-lint.run/'
 
 if [ $flag_covered_all -ne 0 ]; then
     echo
-    echo >&2 "Some requirements missing."
+    echo >&2 "ERROR: Some requirements were missing."
     exit $FAILURE
 fi
 

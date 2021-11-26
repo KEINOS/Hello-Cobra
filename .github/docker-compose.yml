@@ -1,0 +1,74 @@
+# =============================================================================
+# Docker Compose file for testing on Go versions 1.14~1.17 and latest.
+# =============================================================================
+# It is recommended to run specifying a specific Go version and not at once.
+#
+# Since the service `tidy` will update/re-write the "go.mod" file to the latest
+# version, during it's process the "go.mod" file will be gone temporarily. Thus,
+# it will cause failure in the other containers becaue of missing "go.mod" file.
+#
+# Recommended usage:
+#   docker-compose --file ./.github/docker-compose.yml up tidy && \
+#   docker-compose --file ./.github/docker-compose.yml up 1.15
+#
+# Not recommended but to run all tests at once:
+#   docker-compose --file ./.github/docker-compose.yml up
+version: "3.9"
+services:
+  # Service tidy updates the module versions in go.mod to the latest.
+  tidy:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.15-alpine
+    volumes:
+      - ..:/workspaces
+    entrypoint: [ "./.github/update-go-mod.sh" ]
+  # Service coverage runs the tests with coverage and fails if coverage is below
+  # 100%.
+  coverage:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: alpine
+    volumes:
+      - ..:/workspaces
+    entrypoint: [ "./.github/run-tests-coverage.sh" ]
+  # Service v1_15 runs the tests on Go v1.15.
+  v1_15:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.15-alpine
+    volumes:
+      - ..:/workspaces
+  # Service v1_16 runs the tests on Go v1.16.
+  v1_16:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.16-alpine
+    volumes:
+      - ..:/workspaces
+  # Service v1_17 runs the tests on Go v1.17.
+  v1_17:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.17-alpine
+    volumes:
+      - ..:/workspaces
+  # Service latest runs the tests on latest Go docker image.
+  latest:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: alpine
+    volumes:
+      - ..:/workspaces
