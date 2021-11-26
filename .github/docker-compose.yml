@@ -92,3 +92,9 @@ services:
     volumes:
       - ..:/workspaces
     entrypoint: [ "./.github/run-tests-go-install.sh" ]
+  # Service mergeability runs all the tests to be merged.
+  mergeability:
+    image: ghcr.io/keinos/vscode-dev-container-go:latest
+    volumes:
+      - ..:/workspaces
+    entrypoint: [ "./.github/run-tests-merge.sh" ]

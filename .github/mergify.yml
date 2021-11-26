@@ -2,16 +2,6 @@ pull_request_rules:
     - name: automatic merge on CI success and 2 approved reviews
       conditions:
         - "#approved-reviews-by>=2"
-        - "check-success=merge_tests"
-        - base=main
-        - -draft
-      actions:
-        merge:
-          method: squash
-    - name: automatic merge on CI success if only markdown and/or Golang files were changed
-      conditions:
-        - "check-success=merge_tests"
-        - files~=.\.(?i)(md|go)$
         - base=main
         - check-success=lint
         - check-success=Analyze (go)
@@ -23,7 +13,21 @@ pull_request_rules:
       actions:
         merge:
           method: squash
-    - name: Automatic merge on approval
+    - name: automatic merge on CI success if only markdown files were changed
+      conditions:
+        - files~=.\.(?i)(md)$
+        - base=main
+        - check-success=lint
+        - check-success=Analyze (go)
+        - check-success=Run tests on Go via container
+        - check-success=Platform test (ubuntu-latest)
+        - check-success=Platform test (macos-latest)
+        - check-success=Platform test (windows-latest)
+        - -draft
+      actions:
+        merge:
+          method: squash
+    - name: Automatic merge on bot's PR (go.mod and go.sum updateonly)
       conditions:
         - author=KEINOS
         - base=main
