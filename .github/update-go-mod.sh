@@ -18,7 +18,7 @@ mv go.mod go.mod.bak
 mv go.sum go.sum.bak
 
 echo '* Create new blank go.mod ...'
-< go.mod.bak head -n 4 > go.mod
+head <go.mod.bak -n 4 >go.mod
 
 echo '* Run go tidy ...'
 go mod tidy
