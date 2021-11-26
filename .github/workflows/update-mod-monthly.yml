@@ -1,0 +1,49 @@
+# =============================================================================
+#  Weekly Module Update
+# =============================================================================
+# This workflow runs monthly to update and test the latest `go.mod` version.
+#
+# If all the tests succeeds to run in all Go versions, it will create a new PR
+# of the `go.mod` and `go.sum`.
+#
+# NOTE:
+# You need to set the repository secreat of `PERSONAL_ACCESS_TOKEN` environment
+# variable in your repo's:
+#     [Settings]-[Secrets]-[Actions secrets]
+# To generate a new token go to:
+#     https://github.com/settings/tokens
+#     * You need add the "repo" scope to the token but no more.
+# =============================================================================
+name: Monthly Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs At 19:00 UTC (AM 04:00 JST) on day-of-month 1
+    - cron: '0 19 1 * *'
+
+jobs:
+  automated_build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update go.mod and run tests
+        run: |
+          set -eu
+          docker-compose --file ./.github/docker-compose.yml up tidy && \
+          docker-compose --file ./.github/docker-compose.yml up v1_15 && \
+          docker-compose --file ./.github/docker-compose.yml up v1_16 && \
+          docker-compose --file ./.github/docker-compose.yml up v1_17 && \
+          docker-compose --file ./.github/docker-compose.yml up latest
+
+      - name: Create Pull Request on Change
+        uses: peter-evans/create-pull-request@v3
+        with:
+            token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

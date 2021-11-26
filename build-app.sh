@@ -9,6 +9,9 @@
 # Name of the CLI app
 NAME_FILE_BIN='hello-cobra'
 
+# App Version from git tag
+VERSION_APP="$(git describe --tag)"
+
 # Path info to export the app
 PATH_DIR_SCRIPT="$(cd "$(dirname "${BASH_SOURCE:-$0}")" && pwd)"
 PATH_DIR_BIN="${PATH_DIR_SCRIPT}/bin"
@@ -139,6 +142,7 @@ PATH_FILE_BIN_FINAL="${PATH_FILE_BIN}-${GOOS}-${GOARCH}${GOARM_SUFFIX}"
 # Build as static linked binary
 echo '- Building static linked binary to ...'
 echo "  ${PATH_FILE_BIN_FINAL}"
+echo "  Ver: ${VERSION_APP}"
 
 if CGO_ENABLED=0 \
     GOOS="$GOOS" \
@@ -146,9 +150,9 @@ if CGO_ENABLED=0 \
     GOARM="$GOARM" \
     go build \
     -installsuffix "$NAME_FILE_BIN" \
-    -ldflags="-s -w -extldflags \"-static\"" \
+    -ldflags="-s -w -extldflags \"-static\" -X 'main.Version=${VERSION_APP}'" \
     -o="$PATH_FILE_BIN_FINAL" \
-    .; then
+    ./hello-cobra/; then
     exit $SUCCESS
 fi
 echo 'Failed to build binary.'

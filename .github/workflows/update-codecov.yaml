@@ -1,3 +1,4 @@
+# Workflow to updates the coverage for CodeCov.io on release.
 name: Update codecov.io
 
 on:
@@ -20,6 +21,6 @@ jobs:
         with:
           go-version: '1.15'
       - name: Run coverage
-        run: go test -race -coverprofile=coverage.txt -covermode=atomic
+        run: go test -coverprofile=coverage.txt -covermode=atomic ./...
       - name: Upload coverage to Codecov
         run: bash <(curl -s https://codecov.io/bash)

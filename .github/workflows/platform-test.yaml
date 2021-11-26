@@ -1,0 +1,41 @@
+# This workflow runs the unit test (`go test ./...`) on vaious platforms,
+# such as: Linux, macOS and Windows.
+name: Test on macOS/Win/Linux
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  coverage:
+    name: Platform test
+
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17'
+
+      - name: Use Cache
+        uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Download Modules
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: go mod download
+
+      - name: Run unit tests
+        run: |
+          go mod download
+          go test -v ./...
