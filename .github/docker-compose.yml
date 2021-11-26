@@ -97,7 +97,7 @@ services:
     build:
       context: ..
       dockerfile: ./.devcontainer/Dockerfile
-      arg:
+      args:
         VARIANT: latest
     volumes:
       - ..:/workspaces
