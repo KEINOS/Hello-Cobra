@@ -37,12 +37,18 @@ func New(appVersion string) *cobra.Command {
 			Long: `About:
   A simple CLI app to see how Cobra works.`,
 			Example: `
-  Hello-Cobra hello
-  Hello-Cobra hello ext --reverse foo bar
+  $ hello-cobra --version
 
-  Hello-Cobra hello --help
-  Hello-Cobra help hello
-  Hello-Cobra help hello ext`,
+  $ hello-cobra hello
+  $ hello-cobra hello --reverse
+  $ hello-cobra hello foo bar
+  $ hello-cobra hello foo bar --reverse
+
+  $ hello-cobra hello world
+  $ hello-cobra hello world --reverse
+
+  $ hello-cobra completion --help
+  $ hello-cobra completion bash > hello-cobra_completion.sh`,
 			Version: appVersion,
 		},
 	}
