@@ -1,4 +1,4 @@
-# Battery of tests for merge
+# Battery of tests for merging
 
 ```bash
 .
