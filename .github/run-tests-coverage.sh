@@ -15,6 +15,8 @@ set -o pipefail
 #  Constants
 # -----------------------------------------------------------------------------
 PATH_DIR_PARENT="$(dirname "$(cd "$(dirname "${0:?'source missing'}")" && pwd)")"
+PATH_FILE_COVERAGE='/tmp/coverage.out'
+
 SUCCESS=0
 FAILURE=1
 TRUE=0
@@ -100,19 +102,18 @@ runGoVet() {
 runTests() {
     description="${1:?'Test description missing.'}"
     path_dir="${2:?'Path is missing'}"
-    name_file_coverage='coverage.out'
 
     echo
     echo "- Unit test: ${description}"
     # Run tests
     if isModeVerbose; then
-        go test -timeout 30s -cover -v -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
+        go test -timeout 30s -cover -v -coverprofile "$PATH_FILE_COVERAGE" "$path_dir" | indentStdIn
     else
-        go test -timeout 30s -cover -coverprofile "$name_file_coverage" "$path_dir" | indentStdIn
+        go test -timeout 30s -cover -coverprofile "$PATH_FILE_COVERAGE" "$path_dir" | indentStdIn
     fi
 
     # Get coverage details
-    cover=$(go tool cover -func="$name_file_coverage")
+    cover=$(go tool cover -func="$PATH_FILE_COVERAGE")
 
     if isModeVerbose; then
         echo '- Coverage details'
