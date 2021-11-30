@@ -13,7 +13,6 @@
 # =============================================================================
 before:
   hooks:
-    - go mod tidy
     - go mod download
 # Name to use on test release with --snapshot option.
 snapshot:
@@ -45,7 +44,7 @@ builds:
       - goos: windows
         goarch: arm
     ldflags:
-      - -s -w -extldflags "-static" -X 'main.Version={{.Version}}-{{ .ShortCommit }}' -X 'main.builtBy=goreleaser'
+      - -s -w -extldflags '-static' -X 'main.version={{.Version}}' -X 'main.commit={{ .ShortCommit }}'
 # macOS universal binaries for both arm64 and amd64
 universal_binaries:
   -
