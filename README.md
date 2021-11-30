@@ -50,7 +50,7 @@ This repo aims to find the best-practices of `Cobra` by refactoring it on a mome
     $ hello-cobra --version
     hello-cobra version 1.3.2-alpha (c3c9eab)
 
-    $ hello-cobra hello-cobra hello foo bar
+    $ hello-cobra hello foo bar
     Hello, foo and bar!
 
     $ hello-cobra hello foo bar --reverse

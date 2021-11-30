@@ -1,4 +1,6 @@
 # =============================================================================
+#  Configuration for `goreleaser`.
+# =============================================================================
 #  What It Is
 #
 #  This is a configuration file for `goreleaser` command to "automate" releasing

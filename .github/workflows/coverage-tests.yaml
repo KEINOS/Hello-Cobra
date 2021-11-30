@@ -4,7 +4,9 @@ name: 100% Coverage
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    branches:
+      - main
 
 env:
   PATH_CACHE: /tmp/docker-img-arch

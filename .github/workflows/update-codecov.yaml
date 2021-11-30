@@ -1,4 +1,7 @@
-# Workflow to updates the coverage for CodeCov.io on release.
+# =============================================================================
+#  Update CodeCov
+# =============================================================================
+# This Workflow to updates the coverage to CodeCov.io on release.
 name: Update codecov.io
 
 on:
@@ -7,8 +10,7 @@ on:
     types:
       - created
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+'
-      - '**/v[0-9]+.[0-9]+.[0-9]+'
+      - 'v*'
 
 jobs:
   build:

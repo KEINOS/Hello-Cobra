@@ -1,7 +1,7 @@
 #!/bin/sh
 # =============================================================================
 #  This script checks if the commands and packages required for merge testing
-#  are installed.
+#  are installed. Run this script before running ./run-tests-merge.sh.
 # =============================================================================
 
 # -----------------------------------------------------------------------------

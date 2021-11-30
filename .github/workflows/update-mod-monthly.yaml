@@ -1,15 +1,15 @@
 # =============================================================================
 #  Weekly Module Update
 # =============================================================================
-# This workflow runs monthly to update and test the latest `go.mod` version and
-# `go install` (or `go get -u`) functionality.
-#
-# If all the tests succeeds to run in all Go versions, it will create a new PR
-# of the `go.mod` and `go.sum`.
+# This workflow runs monthly to:
+#   1. Update the `go.mod` and `go.sum` files if all the tests succeeds to run
+#      in all Go versions with that updated versions. (Go v1.15~latest)
+#   2. Test `go get -u` and `go install` functionality of the latest release.
+#   3. Pull request the updated `go.mod` and `go.sum`
 #
 # NOTE:
-# You need to set the repository secreat of `PERSONAL_ACCESS_TOKEN` environment
-# variable in your repo's:
+# You need to set the "PERSONAL_ACCESS_TOKEN" env variable in the repository
+# secreat of your repo at:
 #     [Settings]-[Secrets]-[Actions secrets]
 # To generate a new token go to:
 #     https://github.com/settings/tokens
