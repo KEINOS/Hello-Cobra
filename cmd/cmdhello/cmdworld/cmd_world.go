@@ -16,16 +16,16 @@ import (
 // Command is the struct to hold cobra.Command and it's flag options.
 type Command struct {
 	*cobra.Command
-	isReverse bool // flag for "--reverse" option
+	isReverse bool // flag value for "--reverse" option
 }
 
 // ----------------------------------------------------------------------------
 //  Public Functions
 // ----------------------------------------------------------------------------
 
-// New returns the pointer of the "world" command's singleton object.
+// New returns the newly created object pointer of the "world" command.
 func New() *cobra.Command {
-	// Create the object of the command with default flags.
+	// Instantiate new object
 	cmdWorld := &Command{
 		&cobra.Command{
 			Use:   "world",
@@ -43,7 +43,7 @@ func New() *cobra.Command {
 	// Add method to RunE
 	cmdWorld.RunE = cmdWorld.sayHelloWorld
 
-	// Define flags for `ext` command.
+	// Define flags for `world` command.
 	cmdWorld.Flags().BoolVarP(
 		&cmdWorld.isReverse, "reverse", "r", cmdWorld.isReverse, "Reverses the output.",
 	)

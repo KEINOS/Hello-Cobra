@@ -13,7 +13,8 @@
 		"--rm",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt",
-		"seccomp=unconfined"
+		"seccomp=unconfined",
+		"--env=GITHUB_TOKEN"
 	],
 
 	// Set *default* container specific settings.json values on container create.

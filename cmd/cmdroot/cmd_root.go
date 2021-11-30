@@ -18,9 +18,10 @@ type Command struct {
 //  Public Functions
 // ----------------------------------------------------------------------------
 
-// New returns a new "root" command object.
+// New returns the newly created object pointer of the "root" command.
 //
-// The argument appVersion will be used when "--version" option was called.
+// The argument appVersion will be used when "--version" option was called. If
+// empty it will auto-detect.
 func New(appVersion string) *cobra.Command {
 	if appVersion == "" {
 		appVersion = "(unknown)"
@@ -53,11 +54,12 @@ func New(appVersion string) *cobra.Command {
 		},
 	}
 
+	// Define persistent flags for the app.
 	cmdRoot.PersistentFlags().Bool("verbose", false, "displays debug info if any")
 
 	// Add child commands to the "root" command.
 	cmdRoot.AddCommand(
-		cmdhello.New(), // Add "hello" command (with "world" grand child command)
+		cmdhello.New(), // Add "hello" command (with grand child command "world")
 	)
 
 	return cmdRoot.Command

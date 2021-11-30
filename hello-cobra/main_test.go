@@ -65,17 +65,17 @@ func Test_version_flag(t *testing.T) {
 }
 
 // ----------------------------------------------------------------------------
-//  Function Test
+//  Public Function Test
 // ----------------------------------------------------------------------------
 
 func TestGetVersion_version_not_set(t *testing.T) {
-	// Backup and restore Version before and after the test
-	oldVersion := Version
+	// Backup and restore version before and after the test
+	oldVersion := version
 	defer func() {
-		Version = oldVersion
+		version = oldVersion
 	}()
 
-	Version = "" // Mock Version as empty
+	version = "" // Mock Version as empty
 
 	// Backup and restore DebugReadBuildInfo
 	oldDebugReadBuildInfo := DebugReadBuildInfo
@@ -95,13 +95,13 @@ func TestGetVersion_version_not_set(t *testing.T) {
 }
 
 func TestGetVersion_version_via_build_info(t *testing.T) {
-	// Backup and recover Version before and after the test
-	oldVersion := Version
+	// Backup and recover version before and after the test
+	oldVersion := version
 	defer func() {
-		Version = oldVersion
+		version = oldVersion
 	}()
 
-	Version = "" // Mock Version as empty
+	version = "" // Mock Version as empty
 
 	oldDebugReadBuildInfo := DebugReadBuildInfo
 	defer func() {
@@ -125,16 +125,47 @@ func TestGetVersion_version_via_build_info(t *testing.T) {
 }
 
 func TestGetVersion_version_via_build_flag(t *testing.T) {
-	// Backup and recover Version before and after the test
-	oldVersion := Version
+	// Backup and recover version before and after the test
+	oldVersion := version
+	oldCommit := commit
+
 	defer func() {
-		Version = oldVersion
+		version = oldVersion
+		commit = oldCommit
 	}()
 
-	Version = "v0.0.0-" + t.Name()
+	// Set dummy build flat
+	version = "v0.0.0-alpha"
+	commit = "abcdef"
 
-	expect := Version
+	expect := "0.0.0-alpha (abcdef)"
 	actual := GetVersion()
-
 	assert.Equal(t, expect, actual, "it should return the main.Version value if set")
+}
+
+// ----------------------------------------------------------------------------
+//  Private Function Test
+// ----------------------------------------------------------------------------
+
+func Test_parseVersion(t *testing.T) {
+	for _, data := range []struct {
+		input  string
+		expect string
+		msgErr string
+	}{
+		{"", "(unknown)", "empty version should return 'unknown'"},
+		{"1.2", "1.2.0", "Major.Minor version should be Major.Minor.Patch"},
+		{"1.2.3", "1.2.3", "Semantic versioned input should be as is"},
+		{"v1.2.3", "1.2.3", "prefix 'v' should be trimmed"},
+		{"v.1.2.3", "1.2.3", "prefix 'v.' should be trimmed"},
+		{"1.2.3-alpha", "1.2.3-alpha", "prerelease should be as is"},
+		{"v1.2.3-4-g65a8e0c", "1.2.3-4 (g65a8e0c)", "git tag's commit should be treated as build"},
+		{"v1.2.3+g65a8e0c", "1.2.3 (g65a8e0c)", "build should be quoted in brackets"},
+		{"1.2.3 (g65a8e0c)", "1.2.3 (g65a8e0c)", "quoted in brackets should treat as is"},
+		{"v1.2.3 (g65a8e0c)", "1.2.3 (g65a8e0c)", "quoted in brackets should treat as is"},
+	} {
+		actual := parseVersion(data.input)
+
+		assert.Equal(t, data.expect, actual, "%v\nInput: %v", data.msgErr, data.input)
+	}
 }

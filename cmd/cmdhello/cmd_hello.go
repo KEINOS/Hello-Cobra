@@ -25,8 +25,9 @@ type Command struct {
 //  Constructor
 // ----------------------------------------------------------------------------
 
-// New returns the pointer of the "hello" command's singleton object.
+// New returns the newly created object pointer of the "hello" command.
 func New() *cobra.Command {
+	// Instantiate new object
 	cmdHello := &Command{
 		&cobra.Command{
 			Use:   "hello [name [name] ...]",
@@ -41,9 +42,10 @@ func New() *cobra.Command {
 		false,
 	}
 
+	// Assign the method as RunE function
 	cmdHello.Command.RunE = cmdHello.sayHelloTo
 
-	// Define flags for `ext` command.
+	// Define flags for `hello` command.
 	cmdHello.Flags().BoolVarP(
 		&cmdHello.isReverse, "reverse", "r", false, "Reverses the output.",
 	)
@@ -55,22 +57,11 @@ func New() *cobra.Command {
 }
 
 // ----------------------------------------------------------------------------
-//  Private Functions
+//  Methods
 // ----------------------------------------------------------------------------
 
-// reverseString reverses/flip the input string.
-func reverseString(input string) string {
-	var msgTmp string
-
-	for _, v := range input {
-		msgTmp = string(v) + msgTmp
-	}
-
-	return msgTmp
-}
-
-// sayHelloTo is the main function of "hello" command.
-// It will print the greetings to the given args.
+// sayHelloTo prints the greetings to the given args. It is the main function of
+// "hello" command.
 func (c *Command) sayHelloTo(cmd *cobra.Command, args []string) error {
 	msgToGreet := "Hi!"
 
@@ -86,4 +77,19 @@ func (c *Command) sayHelloTo(cmd *cobra.Command, args []string) error {
 	fmt.Println(msgToGreet)
 
 	return nil
+}
+
+// ----------------------------------------------------------------------------
+//  Private Functions
+// ----------------------------------------------------------------------------
+
+// reverseString reverses/flip the input string.
+func reverseString(input string) string {
+	var msgTmp string
+
+	for _, v := range input {
+		msgTmp = string(v) + msgTmp
+	}
+
+	return msgTmp
 }

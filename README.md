@@ -8,15 +8,22 @@
 
 **This repo is a sample of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
 
-Including [CI](./github/workflows/)s of static analysis, security scan, lint check and formatters to just say "Hello" to the world with Cobra. It is a draft forever, so feel free to PR!
+Including the below to just say "Hello" to the world!
+
+- [CI](./github/workflows/)
+    - Unit tests on Go v15, 16, 17 and latest.
+    - Static analysis, security scan, lint and format check.
+    - Monthly vulnerability scan via CodeQL.
+    - Automated monthly update of `go.mod` and `go.sum` on test-pass.
+- Automated [Homebrew release](https://github.com/KEINOS/homebrew-Hello-Cobra) on release push.
 
 ## Searching for the best practices of Cobra
 
-**We all know keeping 100% of code coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% of coverage, which couldn't be found by googling for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
+**We all know keeping 100% of code coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% of coverage, which couldn't be found by _googling_ for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
 
-This repo aims to implement best-practices of `Cobra` but keeping the code coverage as high as possible and less complexity.
+This repo aims to find the best-practices of `Cobra` by refactoring it on a moment-to-moment basis. But keeping the code coverage as high as possible and less complexity as possible.
 
-- Therefore, this is a forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-repo. So any PR for the better is welcome!!
+- Therefore, this is a forever-[WIP](https://en.wikipedia.org/wiki/Work_in_progress)-repo.<br>So any PR for the better is welcome!!  We will merge it as long as it passess the tests with 100% coverage and not a prank-kind PR.
 
 ## Statuses
 
@@ -25,10 +32,30 @@ This repo aims to implement best-practices of `Cobra` but keeping the code cover
 [![golangci-lint](https://github.com/KEINOS/Hello-Cobra/actions/workflows/golangci-lint.yaml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/golangci-lint.yaml)
 [![codecov](https://codecov.io/gh/KEINOS/Hello-Cobra/branch/main/graph/badge.svg?token=R2B9UBIEUI)](https://codecov.io/gh/KEINOS/Hello-Cobra "View details on CodeCov.IO")
 [![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/Hello-Cobra)](https://goreportcard.com/report/github.com/KEINOS/Hello-Cobra "View on Go Report Card")
-[![CodeQL](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yml "Vulnerability Scan")
+[![CodeQL](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yaml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yaml "Vulnerability Scan")
 
 ## Note
 
+- This sample app supports Homebrew installation. To know how it works see: [.goreleaser.yml](./.goreleaser.yml)
+    ```bash
+    brew install KEINOS/Hello-Cobra/hello-cobra
+    ```
+    ```shellsession
+    $ brew install KEINOS/Hello-Cobra/hello-cobra
+    ==> Tapping keinos/hello-cobra
+    ... **snip** ...
+    ==> Installing hello-cobra from keinos/hello-cobra
+    ... **snip** ...
+
+    $ hello-cobra --version
+    hello-cobra version 1.3.2-alpha (c3c9eab)
+
+    $ hello-cobra hello-cobra hello foo bar
+    Hello, foo and bar!
+
+    $ hello-cobra hello foo bar --reverse
+    !rab dna oof ,olleH
+    ```
 - This package auto-detects the app version from the `git` tag if the app was installed via `go install` (on Go v1.16+) or `go get -u` (on Go 1.15). Try:
     ```bash
     # For Go 1.16 or above

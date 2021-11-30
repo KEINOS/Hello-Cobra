@@ -1,0 +1,128 @@
+# =============================================================================
+#  What It Is
+#
+#  This is a configuration file for `goreleaser` command to "automate" releasing
+#  the built binaries via GitHub action on release push. It automates Homebrew's
+#  tap release as well.
+#
+#  What It Does
+#
+#  This file was generated via `goreleaser init` then customized.
+#  It will:
+#    1. Build the binaries for various OS and architectures.
+#      - Linux, macOS and Windows.
+#      - AMD (Intel/x86_64) and ARM64 for all OS and ARM32 v5,6,7 for Linux.
+#    2. Archives the built binaries and create checksum.txt file.
+#    3. Create a tap config file for Homebrew. (./dist/hello-cobra.rb)
+#    4. It pushes the archived assets to the release page on GitHub.
+#    5. It pushes the config file for Homebrew tap installation to the repo.
+#           https://github.com/KEINOS/homebrew_Hello-Cobra/
+#
+#  How It Works
+#
+#  This file will be called from ./github/workflows/release_bin.yaml action if
+#  the push was a release. After generating the additional assets, it releases/
+#  pushes the archived assets to the release-page. Then commit/push the Homebrew
+#  configuration file to the Homebrew tap repo of this app.
+#
+#  For local-test run:
+#    $ goreleaser release --snapshot --skip-publish --rm-dist
+#    $ # *Note: Check the ./dist/ dir after ran.
+#
+#  Make sure to check the documentation as well at:
+#    https://goreleaser.com/customization/
+# =============================================================================
+before:
+  hooks:
+    - go mod download
+# Name to use on test release with --snapshot option.
+snapshot:
+  name_template: '{{ .Version }}'
+
+# Settings to build the binaries.
+builds:
+  -
+    # Target directory of main.go
+    main: ./hello-cobra
+    # Output binary name
+    binary: hello-cobra
+    env:
+      - CGO_ENABLED=0
+    # Target OS
+    goos:
+      - linux
+      - windows
+      - darwin
+    # Target architectures
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    # Variant for ARM32
+    goarm:
+      - 5
+      - 6
+      - 7
+    # Ignore ARM32 build for both macOS and Windows
+    ignore:
+      - goos: darwin
+        goarch: arm
+      - goos: windows
+        goarch: arm
+    # Build the app as static binary and embed version and commit info
+    ldflags:
+      - -s -w -extldflags '-static' -X 'main.version={{.Version}}' -X 'main.commit={{ .ShortCommit }}'
+
+# macOS universal binaries for both arm64 and amd64
+universal_binaries:
+  -
+    name_template: 'hello-cobra'
+    # Combine arm64 and amd64 as a single binary and remove each
+    replace: true
+
+# Archiving the built binaries
+archives:
+  -
+    replacements:
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+      - goos: darwin
+        format: zip
+
+# Create checksum file of archived files
+checksum:
+  name_template: 'checksums.txt'
+
+# Release/update Homebrew tap repository
+brews:
+  -
+    # Name of the package: KEINOS/Hello-Cobra/hello-cobra
+    name: hello-cobra
+    # Target repo to tap
+    tap:
+      owner: KEINOS
+      name: homebrew-Hello-Cobra
+    # Target directory
+    folder: Formula
+    # Path to the archive in release page
+    url_template: "https://github.com/KEINOS/Hello-Cobra/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    # Author info to commit to the tap repo
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    # Message to display on `brew search` or `brew info`
+    description: "Hello, world! sample of Cobra in Golang."
+    homepage: "https://github.com/KEINOS/Hello-Cobra/"
+    # Let brew command pull the archive via cURL
+    download_strategy: CurlDownloadStrategy
+    # Let brew command instll the binary as `hello-cobra`
+    install: |
+      bin.install "hello-cobra"
+    # Smoke test to run after install
+    test: |
+      system "#{bin}/hello-cobra --version"
