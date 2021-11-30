@@ -13,9 +13,10 @@ FROM golang:${VARIANT}
 ENV GO111MODULE=on
 
 RUN apk add --no-cache \
-    git \
+    build-base \
     alpine-sdk \
-    build-base
+    git \
+    bash
 
 WORKDIR /workspaces
 

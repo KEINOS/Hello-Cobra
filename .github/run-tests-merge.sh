@@ -23,6 +23,11 @@ SUCCESS=0
 FAILURE=1
 
 # -----------------------------------------------------------------------------
+#  Global Variables
+# -----------------------------------------------------------------------------
+status=$SUCCESS
+
+# -----------------------------------------------------------------------------
 #  Functions
 # -----------------------------------------------------------------------------
 function indentStdIn() {
@@ -37,11 +42,14 @@ function indentStdIn() {
 
 function runGofmt() {
     echo -n '- Go format (gofmt) ... '
+
     if [ -z "$(gofmt -l .)" ]; then
         echo 'OK'
+
         return $SUCCESS
     fi
     echo 'NG'
+    status=$FAILURE
 
     gofmt -d -e . 2>&1 | indentStdIn
 
@@ -54,6 +62,8 @@ function runGolangCiLint() {
     result=$(./.github/run-tests-lint.sh -v 2>&1) || {
         echo 'NG'
         echo "$result" | indentStdIn
+        status=$FAILURE
+
         return $FAILURE
     }
     echo 'OK'
@@ -70,6 +80,8 @@ function runGolint() {
     result=$(golint -set_exit_status ./... 2>&1) || {
         echo 'NG'
         echo "$result" | indentStdIn
+        status=$FAILURE
+
         return $FAILURE
     }
     echo 'OK'
@@ -83,6 +95,8 @@ function runGoUnitTests() {
     result=$(./.github/run-tests-coverage.sh -v 2>&1) || {
         echo 'NG'
         echo "$result" | indentStdIn
+        status=$FAILURE
+
         return $FAILURE
     }
     echo 'OK'
@@ -96,6 +110,8 @@ function runShfmt() {
     result=$(find . -name '*.sh' -type f -print0 | xargs -0 shfmt -d 2>&1) || {
         echo 'NG'
         echo "$result"
+        status=$FAILURE
+
         return $FAILURE
     }
     echo 'OK'
@@ -109,6 +125,8 @@ function runShellCheck() {
     result=$(find . -name '*.sh' -type f -print0 | xargs -0 shellcheck 2>&1) || {
         echo 'NG'
         echo "$result"
+        status=$FAILURE
+
         return $FAILURE
     }
     echo 'OK'
@@ -120,14 +138,11 @@ function runShellCheck() {
 #  Main
 # -----------------------------------------------------------------------------
 
-# Do not allow undecleared variables and function failure.
-set -eu
+cd "$PATH_DIR_PARENT" || {
+    echo >&2 'failed to change directory'
 
-cd "$PATH_DIR_PARENT"
-
-# Check current tree structure for CI debuging purpose.
-echo '- Current tree'
-tree | indentStdIn
+    exit $FAILURE
+}
 
 # Run tests
 runShfmt
@@ -136,3 +151,5 @@ runGofmt
 runGolint
 runGoUnitTests
 runGolangCiLint
+
+exit $status
