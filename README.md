@@ -25,7 +25,7 @@ This repo aims to implement best-practices of `Cobra` but keeping the code cover
 [![golangci-lint](https://github.com/KEINOS/Hello-Cobra/actions/workflows/golangci-lint.yaml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/golangci-lint.yaml)
 [![codecov](https://codecov.io/gh/KEINOS/Hello-Cobra/branch/main/graph/badge.svg?token=R2B9UBIEUI)](https://codecov.io/gh/KEINOS/Hello-Cobra "View details on CodeCov.IO")
 [![Go Report Card](https://goreportcard.com/badge/github.com/KEINOS/Hello-Cobra)](https://goreportcard.com/report/github.com/KEINOS/Hello-Cobra "View on Go Report Card")
-[![CodeQL](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yml "Vulnerability Scan")
+[![CodeQL](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yaml/badge.svg)](https://github.com/KEINOS/Hello-Cobra/actions/workflows/codeQL-analysis.yaml "Vulnerability Scan")
 
 ## Note
 

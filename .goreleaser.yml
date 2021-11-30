@@ -1,0 +1,88 @@
+# =============================================================================
+#  This file was generated via `goreleaser init` then customized.
+#  This is a configuration file of `goreleaser` which will:
+#    1. Build the binaries for various architectures.
+#    2. Archives the built binaries and create checksum.txt file.
+#    3. Create tap config file for homebrew.
+#
+#  For test run:
+#    goreleaser release --snapshot --skip-publish --rm-dist --skip-announce
+#
+#  Make sure to check the documentation at:
+#    https://goreleaser.com/customization/
+# =============================================================================
+before:
+  hooks:
+    - go mod download
+# Name to use on test release with --snapshot option.
+snapshot:
+  name_template: '{{ .Version }}'
+# Settings to build the binaries.
+builds:
+  -
+    # Target directory of main.go
+    main: ./hello-cobra
+    # Output binary name
+    binary: hello-cobra
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - 5
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: arm
+      - goos: windows
+        goarch: arm
+    ldflags:
+      - -s -w -extldflags '-static' -X 'main.version={{.Version}}' -X 'main.commit={{ .ShortCommit }}'
+# macOS universal binaries for both arm64 and amd64
+universal_binaries:
+  -
+    name_template: 'hello-cobra'
+    # Combine as a single binary and remove arm64 and amd64
+    replace: true
+# For Homebrew tap release
+brews:
+  -
+    name: hello-cobra
+    tap:
+      owner: KEINOS
+      name: homebrew-Hello-Cobra
+    url_template: "https://github.com/KEINOS/Hello-Cobra/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: goreleaserbot
+      email: goreleaser@carlosbecker.com
+    description: "Hello, world! sample of Cobra in Golang."
+    homepage: "https://github.com/KEINOS/Hello-Cobra/"
+    download_strategy: CurlDownloadStrategy
+    folder: Formula
+    install: |
+      bin.install "hello-cobra"
+    test: |
+      system "#{bin}/hello-cobra --version"
+# Archiving the built binaries
+archives:
+  -
+    replacements:
+      darwin: macOS
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
+    format_overrides:
+      - goos: windows
+        format: zip
+      - goos: darwin
+        format: zip
+# Create checksum file of archived files
+checksum:
+  name_template: 'checksums.txt'
