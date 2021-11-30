@@ -39,15 +39,17 @@ jobs:
         run: |
           set -eu
           : # Update go.mod and go.sum
-          docker-compose --file ./.github/docker-compose.yml up tidy
-          : # Check mod version compatibility
-          docker-compose --file ./.github/docker-compose.yml up v1_15
-          docker-compose --file ./.github/docker-compose.yml up v1_16
-          docker-compose --file ./.github/docker-compose.yml up v1_17
-          docker-compose --file ./.github/docker-compose.yml up latest
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit tidy
+          : # Check module version compatibility
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_15
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_16
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_17
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit latest
           : # Check go install functionality
-          docker-compose --file ./.github/docker-compose.yml up gogetu
-          docker-compose --file ./.github/docker-compose.yml up gointall
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gogetu
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gointall
+          : # Check brew functionality
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit linuxbrew
 
       - name: Create Pull Request on Change
         uses: peter-evans/create-pull-request@v3
