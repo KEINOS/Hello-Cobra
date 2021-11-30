@@ -102,3 +102,9 @@ services:
     volumes:
       - ..:/workspaces
     entrypoint: [ "./.github/run-tests-merge.sh" ]
+  # Service linuxbrew simply downloads and test-run the released binary via brew.
+  linuxbrew:
+    image: homebrew/brew
+    volumes:
+      - ./run-tests-brew.sh:/home/linuxbrew/run-tests-brew.sh
+    entrypoint: [ "./run-tests-brew.sh" ]
