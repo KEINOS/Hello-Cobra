@@ -35,6 +35,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Check current install functionality
+        run: |
+          set -eu
+          : # Check go install functionality
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gogetu
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit goinstall
+          : # Check brew functionality
+          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit linuxbrew
+
       - name: Update go.mod and run tests
         run: |
           set -eu
@@ -45,11 +54,6 @@ jobs:
           docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_16
           docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_17
           docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit latest
-          : # Check go install functionality
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gogetu
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gointall
-          : # Check brew functionality
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit linuxbrew
 
       - name: Create Pull Request on Change
         id: cpr
