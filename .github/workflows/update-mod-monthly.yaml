@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
   schedule:
     # Runs At 19:00 UTC (AM 04:00 JST) on day-of-month 1
-    - cron: '0 19 1 * *'
+    - cron: "0 19 1 * *"
 
 jobs:
   automated_build:
@@ -52,6 +52,18 @@ jobs:
           docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit linuxbrew
 
       - name: Create Pull Request on Change
+        id: cpr
         uses: peter-evans/create-pull-request@v3
         with:
-            token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Bump-up patch version
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: kyoh86/git-vertag-action@v1
+        id: vertag
+        with:
+          method: patch
+      - name: Push tag
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: |
+          echo 'Bump-up to:' ${{ steps.vertag.outputs.vertag }}
+          git push --tags
