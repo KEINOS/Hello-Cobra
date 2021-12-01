@@ -35,7 +35,8 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"golang.Go",
-		"foxundermoon.shell-format"
+		"foxundermoon.shell-format",
+		"redhat.vscode-yaml"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
