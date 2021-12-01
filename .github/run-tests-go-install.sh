@@ -14,6 +14,6 @@ go install "github.com/KEINOS/Hello-Cobra/hello-cobra@latest" || {
 }
 
 hello-cobra --version | grep "hello-cobra version" || {
-    echo >&2 "failed to execute command. Version info is missing"
+    echo >&2 "failed to execute command. The output does not contain a valid version info."
     exit 1
 }
