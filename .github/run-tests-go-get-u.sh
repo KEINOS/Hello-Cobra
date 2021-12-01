@@ -13,7 +13,7 @@ GO111MODULE="on" go get -u "github.com/KEINOS/Hello-Cobra/hello-cobra@latest" ||
     exit 1
 }
 
-hello-cobra --version | grep "hello-cobra version v" || {
+hello-cobra --version | grep "hello-cobra version" || {
     echo >&2 "failed to execute command. Version info is missing"
     exit 1
 }
