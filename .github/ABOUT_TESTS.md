@@ -24,3 +24,26 @@
 └── workflows/ ................ Directory for CIs via GitHub Actions.
                                 See: ./workflows/README.md
 ```
+
+## To test via Docker (docker-compose)
+
+- All-in-one (Go: latest version, Unit Test, Lint check and static analysis)
+
+    ```bash
+    docker-compose --file ./.github/docker-compose.yml run mergeability
+    ```
+
+- Unit test on various Go versions
+
+    ```bash
+    docker-compose --file ./.github/docker-compose.yml run v1_15
+    docker-compose --file ./.github/docker-compose.yml run v1_16
+    docker-compose --file ./.github/docker-compose.yml run v1_17
+    docker-compose --file ./.github/docker-compose.yml run latest
+    ```
+
+- Check code coverage
+
+    ```bash
+    docker-compose --file ./.github/docker-compose.yml run coverage
+    ```
