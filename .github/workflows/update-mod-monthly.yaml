@@ -39,21 +39,21 @@ jobs:
         run: |
           set -eu
           : # Check go install functionality
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit gogetu
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit goinstall
+          docker-compose --file ./.github/docker-compose.yml run gogetu
+          docker-compose --file ./.github/docker-compose.yml run goinstall
           : # Check brew functionality
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit linuxbrew
+          docker-compose --file ./.github/docker-compose.yml run linuxbrew
 
       - name: Update go.mod and run tests
         run: |
           set -eu
           : # Update go.mod and go.sum
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit tidy
+          docker-compose --file ./.github/docker-compose.yml run tidy
           : # Check module version compatibility
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_15
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_16
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_17
-          docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit latest
+          docker-compose --file ./.github/docker-compose.yml run v1_15
+          docker-compose --file ./.github/docker-compose.yml run v1_16
+          docker-compose --file ./.github/docker-compose.yml run v1_17
+          docker-compose --file ./.github/docker-compose.yml run latest
 
       - name: Create Pull Request on Change
         id: cpr

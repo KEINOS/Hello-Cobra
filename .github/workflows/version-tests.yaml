@@ -74,12 +74,12 @@ jobs:
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_mergeability_1.tar github_mergeability:latest
 
       - name: Run tests on Go 1.15
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_15
+        run: docker-compose --file ./.github/docker-compose.yml run v1_15
       - name: Run tests on Go 1.16
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_16
+        run: docker-compose --file ./.github/docker-compose.yml run v1_16
       - name: Run tests on Go 1.17
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit v1_17
+        run: docker-compose --file ./.github/docker-compose.yml run v1_17
       - name: Run tests on latest Go
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit latest
+        run: docker-compose --file ./.github/docker-compose.yml run latest
       - name: Run tests for mergeability
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit mergeability
+        run: docker-compose --file ./.github/docker-compose.yml run mergeability
