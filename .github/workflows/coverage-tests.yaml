@@ -60,5 +60,5 @@ jobs:
           docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_coverage_1.tar github_coverage:latest
 
       - name: Run code coverage
-        run: docker-compose --file ./.github/docker-compose.yml up --abort-on-container-exit coverage
+        run: docker-compose --file ./.github/docker-compose.yml run coverage
 
