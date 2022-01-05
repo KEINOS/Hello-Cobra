@@ -5,9 +5,9 @@ import (
 
 	"github.com/KEINOS/Hello-Cobra/cmd/cmdhello/cmdworld"
 	"github.com/KEINOS/Hello-Cobra/cmd/cmdroot"
-	"github.com/kami-zh/go-capturer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/zenizh/go-capturer"
 )
 
 // ----------------------------------------------------------------------------
