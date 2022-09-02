@@ -4,14 +4,14 @@
 
 # "Hello, world!" Sample of Cobra with 100% Code Coverage
 
-- [Cobra](https://cobra.dev/) is an awesome framework of Go to help create CLI apps.
+> __Note__ : "`Cobra`" is an awesome framework of Go to help create CLI apps.
 
 **This repo is a sample of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
 
 Including the below to just say "Hello" to the world!
 
 - [CI](./github/workflows/)
-    - Unit tests on Go v15, 16, 17 and latest.
+    - Unit tests on Go v1.15 to the latest.
     - Static analysis, security scan, lint and format check.
     - Monthly vulnerability scan via CodeQL.
     - Automated monthly update of `go.mod` and `go.sum` on test-pass.
