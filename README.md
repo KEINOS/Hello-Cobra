@@ -6,7 +6,7 @@
 
 > __Note__ : "`Cobra`" is an awesome framework of Go to help create CLI apps.
 
-**This repo is a example of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
+**This repo is an example of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
 
 Including the below to just say "Hello" to the world!
 
