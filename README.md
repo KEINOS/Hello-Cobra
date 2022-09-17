@@ -2,11 +2,11 @@
 [![go1.15+](https://img.shields.io/badge/Go-1.15,%2016,%2017,%20latest-blue?logo=go)](https://github.com/KEINOS/dev-go/actions/workflows/go-versions.yml "Supported versions")
 [![Go Reference](https://pkg.go.dev/badge/github.com/KEINOS/Hello-Cobra.svg)](https://pkg.go.dev/github.com/KEINOS/Hello-Cobra#section-documentation "Read generated documentation of the app")
 
-# "Hello, world!" Sample of Cobra with 100% Code Coverage
+# "Hello, world!" example of Cobra with 100% code coverage
 
 > __Note__ : "`Cobra`" is an awesome framework of Go to help create CLI apps.
 
-**This repo is a sample of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
+**This repo is a example of [Cobra](https://cobra.dev/)'s "`Hello, world!`" with 100% code coverage**.
 
 Including the below to just say "Hello" to the world!
 
@@ -19,7 +19,7 @@ Including the below to just say "Hello" to the world!
 
 ## Searching for the best practices of Cobra
 
-**We all know keeping 100% of code coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" sample with 100% of coverage, which couldn't be found by _googling_ for "[`golang` `cobra` `sample` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+hello+world+coverage+100%)".
+**We all know keeping 100% of code coverage is a myth.** But as a `Golang` and `Cobra` beginner, we wanted a "Hello-world" example with 100% of coverage, which couldn't be found by _googling_ for "[`golang` `cobra` `sample` `example` `hello` `world` `coverage` `100%`](https://www.google.com/search?q=%22golang%22+cobra+sample+example+hello+world+coverage+100%)".
 
 This repo aims to find the best-practices of `Cobra` by refactoring it on a moment-to-moment basis. But keeping the code coverage as high as possible and less complexity as possible.
 
@@ -36,7 +36,7 @@ This repo aims to find the best-practices of `Cobra` by refactoring it on a mome
 
 ## Note
 
-- This sample app supports Homebrew installation. To know how it works see: [.goreleaser.yml](./.goreleaser.yml)
+- This example app supports Homebrew installation. To know how it works see: [.goreleaser.yml](./.goreleaser.yml)
     ```bash
     brew install KEINOS/Hello-Cobra/hello-cobra
     ```
