@@ -19,27 +19,28 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Create image tag
-        id: imagetag
-        run: |
-          HASH_IMAGE=${{ hashFiles('./.github/Dockerfile') }}
-          VARIANT=$(TZ=UTC-9 date '+%Y%m')
-          TAG="${HASH_IMAGE:0:7}:${VARIANT}"
-          PATH_TAR=${{ env.PATH_CACHE }}"/tar"
-          echo "::set-output name=TAG::${TAG}"
-          echo "::set-output name=PATH_TAR::${PATH_TAR}"
+      - name: Create cache ID from file hash
+        uses: KEINOS/gh-action-hash-for-cache@main
+        id: cacheid
+        # Udate the hash if Dockerfile/go.mod is changed or the month has changed.
+        with:
+          path: |
+            ./go.mod
+            ./.github/Dockerfile
+            ./.github/docker-compose.yml
+          variant: $(TZ=UTC-9 date '+%Y%m')
 
       - name: Cache or restore image archive
         id: cache
         uses: actions/cache@v2
         with:
           path: ${{ env.PATH_CACHE }}
-          key: ${{ steps.imagetag.outputs.TAG }}
+          key: ${{ steps.cacheid.outputs.hash }}
 
       - name: Load Docker images if exist
         if: steps.cache.outputs.cache-hit == 'true'
         run: |
-          docker load --input ${{ steps.imagetag.outputs.PATH_TAR }}/github_coverage_1.tar
+          docker load --input ${{ env.PATH_CACHE }}/github_coverage_1.tar
 
       - name: Pull base images if no-exist
         if: steps.cache.outputs.cache-hit != 'true'
@@ -50,14 +51,15 @@ jobs:
       - name: Build Docker images if no-exists
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          mkdir -p ${{ steps.imagetag.outputs.PATH_TAR }}
-          : # Build container images
           docker-compose --file ./.github/docker-compose.yml build coverage
 
       - name: Save built images if no-exists
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          docker save --output ${{ steps.imagetag.outputs.PATH_TAR }}/github_coverage_1.tar github_coverage:latest
+          : # Ensure the directory exists
+          mkdir -p ${{ env.PATH_CACHE }}
+          : # Save container images
+          docker save --output ${{ env.PATH_CACHE }}/github_coverage_1.tar github_coverage:latest
 
       - name: Run code coverage
         run: docker-compose --file ./.github/docker-compose.yml run coverage
