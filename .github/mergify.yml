@@ -4,8 +4,9 @@ pull_request_rules:
         - "#approved-reviews-by>=2"
         - base=main
         - check-success=lint
-        - check-success=Analyze (go)
-        - check-success=Run tests on Go via container
+        - check-success=Analyze
+        - check-success=Run code coverage via container
+        - check-success=Run tests on various Go versions via container
         - check-success=Platform test (ubuntu-latest)
         - check-success=Platform test (macos-latest)
         - check-success=Platform test (windows-latest)
@@ -18,8 +19,9 @@ pull_request_rules:
         - files~=.\.(?i)(md)$
         - base=main
         - check-success=lint
-        - check-success=Analyze (go)
-        - check-success=Run tests on Go via container
+        - check-success=Analyze
+        - check-success=Run code coverage via container
+        - check-success=Run tests on various Go versions via container
         - check-success=Platform test (ubuntu-latest)
         - check-success=Platform test (macos-latest)
         - check-success=Platform test (windows-latest)
@@ -35,8 +37,9 @@ pull_request_rules:
         - files=go.mod
         - files=go.sum
         - "#files=2"
-        - check-success=Analyze (go)
-        - check-success=Run tests on Go via container
+        - check-success=Analyze
+        - check-success=Run code coverage via container
+        - check-success=Run tests on various Go versions via container
         - check-success=Platform test (ubuntu-latest)
         - check-success=Platform test (macos-latest)
         - check-success=Platform test (windows-latest)

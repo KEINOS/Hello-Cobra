@@ -4,8 +4,6 @@
 .
 ├── Dockerfile ................ Alpine-base image for docker-compose.
 ├── SECURITY.md ............... Security policy of this repo.
-├── check-requirements.sh ..... Shell script to check requirements to run
-│                               `run-tests-merge.sh`.
 ├── docker-compose.yml ........ Docker-compose file to run the tests in various
 │                               contidions.
 ├── mergify.yml ............... Configuration for auto-merge PRs using
@@ -17,8 +15,6 @@
 ├── run-tests-go-install.sh ... Shell script to test app installation via
 │                               `go install` in Go 1.16+ (monthly run).
 ├── run-tests-lint.sh ......... Shall script to run `golangci-lint`.
-├── run-tests-merge.sh ........ Battery of tests which will run static analysis
-│                               and linters for both shell script and Go source.
 ├── update-go-mod.sh .......... Updates the "go.mod" and "go.sum" files to the
 │                               latest.
 └── workflows/ ................ Directory for CIs via GitHub Actions.
@@ -26,12 +22,6 @@
 ```
 
 ## To test via Docker (docker-compose)
-
-- All-in-one (Go: latest version, Unit Test, Lint check and static analysis)
-
-    ```bash
-    docker-compose --file ./.github/docker-compose.yml run mergeability
-    ```
 
 - Unit test on various Go versions
 
