@@ -6,6 +6,7 @@ package cmdworld
 import (
 	"fmt"
 
+	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
 )
 
@@ -25,18 +26,22 @@ type Command struct {
 
 // New returns the newly created object pointer of the "world" command.
 func New() *cobra.Command {
+	command := new(cobra.Command)
+
+	command.Use = "world"
+	command.Short = "Says hello to the world."
+	command.Long = heredoc.Doc(`
+		About:
+			'world' is a sub command of 'hello' which displays "Hello, world!".
+	`)
+	command.Example = heredoc.Doc(`
+		Hello-Cobra hello world           // Hello, world!
+		Hello-Cobra hello world --reverse // !dlrow ,olleH
+	`)
+
 	// Instantiate new object
 	cmdWorld := &Command{
-		&cobra.Command{
-			Use:   "world",
-			Short: "Says hello to the world.",
-			Long: `About:
-		  'world' is a sub command of 'hello' which displays "Hello, world!".`,
-			Example: `
-		  Hello-Cobra hello world           // Hello, world!
-		  Hello-Cobra hello world --reverse // !dlrow ,olleH
-			`,
-		},
+		command,
 		false,
 	}
 
@@ -76,6 +81,7 @@ func (c *Command) sayHelloWorld(cmd *cobra.Command, args []string) error {
 		msgToGreet = reverseString(msgToGreet)
 	}
 
+	//nolint:forbidigo // fmt.Println is OK for CLI
 	fmt.Println(msgToGreet)
 
 	return nil

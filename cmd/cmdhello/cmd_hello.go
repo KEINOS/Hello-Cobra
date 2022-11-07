@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/KEINOS/Hello-Cobra/cmd/cmdhello/cmdworld"
+	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
 )
 
@@ -27,18 +28,22 @@ type Command struct {
 
 // New returns the newly created object pointer of the "hello" command.
 func New() *cobra.Command {
+	command := new(cobra.Command)
+
+	command.Use = "hello [name [name] ...]"
+	command.Short = "Greets to the given arg."
+	command.Long = heredoc.Doc(`
+		About:
+			'hello' prints a greeting message to the given name in the arguments.
+	`)
+	command.Example = heredoc.Doc(`
+		Hello-Cobra hello foo bar           // Hello, foo and bar!
+		Hello-Cobra hello --reverse foo bar // !rab dna oof ,olleH
+	`)
+
 	// Instantiate new object
 	cmdHello := &Command{
-		&cobra.Command{
-			Use:   "hello [name [name] ...]",
-			Short: "Greets to the given arg.",
-			Long: `About:
-		  'hello' prints a greeting message to the given name in the arguments.`,
-			Example: `
-		  Hello-Cobra hello foo bar           // Hello, foo and bar!
-		  Hello-Cobra hello --reverse foo bar // !rab dna oof ,olleH
-		`,
-		},
+		command,
 		false,
 	}
 
@@ -74,6 +79,7 @@ func (c *Command) sayHelloTo(cmd *cobra.Command, args []string) error {
 		msgToGreet = reverseString(msgToGreet)
 	}
 
+	//nolint:forbidigo // fmt.Println is OK for CLI
 	fmt.Println(msgToGreet)
 
 	return nil

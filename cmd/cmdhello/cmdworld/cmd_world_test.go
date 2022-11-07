@@ -15,6 +15,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	obj1 := cmdworld.New()
 	obj2 := cmdworld.New()
 
@@ -22,6 +24,8 @@ func TestNew(t *testing.T) {
 }
 
 func Test_sayHelloWorld(t *testing.T) {
+	t.Parallel()
+
 	for _, test := range []struct {
 		expect string
 		args   []string

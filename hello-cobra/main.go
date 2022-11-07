@@ -1,3 +1,4 @@
+//nolint:gochecknoglobals // Allow global variable for version info and dependency injection
 /*
 Package main.
 */
@@ -17,7 +18,8 @@ import (
 const FAILURE = 1
 
 // OsExit is a copy of `os.Exit` to ease mocking during test.
-//     Ref: https://stackoverflow.com/a/40801733/8367711
+//
+//	Ref: https://stackoverflow.com/a/40801733/8367711
 //
 // We found useful that `os.Exit` should be called only in the main package.
 // And functions or methods in other packages should return an error rather than
@@ -28,10 +30,11 @@ var OsExit = os.Exit
 // These values should be set via `-ldflags` option during build.
 //
 // Sample command to build:
-//     $ VER_APP="$(git describe --tag)" // v1.0.0-alpha-g65a8e0c
-//     $ go build -ldflags="-X 'main.version=${VER_APP}'" -o foo ./hello-cobra/
-//     $ ./foo --version
-//     hello-cobra version 1.0.0-alpha (g65a8e0c)
+//
+//	$ VER_APP="$(git describe --tag)" // v1.0.0-alpha-g65a8e0c
+//	$ go build -ldflags="-X 'main.version=${VER_APP}'" -o foo ./hello-cobra/
+//	$ ./foo --version
+//	hello-cobra version 1.0.0-alpha (g65a8e0c)
 var (
 	// The application version to display.
 	version string

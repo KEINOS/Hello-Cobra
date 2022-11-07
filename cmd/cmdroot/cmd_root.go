@@ -28,6 +28,7 @@ func New(appVersion string) *cobra.Command {
 	}
 
 	cmdRoot := &Command{
+		//nolint:exhaustruct // We don't need to set all the fields.
 		&cobra.Command{
 			// The first word in "Use:" will be used as a command name.
 			Use: "hello-cobra",

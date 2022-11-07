@@ -16,6 +16,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	obj1 := cmdhello.New()
 	obj2 := cmdhello.New()
 
@@ -23,6 +25,8 @@ func TestNew(t *testing.T) {
 }
 
 func TestNew_has_child(t *testing.T) {
+	t.Parallel()
+
 	mother := cmdhello.New()
 	children := mother.Commands()
 	expectChild := cmdworld.New()
@@ -32,6 +36,8 @@ func TestNew_has_child(t *testing.T) {
 }
 
 func Test_sayHelloTo(t *testing.T) {
+	t.Parallel()
+
 	for _, test := range []struct {
 		expect string
 		args   []string

@@ -1,4 +1,3 @@
-//nolint:testpackage // To override osExit the test needs to be part of main
 package main
 
 import (
@@ -15,6 +14,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func Test_main(t *testing.T) {
+	t.Parallel()
+
 	// Run main() and capture STDOUT message and its exit-status-code
 	out := capturer.CaptureOutput(func() {
 		main()
@@ -26,6 +27,7 @@ func Test_main(t *testing.T) {
 	assert.Contains(t, out, expectMsg, "it should contain help message if no args")
 }
 
+//nolint:paralleltest // Do not parallelize due to temporary change of function variable
 func Test_unknown_command(t *testing.T) {
 	// Mock the "OsExit" to capture the exit-status-code
 	actualExitCode := 0 // this shuld turn to 1
@@ -50,6 +52,7 @@ func Test_unknown_command(t *testing.T) {
 		"unknown command should exit with status 1")
 }
 
+//nolint:paralleltest // Do not parallelize due to temporary change of function variable
 func Test_version_flag(t *testing.T) {
 	// Mock args.
 	recoverOsArgs := MockOsArgs(t, []string{
@@ -68,6 +71,7 @@ func Test_version_flag(t *testing.T) {
 //  Public Function Test
 // ----------------------------------------------------------------------------
 
+//nolint:paralleltest // Do not parallelize due to temporary change of global variable
 func TestGetVersion_version_not_set(t *testing.T) {
 	// Backup and restore version before and after the test
 	oldVersion := version
@@ -84,7 +88,7 @@ func TestGetVersion_version_not_set(t *testing.T) {
 	}()
 
 	// Mock debug.BuildInfo to return false
-	DebugReadBuildInfo = func() (info *debug.BuildInfo, ok bool) {
+	DebugReadBuildInfo = func() (*debug.BuildInfo, bool) {
 		return nil, false
 	}
 
@@ -94,6 +98,7 @@ func TestGetVersion_version_not_set(t *testing.T) {
 	assert.Equal(t, expect, actual)
 }
 
+//nolint:paralleltest // Do not parallelize due to temporary change of global variable
 func TestGetVersion_version_via_build_info(t *testing.T) {
 	// Backup and recover version before and after the test
 	oldVersion := version
@@ -111,19 +116,21 @@ func TestGetVersion_version_via_build_info(t *testing.T) {
 	expect := "foobar" // Mock build info's version
 
 	// Mock DebugReadBuildInfo
-	DebugReadBuildInfo = func() (info *debug.BuildInfo, ok bool) {
-		i := &debug.BuildInfo{
+	DebugReadBuildInfo = func() (*debug.BuildInfo, bool) {
+		//nolint:exhaustruct // Allow missing fields due to mock
+		debugBuildInfo := &debug.BuildInfo{
 			Main: debug.Module{
 				Version: expect,
 			},
 		}
 
-		return i, true
+		return debugBuildInfo, true
 	}
 
 	assert.Equal(t, expect, GetVersion())
 }
 
+//nolint:paralleltest // Do not parallelize due to temporary change of global variable
 func TestGetVersion_version_via_build_flag(t *testing.T) {
 	// Backup and recover version before and after the test
 	oldVersion := version
@@ -148,6 +155,8 @@ func TestGetVersion_version_via_build_flag(t *testing.T) {
 // ----------------------------------------------------------------------------
 
 func Test_parseVersion(t *testing.T) {
+	t.Parallel()
+
 	for _, data := range []struct {
 		input  string
 		expect string
