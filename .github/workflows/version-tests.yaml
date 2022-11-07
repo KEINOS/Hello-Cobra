@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.PATH_CACHE }}
-          key: ${{ steps.cacheid.outputs.hash }}
+          key: various-go-${{ steps.cacheid.outputs.hash }}
 
       - name: Load Docker images if exist
         if: steps.cache.outputs.cache-hit == 'true'
