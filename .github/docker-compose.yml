@@ -1,11 +1,14 @@
 # =============================================================================
-# Docker Compose file for testing on Go versions 1.14~1.17 and latest.
+#  Docker Compose file for testing on Go versions 1.14~1.17 and latest.
 # =============================================================================
-# It is recommended to run specifying a specific Go version and not at once.
+#  This file is somewhat similar to makefile, but for Docker.
 #
-# Since the service `tidy` will update/re-write the "go.mod" file to the latest
-# version, during it's process the "go.mod" file will be gone temporarily. Thus,
-# it will cause failure in the other containers becaue of missing "go.mod" file.
+# Notes:
+#  It is recommended to run specifying a specific service and not at once.
+#
+#  Since the service `tidy` will update/re-write the "go.mod" file to the latest
+#  version, during it's process the "go.mod" file will be gone temporarily. Thus,
+#  it will cause failure in the other containers becaue of missing "go.mod" file.
 #
 # Recommended usage:
 #   docker-compose --file ./.github/docker-compose.yml up tidy && \
@@ -61,6 +64,15 @@ services:
       dockerfile: ./.github/Dockerfile
       args:
         VARIANT: 1.17-alpine
+    volumes:
+      - ..:/workspaces
+  # Service v1_18 runs the tests on Go v1.18.
+  v1_18:
+    build:
+      context: ..
+      dockerfile: ./.github/Dockerfile
+      args:
+        VARIANT: 1.18-alpine
     volumes:
       - ..:/workspaces
   # Service latest runs the tests on latest Go docker image.
