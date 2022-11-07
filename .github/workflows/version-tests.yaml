@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.PATH_CACHE }}
-          key: various-go-${{ steps.cacheid.outputs.hash }}
+          key: ${{ steps.cacheid.outputs.hash }}
 
       - name: Load Docker images if exist
         if: steps.cache.outputs.cache-hit == 'true'
@@ -71,7 +71,7 @@ jobs:
           docker save --output ${{ env.PATH_CACHE }}/github_v1_15_1.tar github_v1_15:latest
           docker save --output ${{ env.PATH_CACHE }}/github_v1_16_1.tar github_v1_16:latest
           docker save --output ${{ env.PATH_CACHE }}/github_v1_17_1.tar github_v1_17:latest
-          docker save --output ${{ env.PATH_CACHE }}/github_v1_17_1.tar github_v1_18:latest
+          docker save --output ${{ env.PATH_CACHE }}/github_v1_18_1.tar github_v1_18:latest
           docker save --output ${{ env.PATH_CACHE }}/github_latest_1.tar github_latest:latest
           docker save --output ${{ env.PATH_CACHE }}/github_mergeability_1.tar github_mergeability:latest
 
