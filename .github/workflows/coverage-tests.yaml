@@ -13,7 +13,7 @@ env:
 
 jobs:
   go:
-    name: Run tests on Go via container
+    name: Run code coverage via container
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ env.PATH_CACHE }}
-          key: ${{ steps.cacheid.outputs.hash }}
+          key: coverage-${{ steps.cacheid.outputs.hash }}
 
       - name: Load Docker images if exist
         if: steps.cache.outputs.cache-hit == 'true'
