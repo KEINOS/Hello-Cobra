@@ -104,16 +104,6 @@ services:
     volumes:
       - ..:/workspaces
     entrypoint: [ "./.github/run-tests-go-install.sh" ]
-  # Service mergeability runs all the tests to be merged.
-  mergeability:
-    build:
-      context: ..
-      dockerfile: ./.devcontainer/Dockerfile
-      args:
-        VARIANT: latest
-    volumes:
-      - ..:/workspaces
-    entrypoint: [ "./.github/run-tests-merge.sh" ]
   # Service linuxbrew simply downloads and test-run the released binary via brew.
   linuxbrew:
     image: homebrew/brew
