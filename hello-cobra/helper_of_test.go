@@ -10,6 +10,8 @@ import (
 // ----------------------------------------------------------------------------
 
 // MockOsExit mocks the OsExit behavior. Which is a copy of os.Exit().
+//
+//nolint:nonamedreturns // Allow named return for readability
 func MockOsExit(t *testing.T, capturedExitCode *int) (deferFunction func()) {
 	t.Helper()
 
@@ -27,6 +29,8 @@ func MockOsExit(t *testing.T, capturedExitCode *int) (deferFunction func()) {
 }
 
 // MockOsArgs temporary replaces the os.Args values during test.
+//
+//nolint:nonamedreturns // Allow named return for readability
 func MockOsArgs(t *testing.T, args []string) (deferFunction func()) {
 	t.Helper()
 

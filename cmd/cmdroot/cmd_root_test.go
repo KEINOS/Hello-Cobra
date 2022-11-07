@@ -13,6 +13,8 @@ import (
 // ----------------------------------------------------------------------------
 
 func TestNew(t *testing.T) {
+	t.Parallel()
+
 	obj1 := cmdroot.New("v0.0.0-" + t.Name())
 	obj2 := cmdroot.New("v0.0.0-" + t.Name())
 
@@ -20,6 +22,8 @@ func TestNew(t *testing.T) {
 }
 
 func TestNew_empty_version(t *testing.T) {
+	t.Parallel()
+
 	mother := cmdroot.New("")
 
 	expect := "(unknown)"
@@ -29,6 +33,8 @@ func TestNew_empty_version(t *testing.T) {
 }
 
 func TestNew_has_child(t *testing.T) {
+	t.Parallel()
+
 	mother := cmdroot.New("v0.0.0-" + t.Name())
 
 	require.True(t, mother.HasSubCommands(),
