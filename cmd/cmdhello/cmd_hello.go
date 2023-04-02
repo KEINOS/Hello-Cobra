@@ -67,7 +67,7 @@ func New() *cobra.Command {
 
 // sayHelloTo prints the greetings to the given args. It is the main function of
 // "hello" command.
-func (c *Command) sayHelloTo(cmd *cobra.Command, args []string) error {
+func (c *Command) sayHelloTo(_ *cobra.Command, args []string) error {
 	msgToGreet := "Hi!"
 
 	if len(args) > 0 {

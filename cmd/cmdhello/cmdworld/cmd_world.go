@@ -74,7 +74,7 @@ func reverseString(input string) string {
 // sayHelloWorld is the main function of "world" command.
 // It prints "Hello, world!" or if "--reverse" flag was set then prints
 // "!dlrow ,olleH".
-func (c *Command) sayHelloWorld(cmd *cobra.Command, args []string) error {
+func (c *Command) sayHelloWorld(_ *cobra.Command, _ []string) error {
 	msgToGreet := "Hello, world!"
 
 	if c.isReverse {
